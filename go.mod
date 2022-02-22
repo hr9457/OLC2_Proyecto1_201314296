@@ -3,8 +3,8 @@ module main.go
 go 1.17
 
 require (
-	fyne.io/fyne v1.4.3
 	fyne.io/fyne/v2 v2.1.2
+	github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20220209173558-ad29539cd2e9
 )
 
 require (

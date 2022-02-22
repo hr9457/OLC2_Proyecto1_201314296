@@ -1,0 +1,8 @@
+
+--instalacion de antlr y go--
+go get github.com/antlr/antlr4/runtime/Go/antlr@master
+go mod tidy
+
+
+-- comando para eejectura antlr4
+antlr -Dlanguage=Go -o parser lexico.g4

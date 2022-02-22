@@ -7,7 +7,18 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"main.go/parser"
+
+	"github.com/antlr/antlr4/runtime/Go/antlr"
 )
+
+type TreeShapeListener struct {
+	*parser.BaserustListener
+}
+
+func NewTreeShapeListener() *TreeShapeListener {
+	return new(TreeShapeListener)
+}
 
 func main() {
 
@@ -43,6 +54,21 @@ func main() {
 	btnRun := widget.NewButton("Compilar", func() {
 		fmt.Println("Comilando!!!!")
 		data := txtEntrada.Text
+		is := antlr.NewInputStream(data)
+
+		// creacion del analizador lexico
+		lexer := parser.NewrustLexer(is)
+		// lecutra de los token del analizador
+		for {
+			t := lexer.NextToken()
+			if t.GetTokenType() == antlr.TokenEOF {
+				break
+			}
+			fmt.Printf("%s (%q)\n",
+				lexer.SymbolicNames[t.GetTokenType()], t.GetText())
+		}
+		//
+
 		txtSalida.SetText(data)
 	})
 	btnRun.Resize(fyne.NewSize(100, 50))
