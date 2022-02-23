@@ -16,15 +16,16 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 64, 22, 4,
-	2, 9, 2, 4, 3, 9, 3, 3, 2, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 20, 10, 3, 3, 3, 2, 2, 4, 2, 4, 2, 2,
-	2, 20, 2, 6, 3, 2, 2, 2, 4, 19, 3, 2, 2, 2, 6, 7, 5, 4, 3, 2, 7, 8, 7,
-	2, 2, 3, 8, 3, 3, 2, 2, 2, 9, 10, 7, 32, 2, 2, 10, 11, 7, 3, 2, 2, 11,
-	12, 7, 59, 2, 2, 12, 13, 7, 4, 2, 2, 13, 20, 7, 9, 2, 2, 14, 15, 7, 32,
-	2, 2, 15, 16, 7, 3, 2, 2, 16, 17, 7, 62, 2, 2, 17, 18, 7, 4, 2, 2, 18,
-	20, 7, 9, 2, 2, 19, 9, 3, 2, 2, 2, 19, 14, 3, 2, 2, 2, 20, 5, 3, 2, 2,
-	2, 3, 19,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 65, 25, 4,
+	2, 9, 2, 4, 3, 9, 3, 3, 2, 3, 2, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 23, 10, 3, 3, 3, 2,
+	2, 4, 2, 4, 2, 2, 2, 23, 2, 6, 3, 2, 2, 2, 4, 22, 3, 2, 2, 2, 6, 7, 5,
+	4, 3, 2, 7, 8, 7, 2, 2, 3, 8, 9, 8, 2, 1, 2, 9, 3, 3, 2, 2, 2, 10, 11,
+	7, 32, 2, 2, 11, 12, 7, 3, 2, 2, 12, 13, 7, 59, 2, 2, 13, 14, 7, 4, 2,
+	2, 14, 15, 7, 9, 2, 2, 15, 23, 8, 3, 1, 2, 16, 17, 7, 32, 2, 2, 17, 18,
+	7, 3, 2, 2, 18, 19, 7, 61, 2, 2, 19, 20, 7, 4, 2, 2, 20, 21, 7, 9, 2, 2,
+	21, 23, 8, 3, 1, 2, 22, 10, 3, 2, 2, 2, 22, 16, 3, 2, 2, 2, 23, 5, 3, 2,
+	2, 2, 3, 22,
 }
 var literalNames = []string{
 	"", "'('", "')'", "'['", "']'", "'{'", "'}'", "';'", "':'", "','", "'<'",
@@ -46,7 +47,7 @@ var symbolicNames = []string{
 	"TK_AS", "TK_TRUE", "TK_FALSE", "TK_FN", "TK_RETURN", "TK_ABS", "TK_SQRT",
 	"TK_TOSTRING", "TK_CLONE", "TK_NEW", "TK_LEN", "TK_PUSH", "TK_REMOVED",
 	"TK_CONTAINS", "TK_INSERT", "TK_CAPACITY", "TK_WITHCAPACITY", "TK_NUMBER",
-	"TK_DECIMAL", "TK_CADENA", "TK_ID", "TK_COMMET", "SPACES",
+	"TK_DECIMAL", "TK_CADENA", "TK_CARACTER", "TK_ID", "TK_COMMET", "SPACES",
 }
 
 var ruleNames = []string{
@@ -144,9 +145,10 @@ const (
 	rustParserTK_NUMBER           = 57
 	rustParserTK_DECIMAL          = 58
 	rustParserTK_CADENA           = 59
-	rustParserTK_ID               = 60
-	rustParserTK_COMMET           = 61
-	rustParserSPACES              = 62
+	rustParserTK_CARACTER         = 60
+	rustParserTK_ID               = 61
+	rustParserTK_COMMET           = 62
+	rustParserSPACES              = 63
 )
 
 // rustParser rules.
@@ -321,8 +323,8 @@ func (s *ImpresionContext) TK_PUNTO_COMA() antlr.TerminalNode {
 	return s.GetToken(rustParserTK_PUNTO_COMA, 0)
 }
 
-func (s *ImpresionContext) TK_ID() antlr.TerminalNode {
-	return s.GetToken(rustParserTK_ID, 0)
+func (s *ImpresionContext) TK_CADENA() antlr.TerminalNode {
+	return s.GetToken(rustParserTK_CADENA, 0)
 }
 
 func (s *ImpresionContext) GetRuleContext() antlr.RuleContext {
@@ -368,52 +370,52 @@ func (p *rustParser) Impresion() (localctx IImpresionContext) {
 		}
 	}()
 
-	p.SetState(17)
+	p.SetState(20)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 0, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(7)
+			p.SetState(8)
 			p.Match(rustParserTK_IMPRESION)
 		}
 		{
-			p.SetState(8)
+			p.SetState(9)
 			p.Match(rustParserTK_PARENTESIS_LEFT)
 		}
 		{
-			p.SetState(9)
+			p.SetState(10)
 			p.Match(rustParserTK_NUMBER)
 		}
 		{
-			p.SetState(10)
+			p.SetState(11)
 			p.Match(rustParserTK_PARENTESIS_RIGHT)
 		}
 		{
-			p.SetState(11)
+			p.SetState(12)
 			p.Match(rustParserTK_PUNTO_COMA)
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(12)
+			p.SetState(14)
 			p.Match(rustParserTK_IMPRESION)
 		}
 		{
-			p.SetState(13)
+			p.SetState(15)
 			p.Match(rustParserTK_PARENTESIS_LEFT)
 		}
 		{
-			p.SetState(14)
-			p.Match(rustParserTK_ID)
+			p.SetState(16)
+			p.Match(rustParserTK_CADENA)
 		}
 		{
-			p.SetState(15)
+			p.SetState(17)
 			p.Match(rustParserTK_PARENTESIS_RIGHT)
 		}
 		{
-			p.SetState(16)
+			p.SetState(18)
 			p.Match(rustParserTK_PUNTO_COMA)
 		}
 

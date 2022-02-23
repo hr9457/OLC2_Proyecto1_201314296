@@ -1,4 +1,4 @@
-module main.go
+module Proyecto1
 
 go 1.17
 

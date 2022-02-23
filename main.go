@@ -1,26 +1,25 @@
-package main
+package Proyecto1
 
 import (
 	"fmt"
+
+	"Proyecto1/impresion"
+	"Proyecto1/parser"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
-	"main.go/parser"
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 )
 
-type TreeShapeListener struct {
+type rustListener struct {
 	*parser.BaserustListener
 }
 
-func NewTreeShapeListener() *TreeShapeListener {
-	return new(TreeShapeListener)
-}
-
 func main() {
+	impresion.Ejecutar()
 
 	a := app.New()
 	window := a.NewWindow("OLC2")
@@ -52,22 +51,25 @@ func main() {
 
 	// bonton de compilacion
 	btnRun := widget.NewButton("Compilar", func() {
-		fmt.Println("Comilando!!!!")
+		fmt.Println("****************Comilando!!!!******************")
 		data := txtEntrada.Text
 		is := antlr.NewInputStream(data)
 
 		// creacion del analizador lexico
 		lexer := parser.NewrustLexer(is)
 		// lecutra de los token del analizador
-		for {
-			t := lexer.NextToken()
-			if t.GetTokenType() == antlr.TokenEOF {
-				break
-			}
-			fmt.Printf("%s (%q)\n",
-				lexer.SymbolicNames[t.GetTokenType()], t.GetText())
-		}
-		//
+		// for {
+		// 	t := lexer.NextToken()
+		// 	if t.GetTokenType() == antlr.TokenEOF {
+		// 		break
+		// 	}
+		// 	fmt.Printf("%s (%q)\n",
+		// 		lexer.SymbolicNames[t.GetTokenType()], t.GetText())
+		// }
+		// creando analizador sintactico
+		stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
+		p := parser.NewrustParser(stream)
+		antlr.ParseTreeWalkerDefault.Walk(&rustListener{}, p.Start())
 
 		txtSalida.SetText(data)
 	})

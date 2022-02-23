@@ -27,7 +27,7 @@ public class rustParser extends Parser {
 		TK_FN=43, TK_RETURN=44, TK_ABS=45, TK_SQRT=46, TK_TOSTRING=47, TK_CLONE=48, 
 		TK_NEW=49, TK_LEN=50, TK_PUSH=51, TK_REMOVED=52, TK_CONTAINS=53, TK_INSERT=54, 
 		TK_CAPACITY=55, TK_WITHCAPACITY=56, TK_NUMBER=57, TK_DECIMAL=58, TK_CADENA=59, 
-		TK_ID=60, TK_COMMET=61, SPACES=62;
+		TK_CARACTER=60, TK_ID=61, TK_COMMET=62, SPACES=63;
 	public static final int
 		RULE_start = 0, RULE_impresion = 1;
 	private static String[] makeRuleNames() {
@@ -62,8 +62,8 @@ public class rustParser extends Parser {
 			"TK_LET", "TK_MUT", "TK_STRUCT", "TK_AS", "TK_TRUE", "TK_FALSE", "TK_FN", 
 			"TK_RETURN", "TK_ABS", "TK_SQRT", "TK_TOSTRING", "TK_CLONE", "TK_NEW", 
 			"TK_LEN", "TK_PUSH", "TK_REMOVED", "TK_CONTAINS", "TK_INSERT", "TK_CAPACITY", 
-			"TK_WITHCAPACITY", "TK_NUMBER", "TK_DECIMAL", "TK_CADENA", "TK_ID", "TK_COMMET", 
-			"SPACES"
+			"TK_WITHCAPACITY", "TK_NUMBER", "TK_DECIMAL", "TK_CADENA", "TK_CARACTER", 
+			"TK_ID", "TK_COMMET", "SPACES"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -138,6 +138,7 @@ public class rustParser extends Parser {
 			impresion();
 			setState(5);
 			match(EOF);
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -157,7 +158,7 @@ public class rustParser extends Parser {
 		public TerminalNode TK_NUMBER() { return getToken(rustParser.TK_NUMBER, 0); }
 		public TerminalNode TK_PARENTESIS_RIGHT() { return getToken(rustParser.TK_PARENTESIS_RIGHT, 0); }
 		public TerminalNode TK_PUNTO_COMA() { return getToken(rustParser.TK_PUNTO_COMA, 0); }
-		public TerminalNode TK_ID() { return getToken(rustParser.TK_ID, 0); }
+		public TerminalNode TK_CADENA() { return getToken(rustParser.TK_CADENA, 0); }
 		public ImpresionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -168,37 +169,39 @@ public class rustParser extends Parser {
 		ImpresionContext _localctx = new ImpresionContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_impresion);
 		try {
-			setState(17);
+			setState(20);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(7);
-				match(TK_IMPRESION);
 				setState(8);
-				match(TK_PARENTESIS_LEFT);
+				match(TK_IMPRESION);
 				setState(9);
-				match(TK_NUMBER);
+				match(TK_PARENTESIS_LEFT);
 				setState(10);
-				match(TK_PARENTESIS_RIGHT);
+				match(TK_NUMBER);
 				setState(11);
+				match(TK_PARENTESIS_RIGHT);
+				setState(12);
 				match(TK_PUNTO_COMA);
+
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(12);
-				match(TK_IMPRESION);
-				setState(13);
-				match(TK_PARENTESIS_LEFT);
 				setState(14);
-				match(TK_ID);
+				match(TK_IMPRESION);
 				setState(15);
-				match(TK_PARENTESIS_RIGHT);
+				match(TK_PARENTESIS_LEFT);
 				setState(16);
+				match(TK_CADENA);
+				setState(17);
+				match(TK_PARENTESIS_RIGHT);
+				setState(18);
 				match(TK_PUNTO_COMA);
+
 				}
 				break;
 			}
@@ -215,12 +218,13 @@ public class rustParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3@\26\4\2\t\2\4\3\t"+
-		"\3\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\24\n\3\3\3"+
-		"\2\2\4\2\4\2\2\2\24\2\6\3\2\2\2\4\23\3\2\2\2\6\7\5\4\3\2\7\b\7\2\2\3\b"+
-		"\3\3\2\2\2\t\n\7 \2\2\n\13\7\3\2\2\13\f\7;\2\2\f\r\7\4\2\2\r\24\7\t\2"+
-		"\2\16\17\7 \2\2\17\20\7\3\2\2\20\21\7>\2\2\21\22\7\4\2\2\22\24\7\t\2\2"+
-		"\23\t\3\2\2\2\23\16\3\2\2\2\24\5\3\2\2\2\3\23";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3A\31\4\2\t\2\4\3\t"+
+		"\3\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
+		"\27\n\3\3\3\2\2\4\2\4\2\2\2\27\2\6\3\2\2\2\4\26\3\2\2\2\6\7\5\4\3\2\7"+
+		"\b\7\2\2\3\b\t\b\2\1\2\t\3\3\2\2\2\n\13\7 \2\2\13\f\7\3\2\2\f\r\7;\2\2"+
+		"\r\16\7\4\2\2\16\17\7\t\2\2\17\27\b\3\1\2\20\21\7 \2\2\21\22\7\3\2\2\22"+
+		"\23\7=\2\2\23\24\7\4\2\2\24\25\7\t\2\2\25\27\b\3\1\2\26\n\3\2\2\2\26\20"+
+		"\3\2\2\2\27\5\3\2\2\2\3\26";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

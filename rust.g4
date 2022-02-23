@@ -1,5 +1,7 @@
 grammar rust;
 
+
+
 // tokens -> simbolos reservados  
 TK_PARENTESIS_LEFT:    '(';
 TK_PARENTESIS_RIGHT:   ')';
@@ -70,6 +72,7 @@ TK_WITHCAPACITY:'with_capacity';
 TK_NUMBER:  [0-9]+;
 TK_DECIMAL: TK_NUMBER+'.'TK_NUMBER+;
 TK_CADENA:  '"'~["]*'"';
+TK_CARACTER:'\''~["]*'\'';
 TK_ID:      ([a-zA-Z_])[a-zA-Z0-9_]*;
 TK_COMMET:  ('//' (~[/!] | '//') ~[\r\n]* | '//');
 
@@ -79,10 +82,12 @@ SPACES: [ \\\r\n\t]+ -> skip;
 
 
 // gramatica
-start: impresion EOF;
-    
+start 
+    :   impresion EOF {}
+    ; 
 
-impresion:
-    TK_IMPRESION '(' TK_NUMBER ')'  TK_PUNTO_COMA
-    |TK_IMPRESION '(' TK_ID ')' TK_PUNTO_COMA
-    ;   
+
+impresion
+    :   TK_IMPRESION '(' TK_NUMBER ')' ';'  {}
+    |   TK_IMPRESION '(' TK_CADENA ')' ';'  {}
+    ;
