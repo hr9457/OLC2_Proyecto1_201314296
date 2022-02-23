@@ -1,5 +1,13 @@
 grammar rust;
 
+//impor necesarios para ser utilizados se ponene al inicio del codigo generado
+@parser::header{
+    import "Proyecto1/impresion"    
+}
+
+// insertar atributos en la clase generada
+@parser::members{
+}
 
 
 // tokens -> simbolos reservados  
@@ -83,11 +91,10 @@ SPACES: [ \\\r\n\t]+ -> skip;
 
 // gramatica
 start 
-    :   impresion EOF {}
+    :   impresion EOF {fmt.Println($impresion.value)}
     ; 
 
 
-impresion
-    :   TK_IMPRESION '(' TK_NUMBER ')' ';'  {}
-    |   TK_IMPRESION '(' TK_CADENA ')' ';'  {}
+impresion returns [string value]
+    :   TK_IMPRESION '(' TK_NUMBER ')' ';'  {$value = impresion.HolaMundo($TK_NUMBER.text)}
     ;

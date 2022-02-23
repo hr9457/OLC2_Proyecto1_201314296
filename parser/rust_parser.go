@@ -10,22 +10,21 @@ import (
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 )
 
+import "Proyecto1/impresion"
+
 // Suppress unused import errors
 var _ = fmt.Printf
 var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 65, 25, 4,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 65, 18, 4,
 	2, 9, 2, 4, 3, 9, 3, 3, 2, 3, 2, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 23, 10, 3, 3, 3, 2,
-	2, 4, 2, 4, 2, 2, 2, 23, 2, 6, 3, 2, 2, 2, 4, 22, 3, 2, 2, 2, 6, 7, 5,
-	4, 3, 2, 7, 8, 7, 2, 2, 3, 8, 9, 8, 2, 1, 2, 9, 3, 3, 2, 2, 2, 10, 11,
-	7, 32, 2, 2, 11, 12, 7, 3, 2, 2, 12, 13, 7, 59, 2, 2, 13, 14, 7, 4, 2,
-	2, 14, 15, 7, 9, 2, 2, 15, 23, 8, 3, 1, 2, 16, 17, 7, 32, 2, 2, 17, 18,
-	7, 3, 2, 2, 18, 19, 7, 61, 2, 2, 19, 20, 7, 4, 2, 2, 20, 21, 7, 9, 2, 2,
-	21, 23, 8, 3, 1, 2, 22, 10, 3, 2, 2, 2, 22, 16, 3, 2, 2, 2, 23, 5, 3, 2,
-	2, 2, 3, 22,
+	3, 3, 3, 3, 3, 3, 3, 2, 2, 4, 2, 4, 2, 2, 2, 15, 2, 6, 3, 2, 2, 2, 4, 10,
+	3, 2, 2, 2, 6, 7, 5, 4, 3, 2, 7, 8, 7, 2, 2, 3, 8, 9, 8, 2, 1, 2, 9, 3,
+	3, 2, 2, 2, 10, 11, 7, 32, 2, 2, 11, 12, 7, 3, 2, 2, 12, 13, 7, 59, 2,
+	2, 13, 14, 7, 4, 2, 2, 14, 15, 7, 9, 2, 2, 15, 16, 8, 3, 1, 2, 16, 5, 3,
+	2, 2, 2, 2,
 }
 var literalNames = []string{
 	"", "'('", "')'", "'['", "']'", "'{'", "'}'", "';'", "':'", "','", "'<'",
@@ -164,13 +163,20 @@ type IStartContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Get_impresion returns the _impresion rule contexts.
+	Get_impresion() IImpresionContext
+
+	// Set_impresion sets the _impresion rule contexts.
+	Set_impresion(IImpresionContext)
+
 	// IsStartContext differentiates from other interfaces.
 	IsStartContext()
 }
 
 type StartContext struct {
 	*antlr.BaseParserRuleContext
-	parser antlr.Parser
+	parser     antlr.Parser
+	_impresion IImpresionContext
 }
 
 func NewEmptyStartContext() *StartContext {
@@ -194,6 +200,10 @@ func NewStartContext(parser antlr.Parser, parent antlr.ParserRuleContext, invoki
 }
 
 func (s *StartContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *StartContext) Get_impresion() IImpresionContext { return s._impresion }
+
+func (s *StartContext) Set_impresion(v IImpresionContext) { s._impresion = v }
 
 func (s *StartContext) Impresion() IImpresionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IImpresionContext)(nil)).Elem(), 0)
@@ -255,12 +265,16 @@ func (p *rustParser) Start() (localctx IStartContext) {
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(4)
-		p.Impresion()
+
+		var _x = p.Impresion()
+
+		localctx.(*StartContext)._impresion = _x
 	}
 	{
 		p.SetState(5)
 		p.Match(rustParserEOF)
 	}
+	fmt.Println(localctx.(*StartContext).Get_impresion().GetValue())
 
 	return localctx
 }
@@ -272,13 +286,27 @@ type IImpresionContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// Get_TK_NUMBER returns the _TK_NUMBER token.
+	Get_TK_NUMBER() antlr.Token
+
+	// Set_TK_NUMBER sets the _TK_NUMBER token.
+	Set_TK_NUMBER(antlr.Token)
+
+	// GetValue returns the value attribute.
+	GetValue() string
+
+	// SetValue sets the value attribute.
+	SetValue(string)
+
 	// IsImpresionContext differentiates from other interfaces.
 	IsImpresionContext()
 }
 
 type ImpresionContext struct {
 	*antlr.BaseParserRuleContext
-	parser antlr.Parser
+	parser     antlr.Parser
+	value      string
+	_TK_NUMBER antlr.Token
 }
 
 func NewEmptyImpresionContext() *ImpresionContext {
@@ -303,6 +331,14 @@ func NewImpresionContext(parser antlr.Parser, parent antlr.ParserRuleContext, in
 
 func (s *ImpresionContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *ImpresionContext) Get_TK_NUMBER() antlr.Token { return s._TK_NUMBER }
+
+func (s *ImpresionContext) Set_TK_NUMBER(v antlr.Token) { s._TK_NUMBER = v }
+
+func (s *ImpresionContext) GetValue() string { return s.value }
+
+func (s *ImpresionContext) SetValue(v string) { s.value = v }
+
 func (s *ImpresionContext) TK_IMPRESION() antlr.TerminalNode {
 	return s.GetToken(rustParserTK_IMPRESION, 0)
 }
@@ -321,10 +357,6 @@ func (s *ImpresionContext) TK_PARENTESIS_RIGHT() antlr.TerminalNode {
 
 func (s *ImpresionContext) TK_PUNTO_COMA() antlr.TerminalNode {
 	return s.GetToken(rustParserTK_PUNTO_COMA, 0)
-}
-
-func (s *ImpresionContext) TK_CADENA() antlr.TerminalNode {
-	return s.GetToken(rustParserTK_CADENA, 0)
 }
 
 func (s *ImpresionContext) GetRuleContext() antlr.RuleContext {
@@ -370,56 +402,37 @@ func (p *rustParser) Impresion() (localctx IImpresionContext) {
 		}
 	}()
 
-	p.SetState(20)
-	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 0, p.GetParserRuleContext()) {
-	case 1:
-		p.EnterOuterAlt(localctx, 1)
-		{
-			p.SetState(8)
-			p.Match(rustParserTK_IMPRESION)
-		}
-		{
-			p.SetState(9)
-			p.Match(rustParserTK_PARENTESIS_LEFT)
-		}
-		{
-			p.SetState(10)
-			p.Match(rustParserTK_NUMBER)
-		}
-		{
-			p.SetState(11)
-			p.Match(rustParserTK_PARENTESIS_RIGHT)
-		}
-		{
-			p.SetState(12)
-			p.Match(rustParserTK_PUNTO_COMA)
-		}
-
-	case 2:
-		p.EnterOuterAlt(localctx, 2)
-		{
-			p.SetState(14)
-			p.Match(rustParserTK_IMPRESION)
-		}
-		{
-			p.SetState(15)
-			p.Match(rustParserTK_PARENTESIS_LEFT)
-		}
-		{
-			p.SetState(16)
-			p.Match(rustParserTK_CADENA)
-		}
-		{
-			p.SetState(17)
-			p.Match(rustParserTK_PARENTESIS_RIGHT)
-		}
-		{
-			p.SetState(18)
-			p.Match(rustParserTK_PUNTO_COMA)
-		}
-
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(8)
+		p.Match(rustParserTK_IMPRESION)
 	}
+	{
+		p.SetState(9)
+		p.Match(rustParserTK_PARENTESIS_LEFT)
+	}
+	{
+		p.SetState(10)
+
+		var _m = p.Match(rustParserTK_NUMBER)
+
+		localctx.(*ImpresionContext)._TK_NUMBER = _m
+	}
+	{
+		p.SetState(11)
+		p.Match(rustParserTK_PARENTESIS_RIGHT)
+	}
+	{
+		p.SetState(12)
+		p.Match(rustParserTK_PUNTO_COMA)
+	}
+	localctx.(*ImpresionContext).value = impresion.HolaMundo((func() string {
+		if localctx.(*ImpresionContext).Get_TK_NUMBER() == nil {
+			return ""
+		} else {
+			return localctx.(*ImpresionContext).Get_TK_NUMBER().GetText()
+		}
+	}()))
 
 	return localctx
 }

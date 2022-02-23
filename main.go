@@ -1,9 +1,8 @@
-package Proyecto1
+package main
 
 import (
 	"fmt"
 
-	"Proyecto1/impresion"
 	"Proyecto1/parser"
 
 	"fyne.io/fyne/v2"
@@ -19,7 +18,6 @@ type rustListener struct {
 }
 
 func main() {
-	impresion.Ejecutar()
 
 	a := app.New()
 	window := a.NewWindow("OLC2")
