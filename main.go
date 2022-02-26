@@ -19,6 +19,9 @@ type rustListener struct {
 
 func main() {
 
+	// simbolo := tableSymbol.NewSimbolo("a", "a", false, 0)
+	// fmt.Println(simbolo.GetTipo())
+
 	a := app.New()
 	window := a.NewWindow("OLC2")
 

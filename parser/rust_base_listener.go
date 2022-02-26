@@ -27,6 +27,36 @@ func (s *BaserustListener) EnterStart(ctx *StartContext) {}
 // ExitStart is called when production start is exited.
 func (s *BaserustListener) ExitStart(ctx *StartContext) {}
 
+// EnterInstrucciones is called when production instrucciones is entered.
+func (s *BaserustListener) EnterInstrucciones(ctx *InstruccionesContext) {}
+
+// ExitInstrucciones is called when production instrucciones is exited.
+func (s *BaserustListener) ExitInstrucciones(ctx *InstruccionesContext) {}
+
+// EnterVariable is called when production variable is entered.
+func (s *BaserustListener) EnterVariable(ctx *VariableContext) {}
+
+// ExitVariable is called when production variable is exited.
+func (s *BaserustListener) ExitVariable(ctx *VariableContext) {}
+
+// EnterTipo is called when production tipo is entered.
+func (s *BaserustListener) EnterTipo(ctx *TipoContext) {}
+
+// ExitTipo is called when production tipo is exited.
+func (s *BaserustListener) ExitTipo(ctx *TipoContext) {}
+
+// EnterExpresion is called when production expresion is entered.
+func (s *BaserustListener) EnterExpresion(ctx *ExpresionContext) {}
+
+// ExitExpresion is called when production expresion is exited.
+func (s *BaserustListener) ExitExpresion(ctx *ExpresionContext) {}
+
+// EnterValor is called when production valor is entered.
+func (s *BaserustListener) EnterValor(ctx *ValorContext) {}
+
+// ExitValor is called when production valor is exited.
+func (s *BaserustListener) ExitValor(ctx *ValorContext) {}
+
 // EnterImpresion is called when production impresion is entered.
 func (s *BaserustListener) EnterImpresion(ctx *ImpresionContext) {}
 

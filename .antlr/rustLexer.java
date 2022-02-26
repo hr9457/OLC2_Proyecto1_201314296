@@ -1,4 +1,4 @@
-// Generated from c:\Users\joshu\Documents\USAC\1S2022\COMPI2\LAB\Proyecto\rust.g4 by ANTLR 4.8
+// Generated from c:\Users\joshu\Documents\USAC\1S2022\COMPI2\LAB\Proyecto\OLC2_Proyecto1_201314296\rust.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

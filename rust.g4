@@ -1,8 +1,8 @@
 grammar rust;
 
 //impor necesarios para ser utilizados se ponene al inicio del codigo generado
-@parser::header{
-    import "Proyecto1/impresion"    
+@parser::header{ 
+    import "Proyecto1/symbol"
 }
 
 // insertar atributos en la clase generada
@@ -45,11 +45,13 @@ TK_TIPORETURN:         '->';
 
 // token reservados por el lenguaje
 TK_IMPRESION:   'println!';
+
 TK_INT:         'i64';
 TK_FLOAT:       'f64';
 TK_BOOL:        'bool'; 
 TK_CHAR:        'char'; 
 TK_STRING:      'String';
+
 TK_USIZE:       'usize';
 TK_LET:         'let';
 TK_MUT:         'mut';
@@ -91,10 +93,51 @@ SPACES: [ \\\r\n\t]+ -> skip;
 
 // gramatica
 start 
-    :   impresion EOF {fmt.Println($impresion.value)}
+    :   instrucciones EOF {}
     ; 
 
+// instruccione o varias instrucciones
+instrucciones
+    :   variable    { fmt.Println($variable.v) }
+    |   impresion   {}
+    ;
 
-impresion returns [string value]
-    :   TK_IMPRESION '(' TK_NUMBER ')' ';'  {$value = impresion.HolaMundo($TK_NUMBER.text)}
+// declaracion de variables
+variable returns[interface{} v]
+    :   TK_LET TK_MUT TK_ID '=' expresion ';'           {}
+    |   TK_LET TK_ID '=' expresion ';'                  {}
+    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  {}
+    |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$v = symbol.NewSimbolo($TK_ID.text,$expresion.text,false,0)}
+    ;
+
+// tipos aceptados en el lenguaje
+tipo
+    :   TK_INT
+    |   TK_FLOAT
+    |   TK_BOOL
+    |   TK_CHAR
+    |   TK_STRING
+    ;
+
+// expresiones aceptadas en el lenguaje
+expresion 
+    :   expresion '*' expresion
+    |   expresion '/' expresion
+    |   expresion '+' expresion
+    |   expresion '-' expresion
+    |   valor   
+    ;
+
+// valor aceptados en la gramaticas
+valor 
+    :   TK_NUMBER   
+    |   TK_DECIMAL
+    |   TK_CADENA
+    |   TK_CARACTER
+    |   TK_ID
+    ;
+
+// impreiones
+impresion 
+    :   TK_IMPRESION '(' expresion ')' ';'  {}
     ;
