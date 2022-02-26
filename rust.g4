@@ -2,11 +2,13 @@ grammar rust;
 
 //impor necesarios para ser utilizados se ponene al inicio del codigo generado
 @parser::header{ 
-    import "Proyecto1/symbol"
+    import "Proyecto1/src/symbol"
+    import "Proyecto1/src/interfaces"
 }
 
 // insertar atributos en la clase generada
 @parser::members{
+    var tipoValor = interfaces.NULL
 }
 
 
@@ -93,30 +95,30 @@ SPACES: [ \\\r\n\t]+ -> skip;
 
 // gramatica
 start 
-    :   instrucciones EOF {}
+    :   instrucciones* EOF {}
     ; 
 
 // instruccione o varias instrucciones
 instrucciones
-    :   variable    { fmt.Println($variable.v) }
+    :   variable    { fmt.Println($variable.nuevaVariable) }
     |   impresion   {}
     ;
 
 // declaracion de variables
-variable returns[interface{} v]
-    :   TK_LET TK_MUT TK_ID '=' expresion ';'           {}
-    |   TK_LET TK_ID '=' expresion ';'                  {}
-    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  {}
-    |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$v = symbol.NewSimbolo($TK_ID.text,$expresion.text,false,0)}
+variable returns[interface{} nuevaVariable]
+    :   TK_LET TK_MUT TK_ID '=' expresion ';'           {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,true,tipoValor)}
+    |   TK_LET TK_ID '=' expresion ';'                  {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,false,tipoValor)}
+    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,true,$tipo.tipoExp)}
+    |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,false,$tipo.tipoExp)}
     ;
 
 // tipos aceptados en el lenguaje
-tipo
-    :   TK_INT
-    |   TK_FLOAT
-    |   TK_BOOL
-    |   TK_CHAR
-    |   TK_STRING
+tipo returns[interfaces.TipoExpression tipoExp]
+    :   TK_INT      {$tipoExp = interfaces.INTEGER}
+    |   TK_FLOAT    {$tipoExp = interfaces.FLOAT}
+    |   TK_BOOL     {$tipoExp = interfaces.BOOLEAN}
+    |   TK_CHAR     {$tipoExp = interfaces.CHAR}
+    |   TK_STRING   {$tipoExp = interfaces.STRING}
     ;
 
 // expresiones aceptadas en el lenguaje
@@ -130,11 +132,13 @@ expresion
 
 // valor aceptados en la gramaticas
 valor 
-    :   TK_NUMBER   
-    |   TK_DECIMAL
-    |   TK_CADENA
-    |   TK_CARACTER
-    |   TK_ID
+    :   TK_NUMBER   {tipoValor = interfaces.INTEGER}
+    |   TK_DECIMAL  {tipoValor = interfaces.FLOAT}
+    |   TK_TRUE     {tipoValor = interfaces.BOOLEAN}
+    |   TK_FALSE    {tipoValor = interfaces.BOOLEAN}
+    |   TK_CADENA   {tipoValor = interfaces.STRING}
+    |   TK_CARACTER {tipoValor = interfaces.CHAR}
+    |   TK_ID       {tipoValor = interfaces.IDENTIFICADOR}
     ;
 
 // impreiones

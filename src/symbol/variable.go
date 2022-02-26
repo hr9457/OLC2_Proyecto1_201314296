@@ -1,21 +1,8 @@
 package symbol
 
-// variable para saber que tipo de expresion se esta manejando
-type TipoExpression int
-
-/*
--enumeracion para los varios de tipo de error
-- intenger = 0
-- float = 1....
-- .............
-- null = 5
-*/
-const (
-	INTERGER TipoExpression = iota
-	FLOAT
-	STRING
-	BOOLEAN
-	NULL
+import (
+	"Proyecto1/src/interfaces"
+	"fmt"
 )
 
 // creacion de la clase para los simbolos
@@ -24,11 +11,17 @@ type Simbolo struct {
 	Id    interface{}
 	Valor interface{}
 	Mut   interface{}
-	Tipo  TipoExpression
+	Tipo  interfaces.TipoExpression
 }
 
 // metodo constructor del simbolo
-func NewSimbolo(id interface{}, valor interface{}, mut interface{}, tipo TipoExpression) *Simbolo {
+func NewSimbolo(id interface{}, valor interface{}, mut interface{}, tipo interfaces.TipoExpression) *Simbolo {
+	if tipo == 5 {
+		fmt.Println("La variable declarada  no tiene un tipo definido")
+		fmt.Println("->")
+		fmt.Println(valor)
+		fmt.Println("->")
+	}
 	return &Simbolo{Id: id, Valor: valor, Mut: mut, Tipo: tipo}
 }
 
@@ -61,7 +54,7 @@ func (simbolo *Simbolo) GetTipo() interface{} {
 	return simbolo.Tipo
 }
 
-func (simbolo *Simbolo) SetTipo(tipo TipoExpression) {
+func (simbolo *Simbolo) SetTipo(tipo interfaces.TipoExpression) {
 	simbolo.Tipo = tipo
 }
 
