@@ -1,7 +1,6 @@
-package symbol
+package interfaces
 
 import (
-	"Proyecto1/src/interfaces"
 	"fmt"
 )
 
@@ -11,11 +10,11 @@ type Simbolo struct {
 	Id    interface{}
 	Valor interface{}
 	Mut   interface{}
-	Tipo  interfaces.TipoExpression
+	Tipo  TipoExpression
 }
 
 // metodo constructor del simbolo
-func NewSimbolo(id interface{}, valor interface{}, mut interface{}, tipo interfaces.TipoExpression) *Simbolo {
+func NewSimbolo(id interface{}, valor interface{}, mut interface{}, tipo TipoExpression) *Simbolo {
 	if tipo == 5 {
 		fmt.Println("La variable declarada  no tiene un tipo definido")
 		fmt.Println("->")
@@ -54,7 +53,7 @@ func (simbolo *Simbolo) GetTipo() interface{} {
 	return simbolo.Tipo
 }
 
-func (simbolo *Simbolo) SetTipo(tipo interfaces.TipoExpression) {
+func (simbolo *Simbolo) SetTipo(tipo TipoExpression) {
 	simbolo.Tipo = tipo
 }
 

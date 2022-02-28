@@ -11,6 +11,9 @@ type rustListener interface {
 	// EnterStart is called when entering the start production.
 	EnterStart(c *StartContext)
 
+	// EnterFuncionmain is called when entering the funcionmain production.
+	EnterFuncionmain(c *FuncionmainContext)
+
 	// EnterInstrucciones is called when entering the instrucciones production.
 	EnterInstrucciones(c *InstruccionesContext)
 
@@ -31,6 +34,9 @@ type rustListener interface {
 
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
+
+	// ExitFuncionmain is called when exiting the funcionmain production.
+	ExitFuncionmain(c *FuncionmainContext)
 
 	// ExitInstrucciones is called when exiting the instrucciones production.
 	ExitInstrucciones(c *InstruccionesContext)

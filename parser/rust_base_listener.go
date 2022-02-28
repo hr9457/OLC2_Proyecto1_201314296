@@ -27,6 +27,12 @@ func (s *BaserustListener) EnterStart(ctx *StartContext) {}
 // ExitStart is called when production start is exited.
 func (s *BaserustListener) ExitStart(ctx *StartContext) {}
 
+// EnterFuncionmain is called when production funcionmain is entered.
+func (s *BaserustListener) EnterFuncionmain(ctx *FuncionmainContext) {}
+
+// ExitFuncionmain is called when production funcionmain is exited.
+func (s *BaserustListener) ExitFuncionmain(ctx *FuncionmainContext) {}
+
 // EnterInstrucciones is called when production instrucciones is entered.
 func (s *BaserustListener) EnterInstrucciones(ctx *InstruccionesContext) {}
 

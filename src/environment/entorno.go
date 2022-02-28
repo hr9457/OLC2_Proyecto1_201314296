@@ -1,7 +1,7 @@
 package environment
 
 import (
-	"Proyecto1/symbol"
+	"Proyecto1/src/interfaces"
 	"fmt"
 )
 
@@ -9,7 +9,7 @@ import (
 type Entornos struct {
 	Padre     interface{}
 	Nombre    interface{}
-	Variables map[string]symbol.Simbolo
+	Variables map[string]interfaces.Simbolo
 	// Funciones   interface{}
 	// Estructuras interface{}
 }
@@ -18,7 +18,7 @@ type Entornos struct {
 // otra forma de declarar el metodo constructor para un objeto en golang
 func NewEntorno(padre interface{}, nombre interface{}) Entornos {
 	// pasa por parametros quien es el padre, nombre y inicializa el listado de los simbolos
-	nuevoEntorno := Entornos{padre, nombre, make(map[string]symbol.Simbolo)}
+	nuevoEntorno := Entornos{padre, nombre, make(map[string]interfaces.Simbolo)}
 	return nuevoEntorno
 }
 
@@ -26,7 +26,7 @@ func NewEntorno(padre interface{}, nombre interface{}) Entornos {
 los listados de variables, funciones y estructuras puesta en los ambitos
 */
 // funcion para agregar variables
-func (entorno *Entornos) AddVariable(id string, valor interface{}, mut bool, tipo symbol.TipoExpression) {
+func (entorno *Entornos) AddVariable(id string, valor interface{}, mut bool, tipo interfaces.TipoExpression) {
 	// busqueda de la variable en el entorno
 	variable, ok := entorno.Variables[id]
 	if ok {
@@ -35,7 +35,7 @@ func (entorno *Entornos) AddVariable(id string, valor interface{}, mut bool, tip
 	}
 	// agrega un nuevo valor ala lista ->
 	fmt.Println("Agreacion de una nueva variable en el entorno ->")
-	entorno.Variables[id] = symbol.Simbolo{Id: id, Valor: valor, Mut: mut, Tipo: tipo}
+	entorno.Variables[id] = interfaces.Simbolo{Id: id, Valor: valor, Mut: mut, Tipo: tipo}
 }
 
 // get y set para padre, nombre

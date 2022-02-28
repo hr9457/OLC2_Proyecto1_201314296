@@ -2,7 +2,6 @@ grammar rust;
 
 //impor necesarios para ser utilizados se ponene al inicio del codigo generado
 @parser::header{ 
-    import "Proyecto1/src/symbol"
     import "Proyecto1/src/interfaces"
 }
 
@@ -54,6 +53,7 @@ TK_BOOL:        'bool';
 TK_CHAR:        'char'; 
 TK_STRING:      'String';
 
+TK_MAIN:        'main';
 TK_USIZE:       'usize';
 TK_LET:         'let';
 TK_MUT:         'mut';
@@ -93,10 +93,17 @@ TK_COMMET:  ('//' (~[/!] | '//') ~[\r\n]* | '//');
 SPACES: [ \\\r\n\t]+ -> skip;
 
 
+
 // gramatica
 start 
-    :   instrucciones* EOF {}
+    :   funcionmain EOF {}
     ; 
+
+funcionmain
+    :   TK_FN TK_MAIN '(' ')' '{'    '}' 
+    |   TK_FN TK_MAIN '(' ')' '{'  instrucciones*  '}' 
+    ;
+
 
 // instruccione o varias instrucciones
 instrucciones
@@ -106,10 +113,10 @@ instrucciones
 
 // declaracion de variables
 variable returns[interface{} nuevaVariable]
-    :   TK_LET TK_MUT TK_ID '=' expresion ';'           {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,true,tipoValor)}
-    |   TK_LET TK_ID '=' expresion ';'                  {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,false,tipoValor)}
-    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,true,$tipo.tipoExp)}
-    |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$nuevaVariable = symbol.NewSimbolo($TK_ID.text,$expresion.text,false,$tipo.tipoExp)}
+    :   TK_LET TK_MUT TK_ID '=' expresion ';'           {$nuevaVariable = interfaces.NewSimbolo($TK_ID.text,$expresion.text,true,tipoValor)}
+    |   TK_LET TK_ID '=' expresion ';'                  {$nuevaVariable = interfaces.NewSimbolo($TK_ID.text,$expresion.text,false,tipoValor)}
+    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  {$nuevaVariable = interfaces.NewSimbolo($TK_ID.text,$expresion.text,true,$tipo.tipoExp)}
+    |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$nuevaVariable = interfaces.NewSimbolo($TK_ID.text,$expresion.text,false,$tipo.tipoExp)}
     ;
 
 // tipos aceptados en el lenguaje

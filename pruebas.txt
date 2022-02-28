@@ -5,7 +5,20 @@ println!(variable);
 
 ----------- pruebas hasta el momento en el lenguaje rust ------------------------------
 
+
 let variable1: i64 = 33;
 let mut variable2: String = "Hola mundo";
 let y = "Hola";
 let x = 3;
+
+
+fn main(){
+  let variable1: i64 = 33;
+    let mut variable2: String = "Hola mundo";
+    let y = "Hola";
+    let x = 3;  
+}
+
+
+fn main(){ 
+}
