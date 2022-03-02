@@ -1,9 +1,5 @@
 package interfaces
 
-import (
-	"fmt"
-)
-
 // creacion de la clase para los simbolos
 // uso el := para declara, asignar y asignar el tipo que es
 type Simbolo struct {
@@ -15,12 +11,6 @@ type Simbolo struct {
 
 // metodo constructor del simbolo
 func NewSimbolo(id interface{}, valor interface{}, mut interface{}, tipo TipoExpression) *Simbolo {
-	if tipo == 5 {
-		fmt.Println("La variable declarada  no tiene un tipo definido")
-		fmt.Println("->")
-		fmt.Println(valor)
-		fmt.Println("->")
-	}
 	return &Simbolo{Id: id, Valor: valor, Mut: mut, Tipo: tipo}
 }
 

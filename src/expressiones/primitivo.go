@@ -1,4 +1,4 @@
-package expresion
+package expressiones
 
 import (
 	"Proyecto1/src/interfaces"
@@ -20,12 +20,10 @@ func NewPrimito(valor interface{}, tipo interfaces.TipoExpression) Primitivo {
 }
 
 // funcion para retornar el primitivo con la estructura de un simbolo/variable
-func (primate Primitivo) Ejecutar(e interface{}) interfaces.Simbolo {
+func (primate Primitivo) Ejecutar() interfaces.Simbolo {
 	// retrono el primitivo con una estructrua definida
 	return interfaces.Simbolo{
-		Id:    "",
 		Valor: primate.Valor,
-		Mut:   "",
 		Tipo:  primate.TipoPrimitivo,
 	}
 }

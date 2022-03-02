@@ -1,6 +1,7 @@
 // Generated from c:\Users\joshu\Documents\USAC\1S2022\COMPI2\LAB\Proyecto\OLC2_Proyecto1_201314296\rust.g4 by ANTLR 4.8
  
     import "Proyecto1/src/interfaces"
+    import "Proyecto1/src/expressiones"
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -19,45 +20,47 @@ public class rustParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		TK_PARENTESIS_LEFT=1, TK_PARENTESIS_RIGHT=2, TK_CORCHETE_LETF=3, TK_CORCHETE_RIGHT=4, 
-		TK_LLAVE_LEFT=5, TK_LLAVE_RIGHT=6, TK_PUNTO_COMA=7, TK_DOSPUNTOS=8, TK_COMA=9, 
-		TK_MENOR=10, TK_MAYOR=11, TK_PUNTO=12, TK_IGUAL=13, TK_MAS=14, TK_MENOS=15, 
-		TK_POR=16, TK_DIVISION=17, TK_PORCENTAJE=18, TK_BARRA=19, TK_AMPERSAND=20, 
-		TK_ADMIRACION=21, TK_MAYORIGULA=22, TK_MENOIGUAL=23, TK_IGUALIGUAL=24, 
-		TK_DIFERENTE=25, TK_OR=26, TK_AND=27, TK_WHAT=28, TK_TIPORETURN=29, TK_IMPRESION=30, 
-		TK_INT=31, TK_FLOAT=32, TK_BOOL=33, TK_CHAR=34, TK_STRING=35, TK_MAIN=36, 
-		TK_USIZE=37, TK_LET=38, TK_MUT=39, TK_STRUCT=40, TK_AS=41, TK_TRUE=42, 
-		TK_FALSE=43, TK_FN=44, TK_RETURN=45, TK_ABS=46, TK_SQRT=47, TK_TOSTRING=48, 
-		TK_CLONE=49, TK_NEW=50, TK_LEN=51, TK_PUSH=52, TK_REMOVED=53, TK_CONTAINS=54, 
-		TK_INSERT=55, TK_CAPACITY=56, TK_WITHCAPACITY=57, TK_NUMBER=58, TK_DECIMAL=59, 
-		TK_CADENA=60, TK_CARACTER=61, TK_ID=62, TK_COMMET=63, SPACES=64;
+		T__0=1, TK_PARENTESIS_LEFT=2, TK_PARENTESIS_RIGHT=3, TK_CORCHETE_LETF=4, 
+		TK_CORCHETE_RIGHT=5, TK_LLAVE_LEFT=6, TK_LLAVE_RIGHT=7, TK_PUNTO_COMA=8, 
+		TK_DOSPUNTOS=9, TK_COMA=10, TK_MENOR=11, TK_MAYOR=12, TK_PUNTO=13, TK_IGUAL=14, 
+		TK_MAS=15, TK_MENOS=16, TK_POR=17, TK_DIVISION=18, TK_PORCENTAJE=19, TK_BARRA=20, 
+		TK_AMPERSAND=21, TK_ADMIRACION=22, TK_MAYORIGULA=23, TK_MENOIGUAL=24, 
+		TK_IGUALIGUAL=25, TK_DIFERENTE=26, TK_OR=27, TK_AND=28, TK_WHAT=29, TK_TIPORETURN=30, 
+		TK_IMPRESION=31, TK_INT=32, TK_FLOAT=33, TK_BOOL=34, TK_CHAR=35, TK_STRING=36, 
+		TK_MAIN=37, TK_USIZE=38, TK_LET=39, TK_MUT=40, TK_STRUCT=41, TK_AS=42, 
+		TK_TRUE=43, TK_FALSE=44, TK_FN=45, TK_RETURN=46, TK_ABS=47, TK_SQRT=48, 
+		TK_TOSTRING=49, TK_CLONE=50, TK_NEW=51, TK_LEN=52, TK_PUSH=53, TK_REMOVED=54, 
+		TK_CONTAINS=55, TK_INSERT=56, TK_CAPACITY=57, TK_WITHCAPACITY=58, TK_IF=59, 
+		TK_ELSE=60, TK_NUMBER=61, TK_DECIMAL=62, TK_CADENA=63, TK_CARACTER=64, 
+		TK_ID=65, TK_COMMET=66, SPACES=67;
 	public static final int
-		RULE_start = 0, RULE_funcionmain = 1, RULE_instrucciones = 2, RULE_variable = 3, 
-		RULE_tipo = 4, RULE_expresion = 5, RULE_valor = 6, RULE_impresion = 7;
+		RULE_start = 0, RULE_funcionmain = 1, RULE_instrucciones = 2, RULE_impresion = 3, 
+		RULE_expresionIf = 4, RULE_sintaxisIf = 5, RULE_sintaxisElse = 6, RULE_variable = 7, 
+		RULE_tipo = 8, RULE_expresion = 9, RULE_valor = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"start", "funcionmain", "instrucciones", "variable", "tipo", "expresion", 
-			"valor", "impresion"
+			"start", "funcionmain", "instrucciones", "impresion", "expresionIf", 
+			"sintaxisIf", "sintaxisElse", "variable", "tipo", "expresion", "valor"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'", "'['", "']'", "'{'", "'}'", "';'", "':'", "','", 
-			"'<'", "'>'", "'.'", "'='", "'+'", "'-'", "'*'", "'/'", "'%'", "'|'", 
-			"'&'", "'!'", "'>='", "'<='", "'=='", "'!='", "'||'", "'&&'", "'?'", 
-			"'->'", "'println!'", "'i64'", "'f64'", "'bool'", "'char'", "'String'", 
+			null, "'^'", "'('", "')'", "'['", "']'", "'{'", "'}'", "';'", "':'", 
+			"','", "'<'", "'>'", "'.'", "'='", "'+'", "'-'", "'*'", "'/'", "'%'", 
+			"'|'", "'&'", "'!'", "'>='", "'<='", "'=='", "'!='", "'||'", "'&&'", 
+			"'?'", "'->'", "'println!'", "'i64'", "'f64'", "'bool'", "'char'", "'String'", 
 			"'main'", "'usize'", "'let'", "'mut'", "'struct'", "'as'", "'true'", 
 			"'false'", "'fn'", "'return'", "'abs'", "'sqrt'", "'to_string'", "'clone'", 
 			"'new'", "'len'", "'push'", "'remove'", "'contains'", "'insert'", "'capacity'", 
-			"'with_capacity'"
+			"'with_capacity'", "'if'", "'else'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "TK_PARENTESIS_LEFT", "TK_PARENTESIS_RIGHT", "TK_CORCHETE_LETF", 
+			null, null, "TK_PARENTESIS_LEFT", "TK_PARENTESIS_RIGHT", "TK_CORCHETE_LETF", 
 			"TK_CORCHETE_RIGHT", "TK_LLAVE_LEFT", "TK_LLAVE_RIGHT", "TK_PUNTO_COMA", 
 			"TK_DOSPUNTOS", "TK_COMA", "TK_MENOR", "TK_MAYOR", "TK_PUNTO", "TK_IGUAL", 
 			"TK_MAS", "TK_MENOS", "TK_POR", "TK_DIVISION", "TK_PORCENTAJE", "TK_BARRA", 
@@ -67,8 +70,8 @@ public class rustParser extends Parser {
 			"TK_LET", "TK_MUT", "TK_STRUCT", "TK_AS", "TK_TRUE", "TK_FALSE", "TK_FN", 
 			"TK_RETURN", "TK_ABS", "TK_SQRT", "TK_TOSTRING", "TK_CLONE", "TK_NEW", 
 			"TK_LEN", "TK_PUSH", "TK_REMOVED", "TK_CONTAINS", "TK_INSERT", "TK_CAPACITY", 
-			"TK_WITHCAPACITY", "TK_NUMBER", "TK_DECIMAL", "TK_CADENA", "TK_CARACTER", 
-			"TK_ID", "TK_COMMET", "SPACES"
+			"TK_WITHCAPACITY", "TK_IF", "TK_ELSE", "TK_NUMBER", "TK_DECIMAL", "TK_CADENA", 
+			"TK_CARACTER", "TK_ID", "TK_COMMET", "SPACES"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -142,9 +145,9 @@ public class rustParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(16);
+			setState(22);
 			funcionmain();
-			setState(17);
+			setState(23);
 			match(EOF);
 
 			}
@@ -184,28 +187,11 @@ public class rustParser extends Parser {
 		enterRule(_localctx, 2, RULE_funcionmain);
 		int _la;
 		try {
-			setState(38);
+			setState(44);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
-				{
-				setState(20);
-				match(TK_FN);
-				setState(21);
-				match(TK_MAIN);
-				setState(22);
-				match(TK_PARENTESIS_LEFT);
-				setState(23);
-				match(TK_PARENTESIS_RIGHT);
-				setState(24);
-				match(TK_LLAVE_LEFT);
-				setState(25);
-				match(TK_LLAVE_RIGHT);
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
 				{
 				setState(26);
 				match(TK_FN);
@@ -217,21 +203,38 @@ public class rustParser extends Parser {
 				match(TK_PARENTESIS_RIGHT);
 				setState(30);
 				match(TK_LLAVE_LEFT);
+				setState(31);
+				match(TK_LLAVE_RIGHT);
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(32);
+				match(TK_FN);
+				setState(33);
+				match(TK_MAIN);
 				setState(34);
+				match(TK_PARENTESIS_LEFT);
+				setState(35);
+				match(TK_PARENTESIS_RIGHT);
+				setState(36);
+				match(TK_LLAVE_LEFT);
+				setState(40);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==TK_IMPRESION || _la==TK_LET) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_IMPRESION) | (1L << TK_LET) | (1L << TK_IF))) != 0)) {
 					{
 					{
-					setState(31);
+					setState(37);
 					instrucciones();
 					}
 					}
-					setState(36);
+					setState(42);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(37);
+				setState(43);
 				match(TK_LLAVE_RIGHT);
 				}
 				break;
@@ -256,6 +259,9 @@ public class rustParser extends Parser {
 		public ImpresionContext impresion() {
 			return getRuleContext(ImpresionContext.class,0);
 		}
+		public ExpresionIfContext expresionIf() {
+			return getRuleContext(ExpresionIfContext.class,0);
+		}
 		public InstruccionesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -266,13 +272,13 @@ public class rustParser extends Parser {
 		InstruccionesContext _localctx = new InstruccionesContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_instrucciones);
 		try {
-			setState(46);
+			setState(55);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TK_LET:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(40);
+				setState(46);
 				((InstruccionesContext)_localctx).variable = variable();
 				 fmt.Println(((InstruccionesContext)_localctx).variable.nuevaVariable) 
 				}
@@ -280,13 +286,193 @@ public class rustParser extends Parser {
 			case TK_IMPRESION:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(43);
+				setState(49);
 				impresion();
+
+				}
+				break;
+			case TK_IF:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(52);
+				expresionIf();
 
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ImpresionContext extends ParserRuleContext {
+		public ExpresionContext expresion;
+		public TerminalNode TK_IMPRESION() { return getToken(rustParser.TK_IMPRESION, 0); }
+		public TerminalNode TK_PARENTESIS_LEFT() { return getToken(rustParser.TK_PARENTESIS_LEFT, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
+		}
+		public TerminalNode TK_PARENTESIS_RIGHT() { return getToken(rustParser.TK_PARENTESIS_RIGHT, 0); }
+		public TerminalNode TK_PUNTO_COMA() { return getToken(rustParser.TK_PUNTO_COMA, 0); }
+		public ImpresionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_impresion; }
+	}
+
+	public final ImpresionContext impresion() throws RecognitionException {
+		ImpresionContext _localctx = new ImpresionContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_impresion);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(57);
+			match(TK_IMPRESION);
+			setState(58);
+			match(TK_PARENTESIS_LEFT);
+			setState(59);
+			((ImpresionContext)_localctx).expresion = expresion(0);
+			setState(60);
+			match(TK_PARENTESIS_RIGHT);
+			setState(61);
+			match(TK_PUNTO_COMA);
+			fmt.Println(((ImpresionContext)_localctx).expresion.primate)
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExpresionIfContext extends ParserRuleContext {
+		public SintaxisIfContext sintaxisIf() {
+			return getRuleContext(SintaxisIfContext.class,0);
+		}
+		public SintaxisElseContext sintaxisElse() {
+			return getRuleContext(SintaxisElseContext.class,0);
+		}
+		public ExpresionIfContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expresionIf; }
+	}
+
+	public final ExpresionIfContext expresionIf() throws RecognitionException {
+		ExpresionIfContext _localctx = new ExpresionIfContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_expresionIf);
+		try {
+			setState(71);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(64);
+				sintaxisIf();
+
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(67);
+				sintaxisIf();
+				setState(68);
+				sintaxisElse();
+
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class SintaxisIfContext extends ParserRuleContext {
+		public TerminalNode TK_IF() { return getToken(rustParser.TK_IF, 0); }
+		public ExpresionContext expresion() {
+			return getRuleContext(ExpresionContext.class,0);
+		}
+		public TerminalNode TK_LLAVE_LEFT() { return getToken(rustParser.TK_LLAVE_LEFT, 0); }
+		public TerminalNode TK_LLAVE_RIGHT() { return getToken(rustParser.TK_LLAVE_RIGHT, 0); }
+		public SintaxisIfContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_sintaxisIf; }
+	}
+
+	public final SintaxisIfContext sintaxisIf() throws RecognitionException {
+		SintaxisIfContext _localctx = new SintaxisIfContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_sintaxisIf);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(73);
+			match(TK_IF);
+			setState(74);
+			expresion(0);
+			setState(75);
+			match(TK_LLAVE_LEFT);
+			setState(76);
+			match(TK_LLAVE_RIGHT);
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class SintaxisElseContext extends ParserRuleContext {
+		public TerminalNode TK_ELSE() { return getToken(rustParser.TK_ELSE, 0); }
+		public TerminalNode TK_LLAVE_LEFT() { return getToken(rustParser.TK_LLAVE_LEFT, 0); }
+		public TerminalNode TK_LLAVE_RIGHT() { return getToken(rustParser.TK_LLAVE_RIGHT, 0); }
+		public SintaxisElseContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_sintaxisElse; }
+	}
+
+	public final SintaxisElseContext sintaxisElse() throws RecognitionException {
+		SintaxisElseContext _localctx = new SintaxisElseContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_sintaxisElse);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(79);
+			match(TK_ELSE);
+			setState(80);
+			match(TK_LLAVE_LEFT);
+			setState(81);
+			match(TK_LLAVE_RIGHT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -325,25 +511,25 @@ public class rustParser extends Parser {
 
 	public final VariableContext variable() throws RecognitionException {
 		VariableContext _localctx = new VariableContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_variable);
+		enterRule(_localctx, 14, RULE_variable);
 		try {
-			setState(82);
+			setState(117);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(48);
+				setState(83);
 				match(TK_LET);
-				setState(49);
+				setState(84);
 				match(TK_MUT);
-				setState(50);
+				setState(85);
 				((VariableContext)_localctx).TK_ID = match(TK_ID);
-				setState(51);
+				setState(86);
 				match(TK_IGUAL);
-				setState(52);
+				setState(87);
 				((VariableContext)_localctx).expresion = expresion(0);
-				setState(53);
+				setState(88);
 				match(TK_PUNTO_COMA);
 				_localctx.nuevaVariable = interfaces.NewSimbolo((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),(((VariableContext)_localctx).expresion!=null?_input.getText(((VariableContext)_localctx).expresion.start,((VariableContext)_localctx).expresion.stop):null),true,tipoValor)
 				}
@@ -351,15 +537,15 @@ public class rustParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(56);
+				setState(91);
 				match(TK_LET);
-				setState(57);
+				setState(92);
 				((VariableContext)_localctx).TK_ID = match(TK_ID);
-				setState(58);
+				setState(93);
 				match(TK_IGUAL);
-				setState(59);
+				setState(94);
 				((VariableContext)_localctx).expresion = expresion(0);
-				setState(60);
+				setState(95);
 				match(TK_PUNTO_COMA);
 				_localctx.nuevaVariable = interfaces.NewSimbolo((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),(((VariableContext)_localctx).expresion!=null?_input.getText(((VariableContext)_localctx).expresion.start,((VariableContext)_localctx).expresion.stop):null),false,tipoValor)
 				}
@@ -367,21 +553,21 @@ public class rustParser extends Parser {
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(63);
+				setState(98);
 				match(TK_LET);
-				setState(64);
+				setState(99);
 				match(TK_MUT);
-				setState(65);
+				setState(100);
 				((VariableContext)_localctx).TK_ID = match(TK_ID);
-				setState(66);
+				setState(101);
 				match(TK_DOSPUNTOS);
-				setState(67);
+				setState(102);
 				((VariableContext)_localctx).tipo = tipo();
-				setState(68);
+				setState(103);
 				match(TK_IGUAL);
-				setState(69);
+				setState(104);
 				((VariableContext)_localctx).expresion = expresion(0);
-				setState(70);
+				setState(105);
 				match(TK_PUNTO_COMA);
 				_localctx.nuevaVariable = interfaces.NewSimbolo((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),(((VariableContext)_localctx).expresion!=null?_input.getText(((VariableContext)_localctx).expresion.start,((VariableContext)_localctx).expresion.stop):null),true,((VariableContext)_localctx).tipo.tipoExp)
 				}
@@ -389,19 +575,19 @@ public class rustParser extends Parser {
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(73);
+				setState(108);
 				match(TK_LET);
-				setState(74);
+				setState(109);
 				((VariableContext)_localctx).TK_ID = match(TK_ID);
-				setState(75);
+				setState(110);
 				match(TK_DOSPUNTOS);
-				setState(76);
+				setState(111);
 				((VariableContext)_localctx).tipo = tipo();
-				setState(77);
+				setState(112);
 				match(TK_IGUAL);
-				setState(78);
+				setState(113);
 				((VariableContext)_localctx).expresion = expresion(0);
-				setState(79);
+				setState(114);
 				match(TK_PUNTO_COMA);
 				_localctx.nuevaVariable = interfaces.NewSimbolo((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),(((VariableContext)_localctx).expresion!=null?_input.getText(((VariableContext)_localctx).expresion.start,((VariableContext)_localctx).expresion.stop):null),false,((VariableContext)_localctx).tipo.tipoExp)
 				}
@@ -434,15 +620,15 @@ public class rustParser extends Parser {
 
 	public final TipoContext tipo() throws RecognitionException {
 		TipoContext _localctx = new TipoContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_tipo);
+		enterRule(_localctx, 16, RULE_tipo);
 		try {
-			setState(94);
+			setState(129);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TK_INT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(84);
+				setState(119);
 				match(TK_INT);
 				_localctx.tipoExp = interfaces.INTEGER
 				}
@@ -450,7 +636,7 @@ public class rustParser extends Parser {
 			case TK_FLOAT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(86);
+				setState(121);
 				match(TK_FLOAT);
 				_localctx.tipoExp = interfaces.FLOAT
 				}
@@ -458,7 +644,7 @@ public class rustParser extends Parser {
 			case TK_BOOL:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(88);
+				setState(123);
 				match(TK_BOOL);
 				_localctx.tipoExp = interfaces.BOOLEAN
 				}
@@ -466,7 +652,7 @@ public class rustParser extends Parser {
 			case TK_CHAR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(90);
+				setState(125);
 				match(TK_CHAR);
 				_localctx.tipoExp = interfaces.CHAR
 				}
@@ -474,7 +660,7 @@ public class rustParser extends Parser {
 			case TK_STRING:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(92);
+				setState(127);
 				match(TK_STRING);
 				_localctx.tipoExp = interfaces.STRING
 				}
@@ -495,19 +681,34 @@ public class rustParser extends Parser {
 	}
 
 	public static class ExpresionContext extends ParserRuleContext {
-		public ValorContext valor() {
-			return getRuleContext(ValorContext.class,0);
-		}
+		public interface{} primate;
+		public ValorContext valor;
+		public TerminalNode TK_PARENTESIS_LEFT() { return getToken(rustParser.TK_PARENTESIS_LEFT, 0); }
 		public List<ExpresionContext> expresion() {
 			return getRuleContexts(ExpresionContext.class);
 		}
 		public ExpresionContext expresion(int i) {
 			return getRuleContext(ExpresionContext.class,i);
 		}
+		public TerminalNode TK_PARENTESIS_RIGHT() { return getToken(rustParser.TK_PARENTESIS_RIGHT, 0); }
+		public ValorContext valor() {
+			return getRuleContext(ValorContext.class,0);
+		}
 		public TerminalNode TK_POR() { return getToken(rustParser.TK_POR, 0); }
 		public TerminalNode TK_DIVISION() { return getToken(rustParser.TK_DIVISION, 0); }
+		public TerminalNode TK_PORCENTAJE() { return getToken(rustParser.TK_PORCENTAJE, 0); }
 		public TerminalNode TK_MAS() { return getToken(rustParser.TK_MAS, 0); }
 		public TerminalNode TK_MENOS() { return getToken(rustParser.TK_MENOS, 0); }
+		public TerminalNode TK_AMPERSAND() { return getToken(rustParser.TK_AMPERSAND, 0); }
+		public TerminalNode TK_IGUALIGUAL() { return getToken(rustParser.TK_IGUALIGUAL, 0); }
+		public TerminalNode TK_DIFERENTE() { return getToken(rustParser.TK_DIFERENTE, 0); }
+		public TerminalNode TK_MAYOR() { return getToken(rustParser.TK_MAYOR, 0); }
+		public TerminalNode TK_MENOR() { return getToken(rustParser.TK_MENOR, 0); }
+		public TerminalNode TK_MAYORIGULA() { return getToken(rustParser.TK_MAYORIGULA, 0); }
+		public TerminalNode TK_MENOIGUAL() { return getToken(rustParser.TK_MENOIGUAL, 0); }
+		public TerminalNode TK_AND() { return getToken(rustParser.TK_AND, 0); }
+		public TerminalNode TK_OR() { return getToken(rustParser.TK_OR, 0); }
+		public TerminalNode TK_BARRA() { return getToken(rustParser.TK_BARRA, 0); }
 		public ExpresionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -523,82 +724,234 @@ public class rustParser extends Parser {
 		int _parentState = getState();
 		ExpresionContext _localctx = new ExpresionContext(_ctx, _parentState);
 		ExpresionContext _prevctx = _localctx;
-		int _startState = 10;
-		enterRecursionRule(_localctx, 10, RULE_expresion, _p);
+		int _startState = 18;
+		enterRecursionRule(_localctx, 18, RULE_expresion, _p);
+		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			{
-			setState(97);
-			valor();
+			setState(139);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case TK_PARENTESIS_LEFT:
+				{
+				setState(132);
+				match(TK_PARENTESIS_LEFT);
+				setState(133);
+				expresion(0);
+				setState(134);
+				match(TK_PARENTESIS_RIGHT);
+				}
+				break;
+			case TK_TRUE:
+			case TK_FALSE:
+			case TK_NUMBER:
+			case TK_DECIMAL:
+			case TK_CADENA:
+			case TK_CARACTER:
+			case TK_ID:
+				{
+				setState(136);
+				((ExpresionContext)_localctx).valor = valor();
+
+				                    fmt.Println("->>>>")
+				                    fmt.Println(((ExpresionContext)_localctx).valor.primate)
+				                    _localctx.primate = ((ExpresionContext)_localctx).valor.primate
+				                
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(113);
+			setState(181);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(111);
+					setState(179);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(99);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(100);
-						match(TK_POR);
-						setState(101);
-						expresion(6);
+						setState(141);
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						setState(142);
+						_la = _input.LA(1);
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_POR) | (1L << TK_DIVISION) | (1L << TK_PORCENTAJE))) != 0)) ) {
+						_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
+						setState(143);
+						expresion(16);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(102);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(103);
-						match(TK_DIVISION);
-						setState(104);
-						expresion(5);
+						setState(144);
+						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
+						setState(145);
+						_la = _input.LA(1);
+						if ( !(_la==TK_MAS || _la==TK_MENOS) ) {
+						_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
+						setState(146);
+						expresion(15);
 						}
 						break;
 					case 3:
 						{
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(105);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(106);
-						match(TK_MAS);
-						setState(107);
-						expresion(4);
+						setState(147);
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
+						setState(148);
+						match(TK_AMPERSAND);
+						setState(149);
+						expresion(14);
 						}
 						break;
 					case 4:
 						{
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
-						setState(108);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(109);
-						match(TK_MENOS);
-						setState(110);
-						expresion(3);
+						setState(150);
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						setState(151);
+						match(T__0);
+						setState(152);
+						expresion(13);
+						}
+						break;
+					case 5:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(153);
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						setState(154);
+						match(TK_IGUALIGUAL);
+						setState(155);
+						expresion(11);
+						}
+						break;
+					case 6:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(156);
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						setState(157);
+						match(TK_DIFERENTE);
+						setState(158);
+						expresion(10);
+						}
+						break;
+					case 7:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(159);
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						setState(160);
+						match(TK_MAYOR);
+						setState(161);
+						expresion(9);
+						}
+						break;
+					case 8:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(162);
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						setState(163);
+						match(TK_MENOR);
+						setState(164);
+						expresion(8);
+						}
+						break;
+					case 9:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(165);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(166);
+						match(TK_MAYORIGULA);
+						setState(167);
+						expresion(7);
+						}
+						break;
+					case 10:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(168);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						setState(169);
+						match(TK_MENOIGUAL);
+						setState(170);
+						expresion(6);
+						}
+						break;
+					case 11:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(171);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						setState(172);
+						match(TK_AND);
+						setState(173);
+						expresion(5);
+						}
+						break;
+					case 12:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(174);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						setState(175);
+						match(TK_OR);
+						setState(176);
+						expresion(4);
+						}
+						break;
+					case 13:
+						{
+						_localctx = new ExpresionContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
+						setState(177);
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						setState(178);
+						match(TK_BARRA);
 						}
 						break;
 					}
 					} 
 				}
-				setState(115);
+				setState(183);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 			}
 			}
 		}
@@ -614,6 +967,8 @@ public class rustParser extends Parser {
 	}
 
 	public static class ValorContext extends ParserRuleContext {
+		public interfaces.Expresion primate;
+		public Token TK_NUMBER;
 		public TerminalNode TK_NUMBER() { return getToken(rustParser.TK_NUMBER, 0); }
 		public TerminalNode TK_DECIMAL() { return getToken(rustParser.TK_DECIMAL, 0); }
 		public TerminalNode TK_TRUE() { return getToken(rustParser.TK_TRUE, 0); }
@@ -629,65 +984,65 @@ public class rustParser extends Parser {
 
 	public final ValorContext valor() throws RecognitionException {
 		ValorContext _localctx = new ValorContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_valor);
+		enterRule(_localctx, 20, RULE_valor);
 		try {
-			setState(130);
+			setState(198);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TK_NUMBER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(116);
-				match(TK_NUMBER);
-				tipoValor = interfaces.INTEGER
+				setState(184);
+				((ValorContext)_localctx).TK_NUMBER = match(TK_NUMBER);
+				_localctx.primate = expressiones.NewPrimito((((ValorContext)_localctx).TK_NUMBER!=null?((ValorContext)_localctx).TK_NUMBER.getText():null),interfaces.INTEGER)
 				}
 				break;
 			case TK_DECIMAL:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(118);
+				setState(186);
 				match(TK_DECIMAL);
-				tipoValor = interfaces.FLOAT
+
 				}
 				break;
 			case TK_TRUE:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(120);
+				setState(188);
 				match(TK_TRUE);
-				tipoValor = interfaces.BOOLEAN
+
 				}
 				break;
 			case TK_FALSE:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(122);
+				setState(190);
 				match(TK_FALSE);
-				tipoValor = interfaces.BOOLEAN
+
 				}
 				break;
 			case TK_CADENA:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(124);
+				setState(192);
 				match(TK_CADENA);
-				tipoValor = interfaces.STRING
+
 				}
 				break;
 			case TK_CARACTER:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(126);
+				setState(194);
 				match(TK_CARACTER);
-				tipoValor = interfaces.CHAR
+
 				}
 				break;
 			case TK_ID:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(128);
+				setState(196);
 				match(TK_ID);
-				tipoValor = interfaces.IDENTIFICADOR
+
 				}
 				break;
 			default:
@@ -705,53 +1060,9 @@ public class rustParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ImpresionContext extends ParserRuleContext {
-		public TerminalNode TK_IMPRESION() { return getToken(rustParser.TK_IMPRESION, 0); }
-		public TerminalNode TK_PARENTESIS_LEFT() { return getToken(rustParser.TK_PARENTESIS_LEFT, 0); }
-		public ExpresionContext expresion() {
-			return getRuleContext(ExpresionContext.class,0);
-		}
-		public TerminalNode TK_PARENTESIS_RIGHT() { return getToken(rustParser.TK_PARENTESIS_RIGHT, 0); }
-		public TerminalNode TK_PUNTO_COMA() { return getToken(rustParser.TK_PUNTO_COMA, 0); }
-		public ImpresionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_impresion; }
-	}
-
-	public final ImpresionContext impresion() throws RecognitionException {
-		ImpresionContext _localctx = new ImpresionContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_impresion);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(132);
-			match(TK_IMPRESION);
-			setState(133);
-			match(TK_PARENTESIS_LEFT);
-			setState(134);
-			expresion(0);
-			setState(135);
-			match(TK_PARENTESIS_RIGHT);
-			setState(136);
-			match(TK_PUNTO_COMA);
-
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 5:
+		case 9:
 			return expresion_sempred((ExpresionContext)_localctx, predIndex);
 		}
 		return true;
@@ -759,54 +1070,99 @@ public class rustParser extends Parser {
 	private boolean expresion_sempred(ExpresionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 5);
+			return precpred(_ctx, 15);
 		case 1:
-			return precpred(_ctx, 4);
+			return precpred(_ctx, 14);
 		case 2:
-			return precpred(_ctx, 3);
+			return precpred(_ctx, 13);
 		case 3:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 12);
+		case 4:
+			return precpred(_ctx, 10);
+		case 5:
+			return precpred(_ctx, 9);
+		case 6:
+			return precpred(_ctx, 8);
+		case 7:
+			return precpred(_ctx, 7);
+		case 8:
+			return precpred(_ctx, 6);
+		case 9:
+			return precpred(_ctx, 5);
+		case 10:
+			return precpred(_ctx, 4);
+		case 11:
+			return precpred(_ctx, 3);
+		case 12:
+			return precpred(_ctx, 11);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3B\u008e\4\2\t\2\4"+
-		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3\2"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3#\n\3\f\3\16\3&\13"+
-		"\3\3\3\5\3)\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4\61\n\4\3\5\3\5\3\5\3\5\3\5"+
-		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3"+
-		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5U\n\5\3\6\3\6\3\6\3"+
-		"\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6a\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3"+
-		"\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7r\n\7\f\7\16\7u\13\7\3\b\3\b\3\b\3\b\3\b"+
-		"\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b\u0085\n\b\3\t\3\t\3\t\3\t\3\t"+
-		"\3\t\3\t\3\t\2\3\f\n\2\4\6\b\n\f\16\20\2\2\2\u0099\2\22\3\2\2\2\4(\3\2"+
-		"\2\2\6\60\3\2\2\2\bT\3\2\2\2\n`\3\2\2\2\fb\3\2\2\2\16\u0084\3\2\2\2\20"+
-		"\u0086\3\2\2\2\22\23\5\4\3\2\23\24\7\2\2\3\24\25\b\2\1\2\25\3\3\2\2\2"+
-		"\26\27\7.\2\2\27\30\7&\2\2\30\31\7\3\2\2\31\32\7\4\2\2\32\33\7\7\2\2\33"+
-		")\7\b\2\2\34\35\7.\2\2\35\36\7&\2\2\36\37\7\3\2\2\37 \7\4\2\2 $\7\7\2"+
-		"\2!#\5\6\4\2\"!\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%\'\3\2\2\2&$\3"+
-		"\2\2\2\')\7\b\2\2(\26\3\2\2\2(\34\3\2\2\2)\5\3\2\2\2*+\5\b\5\2+,\b\4\1"+
-		"\2,\61\3\2\2\2-.\5\20\t\2./\b\4\1\2/\61\3\2\2\2\60*\3\2\2\2\60-\3\2\2"+
-		"\2\61\7\3\2\2\2\62\63\7(\2\2\63\64\7)\2\2\64\65\7@\2\2\65\66\7\17\2\2"+
-		"\66\67\5\f\7\2\678\7\t\2\289\b\5\1\29U\3\2\2\2:;\7(\2\2;<\7@\2\2<=\7\17"+
-		"\2\2=>\5\f\7\2>?\7\t\2\2?@\b\5\1\2@U\3\2\2\2AB\7(\2\2BC\7)\2\2CD\7@\2"+
-		"\2DE\7\n\2\2EF\5\n\6\2FG\7\17\2\2GH\5\f\7\2HI\7\t\2\2IJ\b\5\1\2JU\3\2"+
-		"\2\2KL\7(\2\2LM\7@\2\2MN\7\n\2\2NO\5\n\6\2OP\7\17\2\2PQ\5\f\7\2QR\7\t"+
-		"\2\2RS\b\5\1\2SU\3\2\2\2T\62\3\2\2\2T:\3\2\2\2TA\3\2\2\2TK\3\2\2\2U\t"+
-		"\3\2\2\2VW\7!\2\2Wa\b\6\1\2XY\7\"\2\2Ya\b\6\1\2Z[\7#\2\2[a\b\6\1\2\\]"+
-		"\7$\2\2]a\b\6\1\2^_\7%\2\2_a\b\6\1\2`V\3\2\2\2`X\3\2\2\2`Z\3\2\2\2`\\"+
-		"\3\2\2\2`^\3\2\2\2a\13\3\2\2\2bc\b\7\1\2cd\5\16\b\2ds\3\2\2\2ef\f\7\2"+
-		"\2fg\7\22\2\2gr\5\f\7\bhi\f\6\2\2ij\7\23\2\2jr\5\f\7\7kl\f\5\2\2lm\7\20"+
-		"\2\2mr\5\f\7\6no\f\4\2\2op\7\21\2\2pr\5\f\7\5qe\3\2\2\2qh\3\2\2\2qk\3"+
-		"\2\2\2qn\3\2\2\2ru\3\2\2\2sq\3\2\2\2st\3\2\2\2t\r\3\2\2\2us\3\2\2\2vw"+
-		"\7<\2\2w\u0085\b\b\1\2xy\7=\2\2y\u0085\b\b\1\2z{\7,\2\2{\u0085\b\b\1\2"+
-		"|}\7-\2\2}\u0085\b\b\1\2~\177\7>\2\2\177\u0085\b\b\1\2\u0080\u0081\7?"+
-		"\2\2\u0081\u0085\b\b\1\2\u0082\u0083\7@\2\2\u0083\u0085\b\b\1\2\u0084"+
-		"v\3\2\2\2\u0084x\3\2\2\2\u0084z\3\2\2\2\u0084|\3\2\2\2\u0084~\3\2\2\2"+
-		"\u0084\u0080\3\2\2\2\u0084\u0082\3\2\2\2\u0085\17\3\2\2\2\u0086\u0087"+
-		"\7 \2\2\u0087\u0088\7\3\2\2\u0088\u0089\5\f\7\2\u0089\u008a\7\4\2\2\u008a"+
-		"\u008b\7\t\2\2\u008b\u008c\b\t\1\2\u008c\21\3\2\2\2\n$(\60T`qs\u0084";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3E\u00cb\4\2\t\2\4"+
+		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
+		"\13\4\f\t\f\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\7\3)\n\3\f\3\16\3,\13\3\3\3\5\3/\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3"+
+		"\4\3\4\3\4\5\4:\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3"+
+		"\6\3\6\5\6J\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3"+
+		"\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t"+
+		"\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\tx\n\t\3\n\3\n"+
+		"\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u0084\n\n\3\13\3\13\3\13\3\13\3\13"+
+		"\3\13\3\13\3\13\5\13\u008e\n\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
+		"\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
+		"\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
+		"\3\13\3\13\7\13\u00b6\n\13\f\13\16\13\u00b9\13\13\3\f\3\f\3\f\3\f\3\f"+
+		"\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00c9\n\f\3\f\2\3\24\r\2\4\6"+
+		"\b\n\f\16\20\22\24\26\2\4\3\2\23\25\3\2\21\22\2\u00df\2\30\3\2\2\2\4."+
+		"\3\2\2\2\69\3\2\2\2\b;\3\2\2\2\nI\3\2\2\2\fK\3\2\2\2\16Q\3\2\2\2\20w\3"+
+		"\2\2\2\22\u0083\3\2\2\2\24\u008d\3\2\2\2\26\u00c8\3\2\2\2\30\31\5\4\3"+
+		"\2\31\32\7\2\2\3\32\33\b\2\1\2\33\3\3\2\2\2\34\35\7/\2\2\35\36\7\'\2\2"+
+		"\36\37\7\4\2\2\37 \7\5\2\2 !\7\b\2\2!/\7\t\2\2\"#\7/\2\2#$\7\'\2\2$%\7"+
+		"\4\2\2%&\7\5\2\2&*\7\b\2\2\')\5\6\4\2(\'\3\2\2\2),\3\2\2\2*(\3\2\2\2*"+
+		"+\3\2\2\2+-\3\2\2\2,*\3\2\2\2-/\7\t\2\2.\34\3\2\2\2.\"\3\2\2\2/\5\3\2"+
+		"\2\2\60\61\5\20\t\2\61\62\b\4\1\2\62:\3\2\2\2\63\64\5\b\5\2\64\65\b\4"+
+		"\1\2\65:\3\2\2\2\66\67\5\n\6\2\678\b\4\1\28:\3\2\2\29\60\3\2\2\29\63\3"+
+		"\2\2\29\66\3\2\2\2:\7\3\2\2\2;<\7!\2\2<=\7\4\2\2=>\5\24\13\2>?\7\5\2\2"+
+		"?@\7\n\2\2@A\b\5\1\2A\t\3\2\2\2BC\5\f\7\2CD\b\6\1\2DJ\3\2\2\2EF\5\f\7"+
+		"\2FG\5\16\b\2GH\b\6\1\2HJ\3\2\2\2IB\3\2\2\2IE\3\2\2\2J\13\3\2\2\2KL\7"+
+		"=\2\2LM\5\24\13\2MN\7\b\2\2NO\7\t\2\2OP\b\7\1\2P\r\3\2\2\2QR\7>\2\2RS"+
+		"\7\b\2\2ST\7\t\2\2T\17\3\2\2\2UV\7)\2\2VW\7*\2\2WX\7C\2\2XY\7\20\2\2Y"+
+		"Z\5\24\13\2Z[\7\n\2\2[\\\b\t\1\2\\x\3\2\2\2]^\7)\2\2^_\7C\2\2_`\7\20\2"+
+		"\2`a\5\24\13\2ab\7\n\2\2bc\b\t\1\2cx\3\2\2\2de\7)\2\2ef\7*\2\2fg\7C\2"+
+		"\2gh\7\13\2\2hi\5\22\n\2ij\7\20\2\2jk\5\24\13\2kl\7\n\2\2lm\b\t\1\2mx"+
+		"\3\2\2\2no\7)\2\2op\7C\2\2pq\7\13\2\2qr\5\22\n\2rs\7\20\2\2st\5\24\13"+
+		"\2tu\7\n\2\2uv\b\t\1\2vx\3\2\2\2wU\3\2\2\2w]\3\2\2\2wd\3\2\2\2wn\3\2\2"+
+		"\2x\21\3\2\2\2yz\7\"\2\2z\u0084\b\n\1\2{|\7#\2\2|\u0084\b\n\1\2}~\7$\2"+
+		"\2~\u0084\b\n\1\2\177\u0080\7%\2\2\u0080\u0084\b\n\1\2\u0081\u0082\7&"+
+		"\2\2\u0082\u0084\b\n\1\2\u0083y\3\2\2\2\u0083{\3\2\2\2\u0083}\3\2\2\2"+
+		"\u0083\177\3\2\2\2\u0083\u0081\3\2\2\2\u0084\23\3\2\2\2\u0085\u0086\b"+
+		"\13\1\2\u0086\u0087\7\4\2\2\u0087\u0088\5\24\13\2\u0088\u0089\7\5\2\2"+
+		"\u0089\u008e\3\2\2\2\u008a\u008b\5\26\f\2\u008b\u008c\b\13\1\2\u008c\u008e"+
+		"\3\2\2\2\u008d\u0085\3\2\2\2\u008d\u008a\3\2\2\2\u008e\u00b7\3\2\2\2\u008f"+
+		"\u0090\f\21\2\2\u0090\u0091\t\2\2\2\u0091\u00b6\5\24\13\22\u0092\u0093"+
+		"\f\20\2\2\u0093\u0094\t\3\2\2\u0094\u00b6\5\24\13\21\u0095\u0096\f\17"+
+		"\2\2\u0096\u0097\7\27\2\2\u0097\u00b6\5\24\13\20\u0098\u0099\f\16\2\2"+
+		"\u0099\u009a\7\3\2\2\u009a\u00b6\5\24\13\17\u009b\u009c\f\f\2\2\u009c"+
+		"\u009d\7\33\2\2\u009d\u00b6\5\24\13\r\u009e\u009f\f\13\2\2\u009f\u00a0"+
+		"\7\34\2\2\u00a0\u00b6\5\24\13\f\u00a1\u00a2\f\n\2\2\u00a2\u00a3\7\16\2"+
+		"\2\u00a3\u00b6\5\24\13\13\u00a4\u00a5\f\t\2\2\u00a5\u00a6\7\r\2\2\u00a6"+
+		"\u00b6\5\24\13\n\u00a7\u00a8\f\b\2\2\u00a8\u00a9\7\31\2\2\u00a9\u00b6"+
+		"\5\24\13\t\u00aa\u00ab\f\7\2\2\u00ab\u00ac\7\32\2\2\u00ac\u00b6\5\24\13"+
+		"\b\u00ad\u00ae\f\6\2\2\u00ae\u00af\7\36\2\2\u00af\u00b6\5\24\13\7\u00b0"+
+		"\u00b1\f\5\2\2\u00b1\u00b2\7\35\2\2\u00b2\u00b6\5\24\13\6\u00b3\u00b4"+
+		"\f\r\2\2\u00b4\u00b6\7\26\2\2\u00b5\u008f\3\2\2\2\u00b5\u0092\3\2\2\2"+
+		"\u00b5\u0095\3\2\2\2\u00b5\u0098\3\2\2\2\u00b5\u009b\3\2\2\2\u00b5\u009e"+
+		"\3\2\2\2\u00b5\u00a1\3\2\2\2\u00b5\u00a4\3\2\2\2\u00b5\u00a7\3\2\2\2\u00b5"+
+		"\u00aa\3\2\2\2\u00b5\u00ad\3\2\2\2\u00b5\u00b0\3\2\2\2\u00b5\u00b3\3\2"+
+		"\2\2\u00b6\u00b9\3\2\2\2\u00b7\u00b5\3\2\2\2\u00b7\u00b8\3\2\2\2\u00b8"+
+		"\25\3\2\2\2\u00b9\u00b7\3\2\2\2\u00ba\u00bb\7?\2\2\u00bb\u00c9\b\f\1\2"+
+		"\u00bc\u00bd\7@\2\2\u00bd\u00c9\b\f\1\2\u00be\u00bf\7-\2\2\u00bf\u00c9"+
+		"\b\f\1\2\u00c0\u00c1\7.\2\2\u00c1\u00c9\b\f\1\2\u00c2\u00c3\7A\2\2\u00c3"+
+		"\u00c9\b\f\1\2\u00c4\u00c5\7B\2\2\u00c5\u00c9\b\f\1\2\u00c6\u00c7\7C\2"+
+		"\2\u00c7\u00c9\b\f\1\2\u00c8\u00ba\3\2\2\2\u00c8\u00bc\3\2\2\2\u00c8\u00be"+
+		"\3\2\2\2\u00c8\u00c0\3\2\2\2\u00c8\u00c2\3\2\2\2\u00c8\u00c4\3\2\2\2\u00c8"+
+		"\u00c6\3\2\2\2\u00c9\27\3\2\2\2\f*.9Iw\u0083\u008d\u00b5\u00b7\u00c8";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -3,6 +3,7 @@ grammar rust;
 //impor necesarios para ser utilizados se ponene al inicio del codigo generado
 @parser::header{ 
     import "Proyecto1/src/interfaces"
+    import "Proyecto1/src/expressiones"
 }
 
 // insertar atributos en la clase generada
@@ -77,6 +78,8 @@ TK_CAPACITY:    'capacity';
 TK_WITHCAPACITY:'with_capacity';
 
 
+TK_IF:   'if';
+TK_ELSE: 'else';
 
 
 
@@ -109,7 +112,31 @@ funcionmain
 instrucciones
     :   variable    { fmt.Println($variable.nuevaVariable) }
     |   impresion   {}
+    |   expresionIf {}
     ;
+
+
+// impresion
+impresion 
+    :   TK_IMPRESION '(' expresion ')' ';'  {fmt.Println($expresion.primate)}
+    ;
+
+
+// instruccion if
+expresionIf
+    :   sintaxisIf              {} 
+    |   sintaxisIf sintaxisElse {}
+    ;
+
+sintaxisIf
+    :   TK_IF expresion '{' '}' {} 
+    ;
+
+sintaxisElse
+    :   TK_ELSE '{' '}'
+    ;
+
+
 
 // declaracion de variables
 variable returns[interface{} nuevaVariable]
@@ -118,6 +145,7 @@ variable returns[interface{} nuevaVariable]
     |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  {$nuevaVariable = interfaces.NewSimbolo($TK_ID.text,$expresion.text,true,$tipo.tipoExp)}
     |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$nuevaVariable = interfaces.NewSimbolo($TK_ID.text,$expresion.text,false,$tipo.tipoExp)}
     ;
+
 
 // tipos aceptados en el lenguaje
 tipo returns[interfaces.TipoExpression tipoExp]
@@ -129,26 +157,46 @@ tipo returns[interfaces.TipoExpression tipoExp]
     ;
 
 // expresiones aceptadas en el lenguaje
-expresion 
-    :   expresion '*' expresion
-    |   expresion '/' expresion
-    |   expresion '+' expresion
-    |   expresion '-' expresion
-    |   valor   
+expresion returns[interface{} primate]
+    :   expresion ('*'|'/'|'%') expresion
+    |   expresion ('+'|'-') expresion
+    |   expresion '&' expresion
+    |   expresion '^' expresion
+    |   expresion '|' 
+    |   expresion '==' expresion
+    |   expresion '!=' expresion
+    |   expresion '>' expresion
+    |   expresion '<' expresion
+    |   expresion '>=' expresion
+    |   expresion '<=' expresion
+    |   expresion '&&' expresion
+    |   expresion '||' expresion
+    |   '(' expresion ')'
+    |   valor   {
+                    fmt.Println("->>>>")
+                    fmt.Println($valor.primate)
+                    $primate = $valor.primate
+                }
     ;
 
 // valor aceptados en la gramaticas
-valor 
-    :   TK_NUMBER   {tipoValor = interfaces.INTEGER}
-    |   TK_DECIMAL  {tipoValor = interfaces.FLOAT}
-    |   TK_TRUE     {tipoValor = interfaces.BOOLEAN}
-    |   TK_FALSE    {tipoValor = interfaces.BOOLEAN}
-    |   TK_CADENA   {tipoValor = interfaces.STRING}
-    |   TK_CARACTER {tipoValor = interfaces.CHAR}
-    |   TK_ID       {tipoValor = interfaces.IDENTIFICADOR}
+valor returns[interfaces.Expresion primate]
+    :   TK_NUMBER   {$primate = expressiones.NewPrimito($TK_NUMBER.text,interfaces.INTEGER)}
+    |   TK_DECIMAL  {}
+    |   TK_TRUE     {}
+    |   TK_FALSE    {}
+    |   TK_CADENA   {}
+    |   TK_CARACTER {}
+    |   TK_ID       {}
     ;
 
-// impreiones
-impresion 
-    :   TK_IMPRESION '(' expresion ')' ';'  {}
-    ;
+// valor returns[interfaces.Expresion primitivo]
+//     :   TK_NUMBER   {tipoValor = interfaces.INTEGER}
+//     |   TK_DECIMAL  {tipoValor = interfaces.FLOAT}
+//     |   TK_TRUE     {tipoValor = interfaces.BOOLEAN}
+//     |   TK_FALSE    {tipoValor = interfaces.BOOLEAN}
+//     |   TK_CADENA   {tipoValor = interfaces.STRING}
+//     |   TK_CARACTER {tipoValor = interfaces.CHAR}
+//     |   TK_ID       {tipoValor = interfaces.IDENTIFICADOR}
+//     ;
+

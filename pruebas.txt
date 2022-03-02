@@ -13,12 +13,35 @@ let x = 3;
 
 
 fn main(){
-  let variable1: i64 = 33;
+   let variable1: i64 = 33;
     let mut variable2: String = "Hola mundo";
     let y = "Hola";
     let x = 3;  
 }
 
+fn main(){
+  println!(10); 
+}
+
 
 fn main(){ 
+
+  if 3>=2{  
+
+  } else{
+
+  }
+
+}
+
+fn main(){ 
+
+  if 3>=2{  
+
+  } else if n == 10{ 
+
+  } else { 
+
+  }
+
 }

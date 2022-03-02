@@ -39,6 +39,30 @@ func (s *BaserustListener) EnterInstrucciones(ctx *InstruccionesContext) {}
 // ExitInstrucciones is called when production instrucciones is exited.
 func (s *BaserustListener) ExitInstrucciones(ctx *InstruccionesContext) {}
 
+// EnterImpresion is called when production impresion is entered.
+func (s *BaserustListener) EnterImpresion(ctx *ImpresionContext) {}
+
+// ExitImpresion is called when production impresion is exited.
+func (s *BaserustListener) ExitImpresion(ctx *ImpresionContext) {}
+
+// EnterExpresionIf is called when production expresionIf is entered.
+func (s *BaserustListener) EnterExpresionIf(ctx *ExpresionIfContext) {}
+
+// ExitExpresionIf is called when production expresionIf is exited.
+func (s *BaserustListener) ExitExpresionIf(ctx *ExpresionIfContext) {}
+
+// EnterSintaxisIf is called when production sintaxisIf is entered.
+func (s *BaserustListener) EnterSintaxisIf(ctx *SintaxisIfContext) {}
+
+// ExitSintaxisIf is called when production sintaxisIf is exited.
+func (s *BaserustListener) ExitSintaxisIf(ctx *SintaxisIfContext) {}
+
+// EnterSintaxisElse is called when production sintaxisElse is entered.
+func (s *BaserustListener) EnterSintaxisElse(ctx *SintaxisElseContext) {}
+
+// ExitSintaxisElse is called when production sintaxisElse is exited.
+func (s *BaserustListener) ExitSintaxisElse(ctx *SintaxisElseContext) {}
+
 // EnterVariable is called when production variable is entered.
 func (s *BaserustListener) EnterVariable(ctx *VariableContext) {}
 
@@ -62,9 +86,3 @@ func (s *BaserustListener) EnterValor(ctx *ValorContext) {}
 
 // ExitValor is called when production valor is exited.
 func (s *BaserustListener) ExitValor(ctx *ValorContext) {}
-
-// EnterImpresion is called when production impresion is entered.
-func (s *BaserustListener) EnterImpresion(ctx *ImpresionContext) {}
-
-// ExitImpresion is called when production impresion is exited.
-func (s *BaserustListener) ExitImpresion(ctx *ImpresionContext) {}
