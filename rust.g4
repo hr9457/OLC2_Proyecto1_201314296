@@ -4,6 +4,8 @@ grammar rust;
 @parser::header{ 
     import "Proyecto1/src/interfaces"
     import "Proyecto1/src/expressiones"
+    import "Proyecto1/src/instrucciones"
+    import "Proyecto1/src/pruebas"
 }
 
 // insertar atributos en la clase generada
@@ -111,14 +113,18 @@ funcionmain
 // instruccione o varias instrucciones
 instrucciones
     :   variable    { fmt.Println($variable.nuevaVariable) }
-    |   impresion   {}
+    |   impresion   { pruebas.Probar($impresion.p)}
     |   expresionIf {}
     ;
 
 
 // impresion
-impresion 
-    :   TK_IMPRESION '(' expresion ')' ';'  {fmt.Println($expresion.primate)}
+impresion returns[interfaces.Instruction p]
+    :   TK_IMPRESION '(' expresion ')' ';'  {
+        fmt.Println("Aca este println")
+        fmt.Println($expresion.primate)
+        $p = instrucciones.NewImprimir($expresion.primate)
+        }
     ;
 
 
@@ -157,9 +163,9 @@ tipo returns[interfaces.TipoExpression tipoExp]
     ;
 
 // expresiones aceptadas en el lenguaje
-expresion returns[interface{} primate]
+expresion returns[interfaces.Expresion primate]
     :   expresion ('*'|'/'|'%') expresion
-    |   expresion ('+'|'-') expresion
+    |   left=expresion op=('+'|'-') right=expresion {$primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate)}
     |   expresion '&' expresion
     |   expresion '^' expresion
     |   expresion '|' 
@@ -181,22 +187,11 @@ expresion returns[interface{} primate]
 
 // valor aceptados en la gramaticas
 valor returns[interfaces.Expresion primate]
-    :   TK_NUMBER   {$primate = expressiones.NewPrimito($TK_NUMBER.text,interfaces.INTEGER)}
-    |   TK_DECIMAL  {}
+    :   TK_NUMBER   {$primate = expressiones.NewPrimito(interfaces.ConvertTextInt($TK_NUMBER.text),interfaces.INTEGER)}
+    |   TK_DECIMAL  {$primate = expressiones.NewPrimito(interfaces.ConvertTextFloat($TK_DECIMAL.text),interfaces.FLOAT)}
     |   TK_TRUE     {}
     |   TK_FALSE    {}
     |   TK_CADENA   {}
     |   TK_CARACTER {}
     |   TK_ID       {}
     ;
-
-// valor returns[interfaces.Expresion primitivo]
-//     :   TK_NUMBER   {tipoValor = interfaces.INTEGER}
-//     |   TK_DECIMAL  {tipoValor = interfaces.FLOAT}
-//     |   TK_TRUE     {tipoValor = interfaces.BOOLEAN}
-//     |   TK_FALSE    {tipoValor = interfaces.BOOLEAN}
-//     |   TK_CADENA   {tipoValor = interfaces.STRING}
-//     |   TK_CARACTER {tipoValor = interfaces.CHAR}
-//     |   TK_ID       {tipoValor = interfaces.IDENTIFICADOR}
-//     ;
-

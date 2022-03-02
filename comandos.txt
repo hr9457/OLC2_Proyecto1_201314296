@@ -1,5 +1,6 @@
 
 --instalacion de antlr y go--
+go init "nombre que le queremos iniciarlizar el proyecto para menejo de paqueteria"
 go get github.com/antlr/antlr4/runtime/Go/antlr@master
 go mod tidy
 

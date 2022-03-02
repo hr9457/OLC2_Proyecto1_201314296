@@ -9,3 +9,7 @@ package interfaces
 type Expresion interface {
 	Ejecutar() Simbolo
 }
+
+type Instruction interface {
+	Ejecutar() interface{}
+}

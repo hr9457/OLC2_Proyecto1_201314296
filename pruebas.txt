@@ -23,6 +23,11 @@ fn main(){
   println!(10); 
 }
 
+fn main(){
+  println!(5+5); 
+}
+
+
 
 fn main(){ 
 

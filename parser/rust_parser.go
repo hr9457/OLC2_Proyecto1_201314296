@@ -12,6 +12,8 @@ import (
 
 import "Proyecto1/src/interfaces"
 import "Proyecto1/src/expressiones"
+import "Proyecto1/src/instrucciones"
+import "Proyecto1/src/pruebas"
 
 // Suppress unused import errors
 var _ = fmt.Printf
@@ -19,7 +21,7 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 69, 203,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 69, 205,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 3, 2,
 	3, 2, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
@@ -36,78 +38,79 @@ var parserATN = []uint16{
 	3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3,
 	11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11,
 	3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3,
-	11, 3, 11, 3, 11, 3, 11, 3, 11, 7, 11, 182, 10, 11, 12, 11, 14, 11, 185,
-	11, 11, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12,
-	3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 5, 12, 201, 10, 12, 3, 12, 2, 3, 20,
-	13, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 2, 4, 3, 2, 19, 21, 3, 2, 17,
-	18, 2, 223, 2, 24, 3, 2, 2, 2, 4, 46, 3, 2, 2, 2, 6, 57, 3, 2, 2, 2, 8,
-	59, 3, 2, 2, 2, 10, 73, 3, 2, 2, 2, 12, 75, 3, 2, 2, 2, 14, 81, 3, 2, 2,
-	2, 16, 119, 3, 2, 2, 2, 18, 131, 3, 2, 2, 2, 20, 141, 3, 2, 2, 2, 22, 200,
-	3, 2, 2, 2, 24, 25, 5, 4, 3, 2, 25, 26, 7, 2, 2, 3, 26, 27, 8, 2, 1, 2,
-	27, 3, 3, 2, 2, 2, 28, 29, 7, 47, 2, 2, 29, 30, 7, 39, 2, 2, 30, 31, 7,
-	4, 2, 2, 31, 32, 7, 5, 2, 2, 32, 33, 7, 8, 2, 2, 33, 47, 7, 9, 2, 2, 34,
-	35, 7, 47, 2, 2, 35, 36, 7, 39, 2, 2, 36, 37, 7, 4, 2, 2, 37, 38, 7, 5,
-	2, 2, 38, 42, 7, 8, 2, 2, 39, 41, 5, 6, 4, 2, 40, 39, 3, 2, 2, 2, 41, 44,
-	3, 2, 2, 2, 42, 40, 3, 2, 2, 2, 42, 43, 3, 2, 2, 2, 43, 45, 3, 2, 2, 2,
-	44, 42, 3, 2, 2, 2, 45, 47, 7, 9, 2, 2, 46, 28, 3, 2, 2, 2, 46, 34, 3,
-	2, 2, 2, 47, 5, 3, 2, 2, 2, 48, 49, 5, 16, 9, 2, 49, 50, 8, 4, 1, 2, 50,
-	58, 3, 2, 2, 2, 51, 52, 5, 8, 5, 2, 52, 53, 8, 4, 1, 2, 53, 58, 3, 2, 2,
-	2, 54, 55, 5, 10, 6, 2, 55, 56, 8, 4, 1, 2, 56, 58, 3, 2, 2, 2, 57, 48,
-	3, 2, 2, 2, 57, 51, 3, 2, 2, 2, 57, 54, 3, 2, 2, 2, 58, 7, 3, 2, 2, 2,
-	59, 60, 7, 33, 2, 2, 60, 61, 7, 4, 2, 2, 61, 62, 5, 20, 11, 2, 62, 63,
-	7, 5, 2, 2, 63, 64, 7, 10, 2, 2, 64, 65, 8, 5, 1, 2, 65, 9, 3, 2, 2, 2,
-	66, 67, 5, 12, 7, 2, 67, 68, 8, 6, 1, 2, 68, 74, 3, 2, 2, 2, 69, 70, 5,
-	12, 7, 2, 70, 71, 5, 14, 8, 2, 71, 72, 8, 6, 1, 2, 72, 74, 3, 2, 2, 2,
-	73, 66, 3, 2, 2, 2, 73, 69, 3, 2, 2, 2, 74, 11, 3, 2, 2, 2, 75, 76, 7,
-	61, 2, 2, 76, 77, 5, 20, 11, 2, 77, 78, 7, 8, 2, 2, 78, 79, 7, 9, 2, 2,
-	79, 80, 8, 7, 1, 2, 80, 13, 3, 2, 2, 2, 81, 82, 7, 62, 2, 2, 82, 83, 7,
-	8, 2, 2, 83, 84, 7, 9, 2, 2, 84, 15, 3, 2, 2, 2, 85, 86, 7, 41, 2, 2, 86,
-	87, 7, 42, 2, 2, 87, 88, 7, 67, 2, 2, 88, 89, 7, 16, 2, 2, 89, 90, 5, 20,
-	11, 2, 90, 91, 7, 10, 2, 2, 91, 92, 8, 9, 1, 2, 92, 120, 3, 2, 2, 2, 93,
-	94, 7, 41, 2, 2, 94, 95, 7, 67, 2, 2, 95, 96, 7, 16, 2, 2, 96, 97, 5, 20,
-	11, 2, 97, 98, 7, 10, 2, 2, 98, 99, 8, 9, 1, 2, 99, 120, 3, 2, 2, 2, 100,
-	101, 7, 41, 2, 2, 101, 102, 7, 42, 2, 2, 102, 103, 7, 67, 2, 2, 103, 104,
-	7, 11, 2, 2, 104, 105, 5, 18, 10, 2, 105, 106, 7, 16, 2, 2, 106, 107, 5,
-	20, 11, 2, 107, 108, 7, 10, 2, 2, 108, 109, 8, 9, 1, 2, 109, 120, 3, 2,
-	2, 2, 110, 111, 7, 41, 2, 2, 111, 112, 7, 67, 2, 2, 112, 113, 7, 11, 2,
-	2, 113, 114, 5, 18, 10, 2, 114, 115, 7, 16, 2, 2, 115, 116, 5, 20, 11,
-	2, 116, 117, 7, 10, 2, 2, 117, 118, 8, 9, 1, 2, 118, 120, 3, 2, 2, 2, 119,
-	85, 3, 2, 2, 2, 119, 93, 3, 2, 2, 2, 119, 100, 3, 2, 2, 2, 119, 110, 3,
-	2, 2, 2, 120, 17, 3, 2, 2, 2, 121, 122, 7, 34, 2, 2, 122, 132, 8, 10, 1,
-	2, 123, 124, 7, 35, 2, 2, 124, 132, 8, 10, 1, 2, 125, 126, 7, 36, 2, 2,
-	126, 132, 8, 10, 1, 2, 127, 128, 7, 37, 2, 2, 128, 132, 8, 10, 1, 2, 129,
-	130, 7, 38, 2, 2, 130, 132, 8, 10, 1, 2, 131, 121, 3, 2, 2, 2, 131, 123,
-	3, 2, 2, 2, 131, 125, 3, 2, 2, 2, 131, 127, 3, 2, 2, 2, 131, 129, 3, 2,
-	2, 2, 132, 19, 3, 2, 2, 2, 133, 134, 8, 11, 1, 2, 134, 135, 7, 4, 2, 2,
-	135, 136, 5, 20, 11, 2, 136, 137, 7, 5, 2, 2, 137, 142, 3, 2, 2, 2, 138,
-	139, 5, 22, 12, 2, 139, 140, 8, 11, 1, 2, 140, 142, 3, 2, 2, 2, 141, 133,
-	3, 2, 2, 2, 141, 138, 3, 2, 2, 2, 142, 183, 3, 2, 2, 2, 143, 144, 12, 17,
-	2, 2, 144, 145, 9, 2, 2, 2, 145, 182, 5, 20, 11, 18, 146, 147, 12, 16,
-	2, 2, 147, 148, 9, 3, 2, 2, 148, 182, 5, 20, 11, 17, 149, 150, 12, 15,
-	2, 2, 150, 151, 7, 23, 2, 2, 151, 182, 5, 20, 11, 16, 152, 153, 12, 14,
-	2, 2, 153, 154, 7, 3, 2, 2, 154, 182, 5, 20, 11, 15, 155, 156, 12, 12,
-	2, 2, 156, 157, 7, 27, 2, 2, 157, 182, 5, 20, 11, 13, 158, 159, 12, 11,
-	2, 2, 159, 160, 7, 28, 2, 2, 160, 182, 5, 20, 11, 12, 161, 162, 12, 10,
-	2, 2, 162, 163, 7, 14, 2, 2, 163, 182, 5, 20, 11, 11, 164, 165, 12, 9,
-	2, 2, 165, 166, 7, 13, 2, 2, 166, 182, 5, 20, 11, 10, 167, 168, 12, 8,
-	2, 2, 168, 169, 7, 25, 2, 2, 169, 182, 5, 20, 11, 9, 170, 171, 12, 7, 2,
-	2, 171, 172, 7, 26, 2, 2, 172, 182, 5, 20, 11, 8, 173, 174, 12, 6, 2, 2,
-	174, 175, 7, 30, 2, 2, 175, 182, 5, 20, 11, 7, 176, 177, 12, 5, 2, 2, 177,
-	178, 7, 29, 2, 2, 178, 182, 5, 20, 11, 6, 179, 180, 12, 13, 2, 2, 180,
-	182, 7, 22, 2, 2, 181, 143, 3, 2, 2, 2, 181, 146, 3, 2, 2, 2, 181, 149,
-	3, 2, 2, 2, 181, 152, 3, 2, 2, 2, 181, 155, 3, 2, 2, 2, 181, 158, 3, 2,
-	2, 2, 181, 161, 3, 2, 2, 2, 181, 164, 3, 2, 2, 2, 181, 167, 3, 2, 2, 2,
-	181, 170, 3, 2, 2, 2, 181, 173, 3, 2, 2, 2, 181, 176, 3, 2, 2, 2, 181,
-	179, 3, 2, 2, 2, 182, 185, 3, 2, 2, 2, 183, 181, 3, 2, 2, 2, 183, 184,
-	3, 2, 2, 2, 184, 21, 3, 2, 2, 2, 185, 183, 3, 2, 2, 2, 186, 187, 7, 63,
-	2, 2, 187, 201, 8, 12, 1, 2, 188, 189, 7, 64, 2, 2, 189, 201, 8, 12, 1,
-	2, 190, 191, 7, 45, 2, 2, 191, 201, 8, 12, 1, 2, 192, 193, 7, 46, 2, 2,
-	193, 201, 8, 12, 1, 2, 194, 195, 7, 65, 2, 2, 195, 201, 8, 12, 1, 2, 196,
-	197, 7, 66, 2, 2, 197, 201, 8, 12, 1, 2, 198, 199, 7, 67, 2, 2, 199, 201,
-	8, 12, 1, 2, 200, 186, 3, 2, 2, 2, 200, 188, 3, 2, 2, 2, 200, 190, 3, 2,
-	2, 2, 200, 192, 3, 2, 2, 2, 200, 194, 3, 2, 2, 2, 200, 196, 3, 2, 2, 2,
-	200, 198, 3, 2, 2, 2, 201, 23, 3, 2, 2, 2, 12, 42, 46, 57, 73, 119, 131,
-	141, 181, 183, 200,
+	11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 3, 11, 7, 11, 184, 10, 11, 12, 11,
+	14, 11, 187, 11, 11, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3,
+	12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 5, 12, 203, 10, 12, 3, 12,
+	2, 3, 20, 13, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 2, 4, 3, 2, 19, 21,
+	3, 2, 17, 18, 2, 225, 2, 24, 3, 2, 2, 2, 4, 46, 3, 2, 2, 2, 6, 57, 3, 2,
+	2, 2, 8, 59, 3, 2, 2, 2, 10, 73, 3, 2, 2, 2, 12, 75, 3, 2, 2, 2, 14, 81,
+	3, 2, 2, 2, 16, 119, 3, 2, 2, 2, 18, 131, 3, 2, 2, 2, 20, 141, 3, 2, 2,
+	2, 22, 202, 3, 2, 2, 2, 24, 25, 5, 4, 3, 2, 25, 26, 7, 2, 2, 3, 26, 27,
+	8, 2, 1, 2, 27, 3, 3, 2, 2, 2, 28, 29, 7, 47, 2, 2, 29, 30, 7, 39, 2, 2,
+	30, 31, 7, 4, 2, 2, 31, 32, 7, 5, 2, 2, 32, 33, 7, 8, 2, 2, 33, 47, 7,
+	9, 2, 2, 34, 35, 7, 47, 2, 2, 35, 36, 7, 39, 2, 2, 36, 37, 7, 4, 2, 2,
+	37, 38, 7, 5, 2, 2, 38, 42, 7, 8, 2, 2, 39, 41, 5, 6, 4, 2, 40, 39, 3,
+	2, 2, 2, 41, 44, 3, 2, 2, 2, 42, 40, 3, 2, 2, 2, 42, 43, 3, 2, 2, 2, 43,
+	45, 3, 2, 2, 2, 44, 42, 3, 2, 2, 2, 45, 47, 7, 9, 2, 2, 46, 28, 3, 2, 2,
+	2, 46, 34, 3, 2, 2, 2, 47, 5, 3, 2, 2, 2, 48, 49, 5, 16, 9, 2, 49, 50,
+	8, 4, 1, 2, 50, 58, 3, 2, 2, 2, 51, 52, 5, 8, 5, 2, 52, 53, 8, 4, 1, 2,
+	53, 58, 3, 2, 2, 2, 54, 55, 5, 10, 6, 2, 55, 56, 8, 4, 1, 2, 56, 58, 3,
+	2, 2, 2, 57, 48, 3, 2, 2, 2, 57, 51, 3, 2, 2, 2, 57, 54, 3, 2, 2, 2, 58,
+	7, 3, 2, 2, 2, 59, 60, 7, 33, 2, 2, 60, 61, 7, 4, 2, 2, 61, 62, 5, 20,
+	11, 2, 62, 63, 7, 5, 2, 2, 63, 64, 7, 10, 2, 2, 64, 65, 8, 5, 1, 2, 65,
+	9, 3, 2, 2, 2, 66, 67, 5, 12, 7, 2, 67, 68, 8, 6, 1, 2, 68, 74, 3, 2, 2,
+	2, 69, 70, 5, 12, 7, 2, 70, 71, 5, 14, 8, 2, 71, 72, 8, 6, 1, 2, 72, 74,
+	3, 2, 2, 2, 73, 66, 3, 2, 2, 2, 73, 69, 3, 2, 2, 2, 74, 11, 3, 2, 2, 2,
+	75, 76, 7, 61, 2, 2, 76, 77, 5, 20, 11, 2, 77, 78, 7, 8, 2, 2, 78, 79,
+	7, 9, 2, 2, 79, 80, 8, 7, 1, 2, 80, 13, 3, 2, 2, 2, 81, 82, 7, 62, 2, 2,
+	82, 83, 7, 8, 2, 2, 83, 84, 7, 9, 2, 2, 84, 15, 3, 2, 2, 2, 85, 86, 7,
+	41, 2, 2, 86, 87, 7, 42, 2, 2, 87, 88, 7, 67, 2, 2, 88, 89, 7, 16, 2, 2,
+	89, 90, 5, 20, 11, 2, 90, 91, 7, 10, 2, 2, 91, 92, 8, 9, 1, 2, 92, 120,
+	3, 2, 2, 2, 93, 94, 7, 41, 2, 2, 94, 95, 7, 67, 2, 2, 95, 96, 7, 16, 2,
+	2, 96, 97, 5, 20, 11, 2, 97, 98, 7, 10, 2, 2, 98, 99, 8, 9, 1, 2, 99, 120,
+	3, 2, 2, 2, 100, 101, 7, 41, 2, 2, 101, 102, 7, 42, 2, 2, 102, 103, 7,
+	67, 2, 2, 103, 104, 7, 11, 2, 2, 104, 105, 5, 18, 10, 2, 105, 106, 7, 16,
+	2, 2, 106, 107, 5, 20, 11, 2, 107, 108, 7, 10, 2, 2, 108, 109, 8, 9, 1,
+	2, 109, 120, 3, 2, 2, 2, 110, 111, 7, 41, 2, 2, 111, 112, 7, 67, 2, 2,
+	112, 113, 7, 11, 2, 2, 113, 114, 5, 18, 10, 2, 114, 115, 7, 16, 2, 2, 115,
+	116, 5, 20, 11, 2, 116, 117, 7, 10, 2, 2, 117, 118, 8, 9, 1, 2, 118, 120,
+	3, 2, 2, 2, 119, 85, 3, 2, 2, 2, 119, 93, 3, 2, 2, 2, 119, 100, 3, 2, 2,
+	2, 119, 110, 3, 2, 2, 2, 120, 17, 3, 2, 2, 2, 121, 122, 7, 34, 2, 2, 122,
+	132, 8, 10, 1, 2, 123, 124, 7, 35, 2, 2, 124, 132, 8, 10, 1, 2, 125, 126,
+	7, 36, 2, 2, 126, 132, 8, 10, 1, 2, 127, 128, 7, 37, 2, 2, 128, 132, 8,
+	10, 1, 2, 129, 130, 7, 38, 2, 2, 130, 132, 8, 10, 1, 2, 131, 121, 3, 2,
+	2, 2, 131, 123, 3, 2, 2, 2, 131, 125, 3, 2, 2, 2, 131, 127, 3, 2, 2, 2,
+	131, 129, 3, 2, 2, 2, 132, 19, 3, 2, 2, 2, 133, 134, 8, 11, 1, 2, 134,
+	135, 7, 4, 2, 2, 135, 136, 5, 20, 11, 2, 136, 137, 7, 5, 2, 2, 137, 142,
+	3, 2, 2, 2, 138, 139, 5, 22, 12, 2, 139, 140, 8, 11, 1, 2, 140, 142, 3,
+	2, 2, 2, 141, 133, 3, 2, 2, 2, 141, 138, 3, 2, 2, 2, 142, 185, 3, 2, 2,
+	2, 143, 144, 12, 17, 2, 2, 144, 145, 9, 2, 2, 2, 145, 184, 5, 20, 11, 18,
+	146, 147, 12, 16, 2, 2, 147, 148, 9, 3, 2, 2, 148, 149, 5, 20, 11, 17,
+	149, 150, 8, 11, 1, 2, 150, 184, 3, 2, 2, 2, 151, 152, 12, 15, 2, 2, 152,
+	153, 7, 23, 2, 2, 153, 184, 5, 20, 11, 16, 154, 155, 12, 14, 2, 2, 155,
+	156, 7, 3, 2, 2, 156, 184, 5, 20, 11, 15, 157, 158, 12, 12, 2, 2, 158,
+	159, 7, 27, 2, 2, 159, 184, 5, 20, 11, 13, 160, 161, 12, 11, 2, 2, 161,
+	162, 7, 28, 2, 2, 162, 184, 5, 20, 11, 12, 163, 164, 12, 10, 2, 2, 164,
+	165, 7, 14, 2, 2, 165, 184, 5, 20, 11, 11, 166, 167, 12, 9, 2, 2, 167,
+	168, 7, 13, 2, 2, 168, 184, 5, 20, 11, 10, 169, 170, 12, 8, 2, 2, 170,
+	171, 7, 25, 2, 2, 171, 184, 5, 20, 11, 9, 172, 173, 12, 7, 2, 2, 173, 174,
+	7, 26, 2, 2, 174, 184, 5, 20, 11, 8, 175, 176, 12, 6, 2, 2, 176, 177, 7,
+	30, 2, 2, 177, 184, 5, 20, 11, 7, 178, 179, 12, 5, 2, 2, 179, 180, 7, 29,
+	2, 2, 180, 184, 5, 20, 11, 6, 181, 182, 12, 13, 2, 2, 182, 184, 7, 22,
+	2, 2, 183, 143, 3, 2, 2, 2, 183, 146, 3, 2, 2, 2, 183, 151, 3, 2, 2, 2,
+	183, 154, 3, 2, 2, 2, 183, 157, 3, 2, 2, 2, 183, 160, 3, 2, 2, 2, 183,
+	163, 3, 2, 2, 2, 183, 166, 3, 2, 2, 2, 183, 169, 3, 2, 2, 2, 183, 172,
+	3, 2, 2, 2, 183, 175, 3, 2, 2, 2, 183, 178, 3, 2, 2, 2, 183, 181, 3, 2,
+	2, 2, 184, 187, 3, 2, 2, 2, 185, 183, 3, 2, 2, 2, 185, 186, 3, 2, 2, 2,
+	186, 21, 3, 2, 2, 2, 187, 185, 3, 2, 2, 2, 188, 189, 7, 63, 2, 2, 189,
+	203, 8, 12, 1, 2, 190, 191, 7, 64, 2, 2, 191, 203, 8, 12, 1, 2, 192, 193,
+	7, 45, 2, 2, 193, 203, 8, 12, 1, 2, 194, 195, 7, 46, 2, 2, 195, 203, 8,
+	12, 1, 2, 196, 197, 7, 65, 2, 2, 197, 203, 8, 12, 1, 2, 198, 199, 7, 66,
+	2, 2, 199, 203, 8, 12, 1, 2, 200, 201, 7, 67, 2, 2, 201, 203, 8, 12, 1,
+	2, 202, 188, 3, 2, 2, 2, 202, 190, 3, 2, 2, 2, 202, 192, 3, 2, 2, 2, 202,
+	194, 3, 2, 2, 2, 202, 196, 3, 2, 2, 2, 202, 198, 3, 2, 2, 2, 202, 200,
+	3, 2, 2, 2, 203, 23, 3, 2, 2, 2, 12, 42, 46, 57, 73, 119, 131, 141, 183,
+	185, 202,
 }
 var literalNames = []string{
 	"", "'^'", "'('", "')'", "'['", "']'", "'{'", "'}'", "';'", "':'", "','",
@@ -580,8 +583,14 @@ type IInstruccionesContext interface {
 	// Get_variable returns the _variable rule contexts.
 	Get_variable() IVariableContext
 
+	// Get_impresion returns the _impresion rule contexts.
+	Get_impresion() IImpresionContext
+
 	// Set_variable sets the _variable rule contexts.
 	Set_variable(IVariableContext)
+
+	// Set_impresion sets the _impresion rule contexts.
+	Set_impresion(IImpresionContext)
 
 	// IsInstruccionesContext differentiates from other interfaces.
 	IsInstruccionesContext()
@@ -589,8 +598,9 @@ type IInstruccionesContext interface {
 
 type InstruccionesContext struct {
 	*antlr.BaseParserRuleContext
-	parser    antlr.Parser
-	_variable IVariableContext
+	parser     antlr.Parser
+	_variable  IVariableContext
+	_impresion IImpresionContext
 }
 
 func NewEmptyInstruccionesContext() *InstruccionesContext {
@@ -617,7 +627,11 @@ func (s *InstruccionesContext) GetParser() antlr.Parser { return s.parser }
 
 func (s *InstruccionesContext) Get_variable() IVariableContext { return s._variable }
 
+func (s *InstruccionesContext) Get_impresion() IImpresionContext { return s._impresion }
+
 func (s *InstruccionesContext) Set_variable(v IVariableContext) { s._variable = v }
+
+func (s *InstruccionesContext) Set_impresion(v IImpresionContext) { s._impresion = v }
 
 func (s *InstruccionesContext) Variable() IVariableContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IVariableContext)(nil)).Elem(), 0)
@@ -711,8 +725,12 @@ func (p *rustParser) Instrucciones() (localctx IInstruccionesContext) {
 		p.EnterOuterAlt(localctx, 2)
 		{
 			p.SetState(49)
-			p.Impresion()
+
+			var _x = p.Impresion()
+
+			localctx.(*InstruccionesContext)._impresion = _x
 		}
+		pruebas.Probar(localctx.(*InstruccionesContext).Get_impresion().GetP())
 
 	case rustParserTK_IF:
 		p.EnterOuterAlt(localctx, 3)
@@ -741,6 +759,12 @@ type IImpresionContext interface {
 	// Set_expresion sets the _expresion rule contexts.
 	Set_expresion(IExpresionContext)
 
+	// GetP returns the p attribute.
+	GetP() interfaces.Instruction
+
+	// SetP sets the p attribute.
+	SetP(interfaces.Instruction)
+
 	// IsImpresionContext differentiates from other interfaces.
 	IsImpresionContext()
 }
@@ -748,6 +772,7 @@ type IImpresionContext interface {
 type ImpresionContext struct {
 	*antlr.BaseParserRuleContext
 	parser     antlr.Parser
+	p          interfaces.Instruction
 	_expresion IExpresionContext
 }
 
@@ -776,6 +801,10 @@ func (s *ImpresionContext) GetParser() antlr.Parser { return s.parser }
 func (s *ImpresionContext) Get_expresion() IExpresionContext { return s._expresion }
 
 func (s *ImpresionContext) Set_expresion(v IExpresionContext) { s._expresion = v }
+
+func (s *ImpresionContext) GetP() interfaces.Instruction { return s.p }
+
+func (s *ImpresionContext) SetP(v interfaces.Instruction) { s.p = v }
 
 func (s *ImpresionContext) TK_IMPRESION() antlr.TerminalNode {
 	return s.GetToken(rustParserTK_IMPRESION, 0)
@@ -870,7 +899,10 @@ func (p *rustParser) Impresion() (localctx IImpresionContext) {
 		p.SetState(61)
 		p.Match(rustParserTK_PUNTO_COMA)
 	}
+
+	fmt.Println("Aca este println")
 	fmt.Println(localctx.(*ImpresionContext).Get_expresion().GetPrimate())
+	localctx.(*ImpresionContext).p = instrucciones.NewImprimir(localctx.(*ImpresionContext).Get_expresion().GetPrimate())
 
 	return localctx
 }
@@ -1781,17 +1813,35 @@ type IExpresionContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetOp returns the op token.
+	GetOp() antlr.Token
+
+	// SetOp sets the op token.
+	SetOp(antlr.Token)
+
+	// GetLeft returns the left rule contexts.
+	GetLeft() IExpresionContext
+
 	// Get_valor returns the _valor rule contexts.
 	Get_valor() IValorContext
+
+	// GetRight returns the right rule contexts.
+	GetRight() IExpresionContext
+
+	// SetLeft sets the left rule contexts.
+	SetLeft(IExpresionContext)
 
 	// Set_valor sets the _valor rule contexts.
 	Set_valor(IValorContext)
 
+	// SetRight sets the right rule contexts.
+	SetRight(IExpresionContext)
+
 	// GetPrimate returns the primate attribute.
-	GetPrimate() interface{}
+	GetPrimate() interfaces.Expresion
 
 	// SetPrimate sets the primate attribute.
-	SetPrimate(interface{})
+	SetPrimate(interfaces.Expresion)
 
 	// IsExpresionContext differentiates from other interfaces.
 	IsExpresionContext()
@@ -1800,8 +1850,11 @@ type IExpresionContext interface {
 type ExpresionContext struct {
 	*antlr.BaseParserRuleContext
 	parser  antlr.Parser
-	primate interface{}
+	primate interfaces.Expresion
+	left    IExpresionContext
 	_valor  IValorContext
+	op      antlr.Token
+	right   IExpresionContext
 }
 
 func NewEmptyExpresionContext() *ExpresionContext {
@@ -1826,13 +1879,25 @@ func NewExpresionContext(parser antlr.Parser, parent antlr.ParserRuleContext, in
 
 func (s *ExpresionContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *ExpresionContext) GetOp() antlr.Token { return s.op }
+
+func (s *ExpresionContext) SetOp(v antlr.Token) { s.op = v }
+
+func (s *ExpresionContext) GetLeft() IExpresionContext { return s.left }
+
 func (s *ExpresionContext) Get_valor() IValorContext { return s._valor }
+
+func (s *ExpresionContext) GetRight() IExpresionContext { return s.right }
+
+func (s *ExpresionContext) SetLeft(v IExpresionContext) { s.left = v }
 
 func (s *ExpresionContext) Set_valor(v IValorContext) { s._valor = v }
 
-func (s *ExpresionContext) GetPrimate() interface{} { return s.primate }
+func (s *ExpresionContext) SetRight(v IExpresionContext) { s.right = v }
 
-func (s *ExpresionContext) SetPrimate(v interface{}) { s.primate = v }
+func (s *ExpresionContext) GetPrimate() interfaces.Expresion { return s.primate }
+
+func (s *ExpresionContext) SetPrimate(v interfaces.Expresion) { s.primate = v }
 
 func (s *ExpresionContext) TK_PARENTESIS_LEFT() antlr.TerminalNode {
 	return s.GetToken(rustParserTK_PARENTESIS_LEFT, 0)
@@ -2026,7 +2091,7 @@ func (p *rustParser) expresion(_p int) (localctx IExpresionContext) {
 		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(181)
+	p.SetState(183)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 8, p.GetParserRuleContext())
 
@@ -2036,7 +2101,7 @@ func (p *rustParser) expresion(_p int) (localctx IExpresionContext) {
 				p.TriggerExitRuleEvent()
 			}
 			_prevctx = localctx
-			p.SetState(179)
+			p.SetState(181)
 			p.GetErrorHandler().Sync(p)
 			switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 7, p.GetParserRuleContext()) {
 			case 1:
@@ -2065,6 +2130,7 @@ func (p *rustParser) expresion(_p int) (localctx IExpresionContext) {
 
 			case 2:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
+				localctx.(*ExpresionContext).left = _prevctx
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
 				p.SetState(144)
 
@@ -2073,10 +2139,17 @@ func (p *rustParser) expresion(_p int) (localctx IExpresionContext) {
 				}
 				{
 					p.SetState(145)
+
+					var _lt = p.GetTokenStream().LT(1)
+
+					localctx.(*ExpresionContext).op = _lt
+
 					_la = p.GetTokenStream().LA(1)
 
 					if !(_la == rustParserTK_MAS || _la == rustParserTK_MENOS) {
-						p.GetErrorHandler().RecoverInline(p)
+						var _ri = p.GetErrorHandler().RecoverInline(p)
+
+						localctx.(*ExpresionContext).op = _ri
 					} else {
 						p.GetErrorHandler().ReportMatch(p)
 						p.Consume()
@@ -2084,196 +2157,206 @@ func (p *rustParser) expresion(_p int) (localctx IExpresionContext) {
 				}
 				{
 					p.SetState(146)
-					p.expresion(15)
+
+					var _x = p.expresion(15)
+
+					localctx.(*ExpresionContext).right = _x
 				}
+				localctx.(*ExpresionContext).primate = expressiones.NewOperacion(localctx.(*ExpresionContext).GetLeft().GetPrimate(), (func() string {
+					if localctx.(*ExpresionContext).GetOp() == nil {
+						return ""
+					} else {
+						return localctx.(*ExpresionContext).GetOp().GetText()
+					}
+				}()), localctx.(*ExpresionContext).GetRight().GetPrimate())
 
 			case 3:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(147)
+				p.SetState(149)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 13)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 13)", ""))
 				}
 				{
-					p.SetState(148)
+					p.SetState(150)
 					p.Match(rustParserTK_AMPERSAND)
 				}
 				{
-					p.SetState(149)
+					p.SetState(151)
 					p.expresion(14)
 				}
 
 			case 4:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(150)
+				p.SetState(152)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 12)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 12)", ""))
 				}
 				{
-					p.SetState(151)
+					p.SetState(153)
 					p.Match(rustParserT__0)
 				}
 				{
-					p.SetState(152)
+					p.SetState(154)
 					p.expresion(13)
 				}
 
 			case 5:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(153)
+				p.SetState(155)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 10)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 10)", ""))
 				}
 				{
-					p.SetState(154)
+					p.SetState(156)
 					p.Match(rustParserTK_IGUALIGUAL)
 				}
 				{
-					p.SetState(155)
+					p.SetState(157)
 					p.expresion(11)
 				}
 
 			case 6:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(156)
+				p.SetState(158)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 9)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 9)", ""))
 				}
 				{
-					p.SetState(157)
+					p.SetState(159)
 					p.Match(rustParserTK_DIFERENTE)
 				}
 				{
-					p.SetState(158)
+					p.SetState(160)
 					p.expresion(10)
 				}
 
 			case 7:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(159)
+				p.SetState(161)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 8)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 8)", ""))
 				}
 				{
-					p.SetState(160)
+					p.SetState(162)
 					p.Match(rustParserTK_MAYOR)
 				}
 				{
-					p.SetState(161)
+					p.SetState(163)
 					p.expresion(9)
 				}
 
 			case 8:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(162)
+				p.SetState(164)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 7)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 7)", ""))
 				}
 				{
-					p.SetState(163)
+					p.SetState(165)
 					p.Match(rustParserTK_MENOR)
 				}
 				{
-					p.SetState(164)
+					p.SetState(166)
 					p.expresion(8)
 				}
 
 			case 9:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(165)
+				p.SetState(167)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 6)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 6)", ""))
 				}
 				{
-					p.SetState(166)
+					p.SetState(168)
 					p.Match(rustParserTK_MAYORIGULA)
 				}
 				{
-					p.SetState(167)
+					p.SetState(169)
 					p.expresion(7)
 				}
 
 			case 10:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(168)
+				p.SetState(170)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
 				}
 				{
-					p.SetState(169)
+					p.SetState(171)
 					p.Match(rustParserTK_MENOIGUAL)
 				}
 				{
-					p.SetState(170)
+					p.SetState(172)
 					p.expresion(6)
 				}
 
 			case 11:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(171)
+				p.SetState(173)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 4)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 4)", ""))
 				}
 				{
-					p.SetState(172)
+					p.SetState(174)
 					p.Match(rustParserTK_AND)
 				}
 				{
-					p.SetState(173)
+					p.SetState(175)
 					p.expresion(5)
 				}
 
 			case 12:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(174)
+				p.SetState(176)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 3)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 3)", ""))
 				}
 				{
-					p.SetState(175)
+					p.SetState(177)
 					p.Match(rustParserTK_OR)
 				}
 				{
-					p.SetState(176)
+					p.SetState(178)
 					p.expresion(4)
 				}
 
 			case 13:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
-				p.SetState(177)
+				p.SetState(179)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 11)) {
 					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 11)", ""))
 				}
 				{
-					p.SetState(178)
+					p.SetState(180)
 					p.Match(rustParserTK_BARRA)
 				}
 
 			}
 
 		}
-		p.SetState(183)
+		p.SetState(185)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 8, p.GetParserRuleContext())
 	}
@@ -2291,8 +2374,14 @@ type IValorContext interface {
 	// Get_TK_NUMBER returns the _TK_NUMBER token.
 	Get_TK_NUMBER() antlr.Token
 
+	// Get_TK_DECIMAL returns the _TK_DECIMAL token.
+	Get_TK_DECIMAL() antlr.Token
+
 	// Set_TK_NUMBER sets the _TK_NUMBER token.
 	Set_TK_NUMBER(antlr.Token)
+
+	// Set_TK_DECIMAL sets the _TK_DECIMAL token.
+	Set_TK_DECIMAL(antlr.Token)
 
 	// GetPrimate returns the primate attribute.
 	GetPrimate() interfaces.Expresion
@@ -2306,9 +2395,10 @@ type IValorContext interface {
 
 type ValorContext struct {
 	*antlr.BaseParserRuleContext
-	parser     antlr.Parser
-	primate    interfaces.Expresion
-	_TK_NUMBER antlr.Token
+	parser      antlr.Parser
+	primate     interfaces.Expresion
+	_TK_NUMBER  antlr.Token
+	_TK_DECIMAL antlr.Token
 }
 
 func NewEmptyValorContext() *ValorContext {
@@ -2335,7 +2425,11 @@ func (s *ValorContext) GetParser() antlr.Parser { return s.parser }
 
 func (s *ValorContext) Get_TK_NUMBER() antlr.Token { return s._TK_NUMBER }
 
+func (s *ValorContext) Get_TK_DECIMAL() antlr.Token { return s._TK_DECIMAL }
+
 func (s *ValorContext) Set_TK_NUMBER(v antlr.Token) { s._TK_NUMBER = v }
+
+func (s *ValorContext) Set_TK_DECIMAL(v antlr.Token) { s._TK_DECIMAL = v }
 
 func (s *ValorContext) GetPrimate() interfaces.Expresion { return s.primate }
 
@@ -2412,67 +2506,76 @@ func (p *rustParser) Valor() (localctx IValorContext) {
 		}
 	}()
 
-	p.SetState(198)
+	p.SetState(200)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case rustParserTK_NUMBER:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(184)
+			p.SetState(186)
 
 			var _m = p.Match(rustParserTK_NUMBER)
 
 			localctx.(*ValorContext)._TK_NUMBER = _m
 		}
-
-		localctx.(*ValorContext).primate = expressiones.NewPrimito((func() string {
+		localctx.(*ValorContext).primate = expressiones.NewPrimito(interfaces.ConvertTextInt((func() string {
 			if localctx.(*ValorContext).Get_TK_NUMBER() == nil {
 				return ""
 			} else {
 				return localctx.(*ValorContext).Get_TK_NUMBER().GetText()
 			}
-		}()), interfaces.INTEGER)
+		}())), interfaces.INTEGER)
 
 	case rustParserTK_DECIMAL:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(186)
-			p.Match(rustParserTK_DECIMAL)
+			p.SetState(188)
+
+			var _m = p.Match(rustParserTK_DECIMAL)
+
+			localctx.(*ValorContext)._TK_DECIMAL = _m
 		}
+		localctx.(*ValorContext).primate = expressiones.NewPrimito(interfaces.ConvertTextFloat((func() string {
+			if localctx.(*ValorContext).Get_TK_DECIMAL() == nil {
+				return ""
+			} else {
+				return localctx.(*ValorContext).Get_TK_DECIMAL().GetText()
+			}
+		}())), interfaces.FLOAT)
 
 	case rustParserTK_TRUE:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(188)
+			p.SetState(190)
 			p.Match(rustParserTK_TRUE)
 		}
 
 	case rustParserTK_FALSE:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(190)
+			p.SetState(192)
 			p.Match(rustParserTK_FALSE)
 		}
 
 	case rustParserTK_CADENA:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(192)
+			p.SetState(194)
 			p.Match(rustParserTK_CADENA)
 		}
 
 	case rustParserTK_CARACTER:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(194)
+			p.SetState(196)
 			p.Match(rustParserTK_CARACTER)
 		}
 
 	case rustParserTK_ID:
 		p.EnterOuterAlt(localctx, 7)
 		{
-			p.SetState(196)
+			p.SetState(198)
 			p.Match(rustParserTK_ID)
 		}
 
