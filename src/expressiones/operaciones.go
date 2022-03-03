@@ -20,9 +20,9 @@ func NewOperacion(leftOperation interfaces.Expresion, symbolOperation string, ri
 
 // funcion para realizar operacion aritemticas suma
 func (op Aritmetica) Ejecutar() interfaces.Simbolo {
-	v := op.LeftOperation.Ejecutar().Valor
+	v := op.LeftOperation.Ejecutar().Valor.(int) + op.RighthOpertion.Ejecutar().Valor.(int)
 	fmt.Println(v)
 	// todos los casos de operacion
-	return interfaces.Simbolo{Id: "", Valor: 10, Mut: "", Tipo: 0}
+	return interfaces.Simbolo{Id: "", Valor: v, Mut: "", Tipo: 0}
 
 }
