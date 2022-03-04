@@ -16,10 +16,10 @@ func NewImprimir(contendio interfaces.Expresion) Imprimir {
 }
 
 // ejecutando lo metodos que ncesita ejectura dentro del print
-func (imprimir Imprimir) Ejecutar() interface{} {
+func (imprimir Imprimir) Ejecutar(entorno interface{}) interface{} {
 	var resultado interfaces.Simbolo
-	resultado = imprimir.Contenido.Ejecutar()
-	fmt.Println("Mostrando lo que tiene que estar dentro del println")
-	fmt.Println(resultado.Valor)
-	return resultado
+	fmt.Println("Contendio a imprimir en el println: ", imprimir.Contenido)
+	resultado = imprimir.Contenido.Ejecutar(entorno)
+	fmt.Println("Mostrando lo que tiene que estar dentro del println: ", resultado.Valor)
+	return resultado.Valor
 }

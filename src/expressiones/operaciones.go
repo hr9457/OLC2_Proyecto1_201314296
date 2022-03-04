@@ -2,7 +2,6 @@ package expressiones
 
 import (
 	"Proyecto1/src/interfaces"
-	"fmt"
 )
 
 // estructura de una oepraicon artimetica
@@ -19,10 +18,29 @@ func NewOperacion(leftOperation interfaces.Expresion, symbolOperation string, ri
 }
 
 // funcion para realizar operacion aritemticas suma
-func (op Aritmetica) Ejecutar() interfaces.Simbolo {
-	v := op.LeftOperation.Ejecutar().Valor.(int) + op.RighthOpertion.Ejecutar().Valor.(int)
-	fmt.Println(v)
-	// todos los casos de operacion
-	return interfaces.Simbolo{Id: "", Valor: v, Mut: "", Tipo: 0}
+func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
+	var resultado interface{}
+	//creacon del swtich case para ver el tipo de operacion
+	switch op.SymbolOperation {
+	case "+":
+		{
+			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) + op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+		}
+	case "-":
+		{
+			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) - op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+		}
+	case "*":
+		{
+			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) * op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+		}
+	case "/":
+		{
+			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) / op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+		}
 
+	}
+	//retorno del simbolo como tal
+	// todos los casos de operacion
+	return interfaces.Simbolo{Id: "", Valor: resultado, Mut: "", Tipo: 0}
 }

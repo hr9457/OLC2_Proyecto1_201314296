@@ -24,7 +24,13 @@ fn main(){
 }
 
 fn main(){
+  let mut variable1: int = 3;
   println!(5+5); 
+}
+
+fn main(){
+  let mut variable1: i64 = 3;
+  println!(variable1); 
 }
 
 

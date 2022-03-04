@@ -7,9 +7,11 @@ package interfaces
 
 // donde se hereda se tenga la posibilidad de teneer un metodo ejecutar
 type Expresion interface {
-	Ejecutar() Simbolo
+	Ejecutar(entorno interface{}) Simbolo
 }
 
+//func Ejecutar() {Simbolo}{}
+
 type Instruction interface {
-	Ejecutar() interface{}
+	Ejecutar(entorno interface{}) interface{}
 }
