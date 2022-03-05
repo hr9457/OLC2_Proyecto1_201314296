@@ -2,6 +2,8 @@ package expressiones
 
 import (
 	"Proyecto1/src/interfaces"
+	"fmt"
+	"math"
 )
 
 // estructura de una oepraicon artimetica
@@ -20,26 +22,76 @@ func NewOperacion(leftOperation interfaces.Expresion, symbolOperation string, ri
 // funcion para realizar operacion aritemticas suma
 func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 	var resultado interface{}
-	//creacon del swtich case para ver el tipo de operacion
-	switch op.SymbolOperation {
-	case "+":
-		{
-			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) + op.RighthOpertion.Ejecutar(entorno).Valor.(int)
-		}
-	case "-":
-		{
-			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) - op.RighthOpertion.Ejecutar(entorno).Valor.(int)
-		}
-	case "*":
-		{
-			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) * op.RighthOpertion.Ejecutar(entorno).Valor.(int)
-		}
-	case "/":
-		{
-			resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) / op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+
+	//verificacion de tipos
+	if op.LeftOperation.Ejecutar(entorno).Tipo == op.RighthOpertion.Ejecutar(entorno).Tipo {
+		// comparamos el tipo de valor para operar
+
+		switch op.LeftOperation.Ejecutar(entorno).Tipo {
+
+		// cuando las operaciones son de tipo integer
+		case interfaces.INTEGER:
+			{
+				//creacon del swtich case para ver el tipo de operacion
+				switch op.SymbolOperation {
+				case "+":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) + op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+					}
+				case "-":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) - op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+					}
+				case "*":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) * op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+					}
+				case "/":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) / op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+					}
+				case "%":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) % op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+					}
+				}
+			}
+
+			//cuando las operaciones son de tipo flotante
+		case interfaces.FLOAT:
+			{
+				//creacon del swtich case para ver el tipo de operacion
+				switch op.SymbolOperation {
+				case "+":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) + op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+					}
+				case "-":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) - op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+					}
+				case "*":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) * op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+					}
+				case "/":
+					{
+						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) / op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+					}
+				case "%":
+					{
+						resultado = math.Mod(op.LeftOperation.Ejecutar(entorno).Valor.(float64), op.RighthOpertion.Ejecutar(entorno).Valor.(float64))
+					}
+				}
+			}
+
 		}
 
+	} else {
+		fmt.Println("Error Semantico: operadores no son del mismo tipo")
+		resultado = 0
 	}
+
 	//retorno del simbolo como tal
 	// todos los casos de operacion
 	return interfaces.Simbolo{Id: "", Valor: resultado, Mut: "", Tipo: 0}

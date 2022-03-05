@@ -19,14 +19,6 @@ fn main(){
     let x = 3;  
 }
 
-fn main(){
-  println!(10); 
-}
-
-fn main(){
-  let mut variable1: int = 3;
-  println!(5+5); 
-}
 
 fn main(){
   let mut variable1: i64 = 3;
@@ -34,25 +26,3 @@ fn main(){
 }
 
 
-
-fn main(){ 
-
-  if 3>=2{  
-
-  } else{
-
-  }
-
-}
-
-fn main(){ 
-
-  if 3>=2{  
-
-  } else if n == 10{ 
-
-  } else { 
-
-  }
-
-}
