@@ -41,3 +41,7 @@ fn main(){
   println!("hola mundo");
   println!('c');
 }
+
+fn main(){
+  println!(3>2 && 5>2);
+}

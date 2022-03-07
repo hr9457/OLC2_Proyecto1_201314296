@@ -22,6 +22,7 @@ func NewOperacion(leftOperation interfaces.Expresion, symbolOperation string, ri
 // funcion para realizar operacion aritemticas suma
 func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 	var resultado interface{}
+	var resultadoTipo interfaces.TipoExpression
 
 	//verificacion de tipos
 	if op.LeftOperation.Ejecutar(entorno).Tipo == op.RighthOpertion.Ejecutar(entorno).Tipo {
@@ -37,22 +38,27 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 				case "+":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) + op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+						resultadoTipo = interfaces.INTEGER
 					}
 				case "-":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) - op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+						resultadoTipo = interfaces.INTEGER
 					}
 				case "*":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) * op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+						resultadoTipo = interfaces.INTEGER
 					}
 				case "/":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) / op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+						resultadoTipo = interfaces.INTEGER
 					}
 				case "%":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) % op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+						resultadoTipo = interfaces.INTEGER
 					}
 				case "==":
 					{
@@ -61,6 +67,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case "!=":
 					{
@@ -69,6 +76,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case ">":
 					{
@@ -77,6 +85,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case "<":
 					{
@@ -85,6 +94,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case ">=":
 					{
@@ -93,6 +103,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case "<=":
 					{
@@ -101,13 +112,10 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
-					}
-				case "&&":
-					{
-						fmt.Println("OPERACION:  ->", op.LeftOperation.Ejecutar(entorno))
-						resultado = true
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				}
+
 			}
 
 			//cuando las operaciones son de tipo flotante
@@ -118,22 +126,27 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 				case "+":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) + op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+						resultadoTipo = interfaces.FLOAT
 					}
 				case "-":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) - op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+						resultadoTipo = interfaces.FLOAT
 					}
 				case "*":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) * op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+						resultadoTipo = interfaces.FLOAT
 					}
 				case "/":
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) / op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+						resultadoTipo = interfaces.FLOAT
 					}
 				case "%":
 					{
 						resultado = math.Mod(op.LeftOperation.Ejecutar(entorno).Valor.(float64), op.RighthOpertion.Ejecutar(entorno).Valor.(float64))
+						resultadoTipo = interfaces.FLOAT
 					}
 				case "==":
 					{
@@ -142,6 +155,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case "!=":
 					{
@@ -150,6 +164,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case ">":
 					{
@@ -158,6 +173,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case "<":
 					{
@@ -166,6 +182,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case ">=":
 					{
@@ -174,6 +191,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				case "<=":
 					{
@@ -182,18 +200,58 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						} else {
 							resultado = false
 						}
+						resultadoTipo = interfaces.BOOLEAN
 					}
 				}
 			}
 
+		case interfaces.BOOLEAN:
+			{
+				//creacon del swtich case para ver el tipo de operacion
+				switch op.SymbolOperation {
+				case "&&":
+					{
+						Left := op.LeftOperation.Ejecutar(entorno).Valor.(bool)
+						Right := op.RighthOpertion.Ejecutar(entorno).Valor.(bool)
+						if Left == true && Right == true {
+							resultado = true
+							resultadoTipo = interfaces.BOOLEAN
+						} else {
+							resultado = false
+							resultadoTipo = interfaces.BOOLEAN
+						}
+					}
+				case "||":
+					{
+						Left := op.LeftOperation.Ejecutar(entorno).Valor.(bool)
+						Right := op.RighthOpertion.Ejecutar(entorno).Valor.(bool)
+						if Left == true && Right == true {
+							resultado = true
+							resultadoTipo = interfaces.BOOLEAN
+						} else if Left == true && Right == false {
+							resultado = true
+							resultadoTipo = interfaces.BOOLEAN
+						} else if Left == false && Right == true {
+							resultado = true
+							resultadoTipo = interfaces.BOOLEAN
+						} else if Left == false && Right == false {
+							resultado = false
+							resultadoTipo = interfaces.BOOLEAN
+						}
+					}
+				}
+			}
 		}
 
 	} else {
 		fmt.Println("OPERACIONES:  Error Semantico-> operadores no son del mismo tipo")
 		resultado = 0
+		resultadoTipo = interfaces.NULL
 	}
 
 	//retorno del simbolo como tal
 	// todos los casos de operacion
-	return interfaces.Simbolo{Id: "", Valor: resultado, Mut: "", Tipo: 0}
+	tempSimbolo := interfaces.Simbolo{Id: "", Valor: resultado, Mut: "", Tipo: resultadoTipo}
+	// fmt.Println("OPERACION:  retonro realizado->", tempSimbolo)
+	return tempSimbolo
 }

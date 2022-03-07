@@ -43,7 +43,7 @@ instrucciones returns[interfaces.Instruction inst]
     |   asignacionVariable  { $inst = $asignacionVariable.inst }
     |   expresionIf         {}
     ;
-// |   impresion   { pruebas.Probar($impresion.inst)}
+
 
 // impresion
 impresion returns[interfaces.Instruction inst]
@@ -67,7 +67,7 @@ sintaxisIf
     ;
 
 sintaxisElse
-    :   TK_ELSE '{' '}'
+    :   TK_ELSE '{' '}'         {}
     ;
 
 
@@ -102,10 +102,10 @@ expresion returns[interfaces.Expresion primate]
     |   left=expresion op='<'  right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='>=' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='<=' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
-    |   expresion '&&' expresion                        { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
-    |   expresion '||' expresion
+    |   left=expresion op='&&' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
+    |   left=expresion op='||' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   '(' expresion ')'
-    |   valor   {$primate = $valor.primate}
+    |   valor                                           {$primate = $valor.primate}
     ;
 
 // valor aceptados en la gramaticas

@@ -2644,6 +2644,7 @@ func (p *rustParser) expresion(_p int) (localctx IExpresionContext) {
 
 			case 11:
 				localctx = NewExpresionContext(p, _parentctx, _parentState)
+				localctx.(*ExpresionContext).left = _prevctx
 				p.PushNewRecursionContext(localctx, _startState, rustParserRULE_expresion)
 				p.SetState(199)
 
@@ -2652,11 +2653,17 @@ func (p *rustParser) expresion(_p int) (localctx IExpresionContext) {
 				}
 				{
 					p.SetState(200)
-					p.Match(rustParserTK_AND)
+
+					var _m = p.Match(rustParserTK_AND)
+
+					localctx.(*ExpresionContext).op = _m
 				}
 				{
 					p.SetState(201)
-					p.expresion(5)
+
+					var _x = p.expresion(5)
+
+					localctx.(*ExpresionContext).right = _x
 				}
 				localctx.(*ExpresionContext).primate = expressiones.NewOperacion(localctx.(*ExpresionContext).GetLeft().GetPrimate(), (func() string {
 					if localctx.(*ExpresionContext).GetOp() == nil {
