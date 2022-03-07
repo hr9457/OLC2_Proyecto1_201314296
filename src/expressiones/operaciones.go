@@ -54,6 +54,59 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 					{
 						resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) % op.RighthOpertion.Ejecutar(entorno).Valor.(int)
 					}
+				case "==":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(int) == op.RighthOpertion.Ejecutar(entorno).Valor.(int) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case "!=":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(int) != op.RighthOpertion.Ejecutar(entorno).Valor.(int) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case ">":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(int) > op.RighthOpertion.Ejecutar(entorno).Valor.(int) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case "<":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(int) < op.RighthOpertion.Ejecutar(entorno).Valor.(int) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case ">=":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(int) >= op.RighthOpertion.Ejecutar(entorno).Valor.(int) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case "<=":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(int) > op.RighthOpertion.Ejecutar(entorno).Valor.(int) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case "&&":
+					{
+						fmt.Println("OPERACION:  ->", op.LeftOperation.Ejecutar(entorno))
+						resultado = true
+					}
 				}
 			}
 
@@ -82,13 +135,61 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 					{
 						resultado = math.Mod(op.LeftOperation.Ejecutar(entorno).Valor.(float64), op.RighthOpertion.Ejecutar(entorno).Valor.(float64))
 					}
+				case "==":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(float64) == op.RighthOpertion.Ejecutar(entorno).Valor.(float64) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case "!=":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(float64) != op.RighthOpertion.Ejecutar(entorno).Valor.(float64) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case ">":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(float64) > op.RighthOpertion.Ejecutar(entorno).Valor.(float64) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case "<":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(float64) < op.RighthOpertion.Ejecutar(entorno).Valor.(float64) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case ">=":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(float64) >= op.RighthOpertion.Ejecutar(entorno).Valor.(float64) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
+				case "<=":
+					{
+						if op.LeftOperation.Ejecutar(entorno).Valor.(float64) > op.RighthOpertion.Ejecutar(entorno).Valor.(float64) {
+							resultado = true
+						} else {
+							resultado = false
+						}
+					}
 				}
 			}
 
 		}
 
 	} else {
-		fmt.Println("Error Semantico: operadores no son del mismo tipo")
+		fmt.Println("OPERACIONES:  Error Semantico-> operadores no son del mismo tipo")
 		resultado = 0
 	}
 

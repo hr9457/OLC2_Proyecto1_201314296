@@ -2,7 +2,6 @@ package interfaces
 
 import (
 	"fmt"
-	"reflect"
 	"strconv"
 )
 
@@ -12,7 +11,7 @@ func ConvertTextInt(valor string) int {
 	if err != nil {
 		fmt.Println("Erro Semantico: tipo pirmitivo no existe", err)
 	}
-	fmt.Println(reflect.TypeOf(temp))
+	// fmt.Println(reflect.TypeOf(temp))
 	return temp
 }
 
@@ -22,8 +21,18 @@ func ConvertTextFloat(valor string) float64 {
 	if err != nil {
 		fmt.Println("Erro Semantico: tipo pirmitivo no existe", err)
 	}
-	fmt.Println(reflect.TypeOf(temp))
+	// fmt.Println(reflect.TypeOf(temp))
 	return temp
 }
 
-//funcion para convertir de un string a booleano
+//funciones para extraer un los string y los char
+func ConvertTextString(valor string) string {
+	if (valor[0] == 34 && valor[len(valor)-1] == 34) || (valor[0] == 39 && valor[len(valor)-1] == 39) {
+		// fmt.Println("Cumple con los paramentrso de un string/char")
+		valor := valor[1 : len(valor)-1]
+		return valor
+	} else {
+		// fmt.Println("PRIMITIVO:  ERROR SEMANTICO-> string/char")
+		return "NULL"
+	}
+}

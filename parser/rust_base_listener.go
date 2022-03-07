@@ -45,6 +45,12 @@ func (s *BaserustListener) EnterImpresion(ctx *ImpresionContext) {}
 // ExitImpresion is called when production impresion is exited.
 func (s *BaserustListener) ExitImpresion(ctx *ImpresionContext) {}
 
+// EnterAsignacionVariable is called when production asignacionVariable is entered.
+func (s *BaserustListener) EnterAsignacionVariable(ctx *AsignacionVariableContext) {}
+
+// ExitAsignacionVariable is called when production asignacionVariable is exited.
+func (s *BaserustListener) ExitAsignacionVariable(ctx *AsignacionVariableContext) {}
+
 // EnterExpresionIf is called when production expresionIf is entered.
 func (s *BaserustListener) EnterExpresionIf(ctx *ExpresionIfContext) {}
 

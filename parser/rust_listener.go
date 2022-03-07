@@ -20,6 +20,9 @@ type rustListener interface {
 	// EnterImpresion is called when entering the impresion production.
 	EnterImpresion(c *ImpresionContext)
 
+	// EnterAsignacionVariable is called when entering the asignacionVariable production.
+	EnterAsignacionVariable(c *AsignacionVariableContext)
+
 	// EnterExpresionIf is called when entering the expresionIf production.
 	EnterExpresionIf(c *ExpresionIfContext)
 
@@ -52,6 +55,9 @@ type rustListener interface {
 
 	// ExitImpresion is called when exiting the impresion production.
 	ExitImpresion(c *ImpresionContext)
+
+	// ExitAsignacionVariable is called when exiting the asignacionVariable production.
+	ExitAsignacionVariable(c *AsignacionVariableContext)
 
 	// ExitExpresionIf is called when exiting the expresionIf production.
 	ExitExpresionIf(c *ExpresionIfContext)

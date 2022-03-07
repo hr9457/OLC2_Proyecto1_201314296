@@ -30,12 +30,13 @@ func (entorno Entornos) AddVariable(id string, valor interfaces.Simbolo, mut boo
 	// busqueda de la variable en el entorno
 	variable, ok := entorno.Variables[id]
 	if ok {
-		fmt.Println("Variable ya existe en el entorno: ", variable)
+		fmt.Println("ETORNO: ERROR->Variable ya existe en el entorno: ", variable)
 		return
 	}
 	// agrega un nuevo valor ala lista ->
-	fmt.Println("Agreacion de una nueva variable en el entorno ->")
+	fmt.Println("ENTORNO:  ->Agreacion de una nueva variable en el entorno")
 	entorno.Variables[id] = interfaces.Simbolo{Id: id, Valor: valor, Mut: mut, Tipo: tipo}
+	// fmt.Println("ENTORNO:  valores de la variable", entorno.Variables[id])
 }
 
 //funcion para retornar variable
@@ -44,7 +45,7 @@ func (entorno Entornos) GetVariables(id string) interfaces.Simbolo {
 	tempEntorno = entorno
 	for {
 		if variable, ok := tempEntorno.Variables[id]; ok {
-			fmt.Println("El variable que se retorna es: ", variable)
+			fmt.Println("ENTORNO:  El variable que se retorna es->", variable)
 			return variable
 		}
 		if tempEntorno.Padre == nil {
@@ -53,8 +54,38 @@ func (entorno Entornos) GetVariables(id string) interfaces.Simbolo {
 			tempEntorno = tempEntorno.Padre.(Entornos)
 		}
 	}
-	fmt.Println("Variable no existe")
+	fmt.Println("ENTORNO:  ERROR->Variable no existe")
 	return interfaces.Simbolo{Id: "", Tipo: interfaces.NULL, Valor: interfaces.Simbolo{Id: "", Tipo: interfaces.NULL, Valor: 0}}
+}
+
+//funcion para retorna el valor de una variable
+func (entorno Entornos) AlterVariable(id string, valor interfaces.Simbolo) interfaces.Simbolo {
+	var tempEntorno Entornos
+	tempEntorno = entorno
+	// forpara buscar
+	for {
+		if variable, ok := tempEntorno.Variables[id]; ok {
+			// verificacion de la mutabilidad de una variable para ser alterada
+			// fmt.Println("ENTORNO:  variable a alatera: ", tempEntorno.Variables[id])
+			if tempEntorno.Variables[id].Mut == true {
+				tempEntorno.Variables[id] = interfaces.Simbolo{Id: id, Tipo: variable.Tipo, Valor: valor}
+				return variable
+			} else {
+				fmt.Println("ENTORNO:  ERROR-> variable no es mutable")
+				return tempEntorno.Variables[id]
+			}
+		}
+		if tempEntorno.Padre == nil {
+			break
+		} else {
+			tempEntorno = tempEntorno.Padre.(Entornos)
+		}
+	}
+	//la variable no se encontro en el arreglo de la variables
+	fmt.Println("ENTORNO: ERROR->La variable no existe en el entorno")
+	//retornamos un simbolo con datos por defecto
+	return interfaces.Simbolo{Id: "", Valor: interfaces.Simbolo{Id: "", Tipo: interfaces.NULL, Valor: 0}, Mut: false, Tipo: interfaces.NULL}
+
 }
 
 // get y set para padre, nombre

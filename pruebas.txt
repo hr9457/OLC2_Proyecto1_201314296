@@ -21,8 +21,23 @@ fn main(){
 
 
 fn main(){
+  
   let mut variable1: i64 = 3;
+  variable1 = 5;
   println!(variable1); 
+
+  let bandera: bool = true;
+  bandera = false;
+  println!(bandera);
+
+  let bandera2: bool = true;
+  bandera = false;
+  println!(bandera2);
+
 }
 
 
+fn main(){
+  println!("hola mundo");
+  println!('c');
+}

@@ -11,6 +11,8 @@ type TipoExpression int
 - char = 3
 - string = 4
 - null = 5
+- identificador = 6
+- logico
 */
 const (
 	INTEGER TipoExpression = iota
@@ -20,4 +22,5 @@ const (
 	STRING
 	NULL
 	IDENTIFICADOR
+	LOGICO
 )
