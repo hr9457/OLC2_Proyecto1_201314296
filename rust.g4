@@ -17,53 +17,86 @@ grammar rust;
 
 
 
-
-// gramatica
+// ********************************
+// Inicio de la gramatica - sintactica
+// ********************************
 start
-    :   funcionmain EOF {pruebas.Probar($funcionmain.lista)}
+    :   funcionmain EOF     {pruebas.Probar($funcionmain.lista)}
     ; 
 
-funcionmain returns [*arrayList.List lista]
-    @init{$lista = arrayList.New()}
+
+
+
+// ********************************
+// Inicio de la gramatica - sintactica
+// ********************************
+funcionmain returns [*arrayList.List lista]    
     :   TK_FN TK_MAIN '(' ')' '{'    '}' 
-    |   TK_FN TK_MAIN '(' ')' '{'  e+=instrucciones*  '}'  
+    |   TK_FN TK_MAIN '(' ')' '{'  instrucciones  '}'       { $lista = $instrucciones.lista }        
+    ;
+
+
+
+// ********************************
+// concatenacion y conjutos de todas las intrucciones juntas
+// ********************************
+instrucciones returns[*arrayList.List lista]
+    @init{$lista = arrayList.New()}
+    : e += instruccion*
         {
-            listInt := localctx.(*FuncionmainContext).GetE()
+            listInt := localctx.(*InstruccionesContext).GetE()
             for _,e:= range listInt{
                 $lista.Add(e.GetInst())
             }
-        }      
+        }  
     ;
 
 
-// instruccione o varias instrucciones
-instrucciones returns[interfaces.Instruction inst]
+// ********************************
+// instrucciones aceptadas por el lenguaje
+// ********************************
+instruccion returns[interfaces.Instruction inst]
     :   variable            { $inst = $variable.inst }
     |   impresion           { $inst = $impresion.inst }
     |   asignacionVariable  { $inst = $asignacionVariable.inst }
-    |   expresionIf         {}
+    |   expresionIf         { $inst = $expresionIf.inst }
     ;
 
 
-// impresion
+
+
+// ********************************
+// Instruccion para imprimr
+// ********************************
 impresion returns[interfaces.Instruction inst]
     :   TK_IMPRESION '(' expresion ')' ';'  {$inst = instrucciones.NewImprimir($expresion.primate)}
     ;
 
-// asignacion valor a una variable
+
+
+
+// ********************************
+// Instruccion para asignar valores a una variable
+// ********************************
 asignacionVariable returns[interfaces.Instruction inst]
     : TK_ID '=' expresion ';'  { $inst = instrucciones.NewAsignacion($TK_ID.text,$expresion.primate) }
     ;
 
 
-// instruccion if
-expresionIf
-    :   sintaxisIf              {} 
+
+
+
+// ********************************
+// Instruccion para la creacion de un if y else
+// ********************************
+expresionIf returns[interfaces.Instruction inst]
+    :   sintaxisIf              { $inst = $sintaxisIf.inst } 
     |   sintaxisIf sintaxisElse {}
     ;
 
-sintaxisIf
-    :   TK_IF expresion '{' '}' {} 
+sintaxisIf returns[interfaces.Instruction inst]
+    :   TK_IF expresion '{' '}'                 {  } 
+    |   TK_IF expresion '{' instrucciones '}'   { $inst = instrucciones.NewIf($expresion.primate,$instrucciones.lista) } 
     ;
 
 sintaxisElse
@@ -72,7 +105,11 @@ sintaxisElse
 
 
 
+
+
+// ********************************
 // declaracion de variables
+// ********************************
 variable returns[interfaces.Instruction inst]
     :   TK_LET TK_MUT TK_ID '=' expresion ';'           {}
     |   TK_LET TK_ID '=' expresion ';'                  {}
@@ -80,7 +117,12 @@ variable returns[interfaces.Instruction inst]
     |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$inst = instrucciones.NewDeclaracion($TK_ID.text,true,$tipo.tipoExp,$expresion.primate)}
     ;
 
+
+
+
+// ********************************
 // tipos aceptados en el lenguaje
+// ********************************
 tipo returns[interfaces.TipoExpression tipoExp]
     :   TK_INT      {$tipoExp = interfaces.INTEGER}
     |   TK_FLOAT    {$tipoExp = interfaces.FLOAT}
@@ -89,7 +131,12 @@ tipo returns[interfaces.TipoExpression tipoExp]
     |   TK_STRING   {$tipoExp = interfaces.STRING}
     ;
 
+
+
+
+// **********************************
 // expresiones aceptadas en el lenguaje
+// *************************************
 expresion returns[interfaces.Expresion primate]
     :   left=expresion op=('*'|'/'|'%') right=expresion { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op=('+'|'-') right=expresion     { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
@@ -108,7 +155,11 @@ expresion returns[interfaces.Expresion primate]
     |   valor                                           {$primate = $valor.primate}
     ;
 
+
+
+// ********************************
 // valor aceptados en la gramaticas
+// ********************************
 valor returns[interfaces.Expresion primate]
     :   TK_NUMBER   {$primate = expressiones.NewPrimito(interfaces.ConvertTextInt($TK_NUMBER.text),interfaces.INTEGER)}
     |   TK_DECIMAL  {$primate = expressiones.NewPrimito(interfaces.ConvertTextFloat($TK_DECIMAL.text),interfaces.FLOAT)}
@@ -122,6 +173,10 @@ valor returns[interfaces.Expresion primate]
 
 
 
+
+// ********************************
+// GRAMATICA LEXICA
+// ********************************
 // tokens -> simbolos reservados  
 TK_PARENTESIS_LEFT:    '(';
 TK_PARENTESIS_RIGHT:   ')';

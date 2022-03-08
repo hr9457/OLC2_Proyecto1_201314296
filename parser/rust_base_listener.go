@@ -39,6 +39,12 @@ func (s *BaserustListener) EnterInstrucciones(ctx *InstruccionesContext) {}
 // ExitInstrucciones is called when production instrucciones is exited.
 func (s *BaserustListener) ExitInstrucciones(ctx *InstruccionesContext) {}
 
+// EnterInstruccion is called when production instruccion is entered.
+func (s *BaserustListener) EnterInstruccion(ctx *InstruccionContext) {}
+
+// ExitInstruccion is called when production instruccion is exited.
+func (s *BaserustListener) ExitInstruccion(ctx *InstruccionContext) {}
+
 // EnterImpresion is called when production impresion is entered.
 func (s *BaserustListener) EnterImpresion(ctx *ImpresionContext) {}
 

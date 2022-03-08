@@ -17,6 +17,9 @@ type rustListener interface {
 	// EnterInstrucciones is called when entering the instrucciones production.
 	EnterInstrucciones(c *InstruccionesContext)
 
+	// EnterInstruccion is called when entering the instruccion production.
+	EnterInstruccion(c *InstruccionContext)
+
 	// EnterImpresion is called when entering the impresion production.
 	EnterImpresion(c *ImpresionContext)
 
@@ -52,6 +55,9 @@ type rustListener interface {
 
 	// ExitInstrucciones is called when exiting the instrucciones production.
 	ExitInstrucciones(c *InstruccionesContext)
+
+	// ExitInstruccion is called when exiting the instruccion production.
+	ExitInstruccion(c *InstruccionContext)
 
 	// ExitImpresion is called when exiting the impresion production.
 	ExitImpresion(c *ImpresionContext)

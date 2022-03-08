@@ -45,3 +45,23 @@ fn main(){
 fn main(){
   println!(3>2 && 5>2);
 }
+
+
+fn main(){
+  if 3>2 {
+    println!("verdadero");
+  }
+}
+
+fn main(){
+  let mut varx: i64 = 1;
+  let mut vary: i64 = 1;
+  let varz: i64 = 15;
+
+  if varx == vary{
+      println!(10);
+      if varz == 15{
+          println!("Entre al otro if");
+      }
+  }
+}
