@@ -111,10 +111,10 @@ sintaxisElse
 // declaracion de variables
 // ********************************
 variable returns[interfaces.Instruction inst]
-    :   TK_LET TK_MUT TK_ID '=' expresion ';'           {}
-    |   TK_LET TK_ID '=' expresion ';'                  {}
-    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  {$inst = instrucciones.NewDeclaracion($TK_ID.text,false,$tipo.tipoExp,$expresion.primate)}
-    |   TK_LET TK_ID ':' tipo '=' expresion ';'         {$inst = instrucciones.NewDeclaracion($TK_ID.text,true,$tipo.tipoExp,$expresion.primate)}
+    :   TK_LET TK_MUT TK_ID '=' expresion ';'           { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,$expresion.primate.(expressiones.Primitivo).TipoPrimitivo,$expresion.primate)  }
+    |   TK_LET TK_ID '=' expresion ';'                  { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,$expresion.primate.(expressiones.Primitivo).TipoPrimitivo,$expresion.primate)   }
+    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,$tipo.tipoExp,$expresion.primate) }
+    |   TK_LET TK_ID ':' tipo '=' expresion ';'         { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,$tipo.tipoExp,$expresion.primate)  }
     ;
 
 
@@ -152,7 +152,7 @@ expresion returns[interfaces.Expresion primate]
     |   left=expresion op='&&' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='||' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   '(' expresion ')'
-    |   valor                                           {$primate = $valor.primate}
+    |   valor                                           { $primate = $valor.primate }
     ;
 
 

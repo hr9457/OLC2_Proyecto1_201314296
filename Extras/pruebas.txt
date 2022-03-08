@@ -65,3 +65,32 @@ fn main(){
       }
   }
 }
+
+
+fn main(){
+  let mut varx = 1;
+  let mut vary = 1;
+  let varz = 15;
+
+  if varx == vary{
+    println!(10);
+      if varz == 15{
+        println!("Entre al otro if");
+    }
+  }
+}
+
+
+fn main() {
+  let mut varx = 64;
+  if varx == 64{
+      println!("Entre en el primer if");
+      println!("Otra impresion en el primer if");
+      varx = 15;
+      if varx != 64{
+          let vary = 10;
+              println!("Entre al segundo if");
+              println!(vary);
+          }
+  } 
+}

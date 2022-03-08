@@ -3,7 +3,6 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
-	"fmt"
 )
 
 type Asignacion struct {
@@ -20,14 +19,14 @@ func NewAsignacion(id string, exp interfaces.Expresion) Asignacion {
 //metodo ejecutar para la asignacion
 func (asignacion Asignacion) Ejecutar(entorno interface{}) interface{} {
 	// variable para guardar el resultado
-	var resultado interfaces.Simbolo
+	// var resultado interfaces.Simbolo
 	//polimorfismo
-	resultado = asignacion.Expresion.Ejecutar(entorno)
+	var resultado = asignacion.Expresion.Ejecutar(entorno)
 	// fmt.Println("ASIGNACION: resultado:", resultado)
 	// fmt.Println("ASIGNACION: asignacion:", asignacion)
 	// fmt.Println("ASIGNACION:  Tipo de mutabilidad de la variables ", resultado.Mut)
 	entorno.(environment.Entornos).AlterVariable(asignacion.Id, resultado)
 	// fmt.Println("ASIGNACION:  Tipo de mutabilidad de la variables ", resultado.Mut)
-	fmt.Println("ASIGNACION: ", resultado.Valor)
+	// fmt.Println("ASIGNACION: ", resultado.Valor)
 	return resultado.Valor
 }

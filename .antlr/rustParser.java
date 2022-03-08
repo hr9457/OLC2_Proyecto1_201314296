@@ -631,8 +631,8 @@ public class rustParser extends Parser {
 	public static class VariableContext extends ParserRuleContext {
 		public interfaces.Instruction inst;
 		public Token TK_ID;
-		public TipoContext tipo;
 		public ExpresionContext expresion;
+		public TipoContext tipo;
 		public TerminalNode TK_LET() { return getToken(rustParser.TK_LET, 0); }
 		public TerminalNode TK_MUT() { return getToken(rustParser.TK_MUT, 0); }
 		public TerminalNode TK_ID() { return getToken(rustParser.TK_ID, 0); }
@@ -666,14 +666,14 @@ public class rustParser extends Parser {
 				setState(112);
 				match(TK_MUT);
 				setState(113);
-				match(TK_ID);
+				((VariableContext)_localctx).TK_ID = match(TK_ID);
 				setState(114);
 				match(TK_IGUAL);
 				setState(115);
-				expresion(0);
+				((VariableContext)_localctx).expresion = expresion(0);
 				setState(116);
 				match(TK_PUNTO_COMA);
-
+				 _localctx.inst = instrucciones.NewDeclaracion((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),true,((VariableContext)_localctx).expresion.primate.(expressiones.Primitivo).TipoPrimitivo,((VariableContext)_localctx).expresion.primate)  
 				}
 				break;
 			case 2:
@@ -682,14 +682,14 @@ public class rustParser extends Parser {
 				setState(119);
 				match(TK_LET);
 				setState(120);
-				match(TK_ID);
+				((VariableContext)_localctx).TK_ID = match(TK_ID);
 				setState(121);
 				match(TK_IGUAL);
 				setState(122);
-				expresion(0);
+				((VariableContext)_localctx).expresion = expresion(0);
 				setState(123);
 				match(TK_PUNTO_COMA);
-
+				 _localctx.inst = instrucciones.NewDeclaracion((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),false,((VariableContext)_localctx).expresion.primate.(expressiones.Primitivo).TipoPrimitivo,((VariableContext)_localctx).expresion.primate)   
 				}
 				break;
 			case 3:
@@ -711,7 +711,7 @@ public class rustParser extends Parser {
 				((VariableContext)_localctx).expresion = expresion(0);
 				setState(133);
 				match(TK_PUNTO_COMA);
-				_localctx.inst = instrucciones.NewDeclaracion((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),false,((VariableContext)_localctx).tipo.tipoExp,((VariableContext)_localctx).expresion.primate)
+				 _localctx.inst = instrucciones.NewDeclaracion((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),true,((VariableContext)_localctx).tipo.tipoExp,((VariableContext)_localctx).expresion.primate) 
 				}
 				break;
 			case 4:
@@ -731,7 +731,7 @@ public class rustParser extends Parser {
 				((VariableContext)_localctx).expresion = expresion(0);
 				setState(142);
 				match(TK_PUNTO_COMA);
-				_localctx.inst = instrucciones.NewDeclaracion((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),true,((VariableContext)_localctx).tipo.tipoExp,((VariableContext)_localctx).expresion.primate)
+				 _localctx.inst = instrucciones.NewDeclaracion((((VariableContext)_localctx).TK_ID!=null?((VariableContext)_localctx).TK_ID.getText():null),false,((VariableContext)_localctx).tipo.tipoExp,((VariableContext)_localctx).expresion.primate)  
 				}
 				break;
 			}
@@ -899,7 +899,7 @@ public class rustParser extends Parser {
 				{
 				setState(164);
 				((ExpresionContext)_localctx).valor = valor();
-				_localctx.primate = ((ExpresionContext)_localctx).valor.primate
+				 _localctx.primate = ((ExpresionContext)_localctx).valor.primate 
 				}
 				break;
 			default:

@@ -1822,17 +1822,17 @@ type IVariableContext interface {
 	// Set_TK_ID sets the _TK_ID token.
 	Set_TK_ID(antlr.Token)
 
-	// Get_tipo returns the _tipo rule contexts.
-	Get_tipo() ITipoContext
-
 	// Get_expresion returns the _expresion rule contexts.
 	Get_expresion() IExpresionContext
 
-	// Set_tipo sets the _tipo rule contexts.
-	Set_tipo(ITipoContext)
+	// Get_tipo returns the _tipo rule contexts.
+	Get_tipo() ITipoContext
 
 	// Set_expresion sets the _expresion rule contexts.
 	Set_expresion(IExpresionContext)
+
+	// Set_tipo sets the _tipo rule contexts.
+	Set_tipo(ITipoContext)
 
 	// GetInst returns the inst attribute.
 	GetInst() interfaces.Instruction
@@ -1849,8 +1849,8 @@ type VariableContext struct {
 	parser     antlr.Parser
 	inst       interfaces.Instruction
 	_TK_ID     antlr.Token
-	_tipo      ITipoContext
 	_expresion IExpresionContext
+	_tipo      ITipoContext
 }
 
 func NewEmptyVariableContext() *VariableContext {
@@ -1879,13 +1879,13 @@ func (s *VariableContext) Get_TK_ID() antlr.Token { return s._TK_ID }
 
 func (s *VariableContext) Set_TK_ID(v antlr.Token) { s._TK_ID = v }
 
-func (s *VariableContext) Get_tipo() ITipoContext { return s._tipo }
-
 func (s *VariableContext) Get_expresion() IExpresionContext { return s._expresion }
 
-func (s *VariableContext) Set_tipo(v ITipoContext) { s._tipo = v }
+func (s *VariableContext) Get_tipo() ITipoContext { return s._tipo }
 
 func (s *VariableContext) Set_expresion(v IExpresionContext) { s._expresion = v }
+
+func (s *VariableContext) Set_tipo(v ITipoContext) { s._tipo = v }
 
 func (s *VariableContext) GetInst() interfaces.Instruction { return s.inst }
 
@@ -1993,7 +1993,10 @@ func (p *rustParser) Variable() (localctx IVariableContext) {
 		}
 		{
 			p.SetState(113)
-			p.Match(rustParserTK_ID)
+
+			var _m = p.Match(rustParserTK_ID)
+
+			localctx.(*VariableContext)._TK_ID = _m
 		}
 		{
 			p.SetState(114)
@@ -2001,12 +2004,22 @@ func (p *rustParser) Variable() (localctx IVariableContext) {
 		}
 		{
 			p.SetState(115)
-			p.expresion(0)
+
+			var _x = p.expresion(0)
+
+			localctx.(*VariableContext)._expresion = _x
 		}
 		{
 			p.SetState(116)
 			p.Match(rustParserTK_PUNTO_COMA)
 		}
+		localctx.(*VariableContext).inst = instrucciones.NewDeclaracion((func() string {
+			if localctx.(*VariableContext).Get_TK_ID() == nil {
+				return ""
+			} else {
+				return localctx.(*VariableContext).Get_TK_ID().GetText()
+			}
+		}()), true, localctx.(*VariableContext).Get_expresion().GetPrimate().(expressiones.Primitivo).TipoPrimitivo, localctx.(*VariableContext).Get_expresion().GetPrimate())
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
@@ -2016,7 +2029,10 @@ func (p *rustParser) Variable() (localctx IVariableContext) {
 		}
 		{
 			p.SetState(120)
-			p.Match(rustParserTK_ID)
+
+			var _m = p.Match(rustParserTK_ID)
+
+			localctx.(*VariableContext)._TK_ID = _m
 		}
 		{
 			p.SetState(121)
@@ -2024,12 +2040,22 @@ func (p *rustParser) Variable() (localctx IVariableContext) {
 		}
 		{
 			p.SetState(122)
-			p.expresion(0)
+
+			var _x = p.expresion(0)
+
+			localctx.(*VariableContext)._expresion = _x
 		}
 		{
 			p.SetState(123)
 			p.Match(rustParserTK_PUNTO_COMA)
 		}
+		localctx.(*VariableContext).inst = instrucciones.NewDeclaracion((func() string {
+			if localctx.(*VariableContext).Get_TK_ID() == nil {
+				return ""
+			} else {
+				return localctx.(*VariableContext).Get_TK_ID().GetText()
+			}
+		}()), false, localctx.(*VariableContext).Get_expresion().GetPrimate().(expressiones.Primitivo).TipoPrimitivo, localctx.(*VariableContext).Get_expresion().GetPrimate())
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
@@ -2080,7 +2106,7 @@ func (p *rustParser) Variable() (localctx IVariableContext) {
 			} else {
 				return localctx.(*VariableContext).Get_TK_ID().GetText()
 			}
-		}()), false, localctx.(*VariableContext).Get_tipo().GetTipoExp(), localctx.(*VariableContext).Get_expresion().GetPrimate())
+		}()), true, localctx.(*VariableContext).Get_tipo().GetTipoExp(), localctx.(*VariableContext).Get_expresion().GetPrimate())
 
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
@@ -2127,7 +2153,7 @@ func (p *rustParser) Variable() (localctx IVariableContext) {
 			} else {
 				return localctx.(*VariableContext).Get_TK_ID().GetText()
 			}
-		}()), true, localctx.(*VariableContext).Get_tipo().GetTipoExp(), localctx.(*VariableContext).Get_expresion().GetPrimate())
+		}()), false, localctx.(*VariableContext).Get_tipo().GetTipoExp(), localctx.(*VariableContext).Get_expresion().GetPrimate())
 
 	}
 
