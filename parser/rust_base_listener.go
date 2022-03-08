@@ -63,18 +63,6 @@ func (s *BaserustListener) EnterExpresionIf(ctx *ExpresionIfContext) {}
 // ExitExpresionIf is called when production expresionIf is exited.
 func (s *BaserustListener) ExitExpresionIf(ctx *ExpresionIfContext) {}
 
-// EnterSintaxisIf is called when production sintaxisIf is entered.
-func (s *BaserustListener) EnterSintaxisIf(ctx *SintaxisIfContext) {}
-
-// ExitSintaxisIf is called when production sintaxisIf is exited.
-func (s *BaserustListener) ExitSintaxisIf(ctx *SintaxisIfContext) {}
-
-// EnterSintaxisElse is called when production sintaxisElse is entered.
-func (s *BaserustListener) EnterSintaxisElse(ctx *SintaxisElseContext) {}
-
-// ExitSintaxisElse is called when production sintaxisElse is exited.
-func (s *BaserustListener) ExitSintaxisElse(ctx *SintaxisElseContext) {}
-
 // EnterVariable is called when production variable is entered.
 func (s *BaserustListener) EnterVariable(ctx *VariableContext) {}
 

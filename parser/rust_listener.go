@@ -29,12 +29,6 @@ type rustListener interface {
 	// EnterExpresionIf is called when entering the expresionIf production.
 	EnterExpresionIf(c *ExpresionIfContext)
 
-	// EnterSintaxisIf is called when entering the sintaxisIf production.
-	EnterSintaxisIf(c *SintaxisIfContext)
-
-	// EnterSintaxisElse is called when entering the sintaxisElse production.
-	EnterSintaxisElse(c *SintaxisElseContext)
-
 	// EnterVariable is called when entering the variable production.
 	EnterVariable(c *VariableContext)
 
@@ -67,12 +61,6 @@ type rustListener interface {
 
 	// ExitExpresionIf is called when exiting the expresionIf production.
 	ExitExpresionIf(c *ExpresionIfContext)
-
-	// ExitSintaxisIf is called when exiting the sintaxisIf production.
-	ExitSintaxisIf(c *SintaxisIfContext)
-
-	// ExitSintaxisElse is called when exiting the sintaxisElse production.
-	ExitSintaxisElse(c *SintaxisElseContext)
 
 	// ExitVariable is called when exiting the variable production.
 	ExitVariable(c *VariableContext)

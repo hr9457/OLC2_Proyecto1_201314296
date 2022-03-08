@@ -55,7 +55,7 @@ func (entorno Entornos) GetVariables(id string) interfaces.Simbolo {
 		}
 	}
 	fmt.Println("ENTORNO:  ERROR->Variable no existe")
-	return interfaces.Simbolo{Id: "", Tipo: interfaces.NULL, Valor: interfaces.Simbolo{Id: "", Tipo: interfaces.NULL, Valor: 0}}
+	return interfaces.Simbolo{Id: "", Tipo: interfaces.NULL, Valor: interfaces.Simbolo{Id: "", Tipo: interfaces.NULL, Valor: nil}}
 }
 
 //funcion para retorna el valor de una variable

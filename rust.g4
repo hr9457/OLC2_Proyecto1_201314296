@@ -90,17 +90,11 @@ asignacionVariable returns[interfaces.Instruction inst]
 // Instruccion para la creacion de un if y else
 // ********************************
 expresionIf returns[interfaces.Instruction inst]
-    :   sintaxisIf              { $inst = $sintaxisIf.inst } 
-    |   sintaxisIf sintaxisElse {}
-    ;
+    :   TK_IF expresion '{' bloqueif=instrucciones '}'      
+        { $inst = instrucciones.NewIf($expresion.primate,$bloqueif.lista,nil) } 
 
-sintaxisIf returns[interfaces.Instruction inst]
-    :   TK_IF expresion '{' '}'                 {  } 
-    |   TK_IF expresion '{' instrucciones '}'   { $inst = instrucciones.NewIf($expresion.primate,$instrucciones.lista) } 
-    ;
-
-sintaxisElse
-    :   TK_ELSE '{' '}'         {}
+    |   TK_IF expresion '{' bloqueif=instrucciones '}' TK_ELSE '{' bloqueelse=instrucciones '}'     
+        { $inst = instrucciones.NewIf($expresion.primate,$bloqueif.lista,$bloqueelse.lista) }
     ;
 
 

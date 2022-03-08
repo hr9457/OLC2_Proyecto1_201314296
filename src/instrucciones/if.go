@@ -9,13 +9,14 @@ import (
 
 // estructura para guardar los elementos del IF
 type If struct {
-	Expresion interfaces.Expresion //para guaradar la expresion en el if y pueda ser evaluada
-	Contenido *arrayList.List      // contenido dentro del if
+	Expresion     interfaces.Expresion //para guaradar la expresion en el if y pueda ser evaluada
+	Contenido     *arrayList.List      // contenido dentro del if
+	ContenidoElse interface{}          //bloque de contenido para el else
 }
 
 // consturctor para ingresar datos par utilizad del if
-func NewIf(exp interfaces.Expresion, bloque *arrayList.List) If {
-	tempIf := If{exp, bloque}
+func NewIf(exp interfaces.Expresion, bloque *arrayList.List, bloqueElse interface{}) If {
+	tempIf := If{exp, bloque, bloqueElse}
 	return tempIf
 }
 
@@ -25,18 +26,30 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 
 	resultado = firmaif.Expresion.Ejecutar(entorno)
 
+	// entra en la condicional para ejectuar el if
 	if resultado.Valor == true {
 
 		// creacion de un etorno para el if
 		var entornoIf environment.Entornos
 
 		// transofrmacion de tipos
-		entornoIf = environment.NewEntorno(entorno.(environment.Entornos), "if")
+		entornoIf = environment.NewEntorno(entorno.(environment.Entornos), "Entorno If")
 		for _, s := range firmaif.Contenido.ToArray() {
 			s.(interfaces.Instruction).Ejecutar(entornoIf)
 		}
 
 		// fmt.Println(firmaif.Contenido)
+	} else {
+
+		// validacion para el Else
+		if firmaif.Contenido != nil {
+			// fmt.Println("Este if contiene un else para ejecutar")
+			// fmt.Println("ELSE:  ", firmaif.ContenidoElse)
+			var entornoElse = environment.NewEntorno(entorno.(environment.Entornos), "Entorno Else")
+			for _, s := range firmaif.ContenidoElse.(*arrayList.List).ToArray() {
+				s.(interfaces.Instruction).Ejecutar(entornoElse)
+			}
+		}
 	}
 
 	// fmt.Println("IF:  retorno->", resultado.Valor)
