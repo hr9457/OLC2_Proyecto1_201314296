@@ -16,6 +16,7 @@ type If struct {
 
 // consturctor para ingresar datos par utilizad del if
 func NewIf(exp interfaces.Expresion, bloque *arrayList.List, bloqueElse interface{}) If {
+	// fmt.Println("IF:   ", bloqueElse)
 	tempIf := If{exp, bloque, bloqueElse}
 	return tempIf
 }
@@ -42,7 +43,7 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 	} else {
 
 		// validacion para el Else
-		if firmaif.Contenido != nil {
+		if firmaif.ContenidoElse != nil {
 			// fmt.Println("Este if contiene un else para ejecutar")
 			// fmt.Println("ELSE:  ", firmaif.ContenidoElse)
 			var entornoElse = environment.NewEntorno(entorno.(environment.Entornos), "Entorno Else")

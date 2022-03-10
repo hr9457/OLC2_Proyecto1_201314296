@@ -155,3 +155,70 @@ fn main(){
     println!("Entro al else");
   }
 }
+
+
+
+  
+
+fn main() {
+
+  let mut varx = 10;
+  let mut vary = 5;
+
+  if varx > vary{
+          let mut suma = varx + vary;
+          println!(suma);
+          if suma == 15{
+              let mut resta = suma-varx;
+              println!(resta);
+          }else{
+              let multi:i64 = 20;
+              println!(multisuma);
+          }
+      }
+}
+
+
+
+fn main() {
+  let mut varx = 8;
+  let mut vary = 6;
+
+  if varx > vary{
+          let mut suma = varx + vary;
+          println!(suma);
+          if suma == 15{
+              let mut resta = suma-varx;
+              println!(resta);
+          }else{
+              let multi:i64 = 20;
+              println!(multi*suma);
+          }
+  }
+}
+
+
+fn main() {
+
+  if !true {
+    println!("Entro al if");
+  } else {
+    println!("Entro al else");
+  }
+
+}
+
+
+------ prueba del while -------------
+fn main() {
+  let mut var1 = true;
+  let mut varx = 0;
+  while var1 {
+    println!(varx);
+    if varx == 20{
+      var1 = false;
+    }
+    varx = varx + 1;
+  }
+}
+

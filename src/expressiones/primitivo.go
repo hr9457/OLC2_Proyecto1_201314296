@@ -22,6 +22,7 @@ func NewPrimito(valor interface{}, tipo interfaces.TipoExpression) Primitivo {
 // funcion para retornar el primitivo con la estructura de un simbolo/variable
 func (primate Primitivo) Ejecutar(entorno interface{}) interfaces.Simbolo {
 	// retrono el primitivo con una estructrua definida
+	// fmt.Println("PRIMATE:  tipo->", primate.TipoPrimitivo)
 	return interfaces.Simbolo{
 		Valor: primate.Valor,
 		Tipo:  primate.TipoPrimitivo,

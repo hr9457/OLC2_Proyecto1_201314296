@@ -68,10 +68,11 @@ func (entorno Entornos) AlterVariable(id string, valor interfaces.Simbolo) inter
 			// verificacion de la mutabilidad de una variable para ser alterada
 			// fmt.Println("ENTORNO:  variable a alatera: ", tempEntorno.Variables[id])
 			if tempEntorno.Variables[id].Mut == true {
-				tempEntorno.Variables[id] = interfaces.Simbolo{Id: id, Tipo: variable.Tipo, Valor: valor}
+				// fmt.Println("ENTORNO:  mutando variable")
+				tempEntorno.Variables[id] = interfaces.Simbolo{Id: id, Valor: valor, Mut: variable.Mut, Tipo: variable.Tipo}
 				return variable
 			} else {
-				fmt.Println("ENTORNO:  ERROR-> variable no es mutable")
+				fmt.Println("ENTORNO:  ERROR-> variable no es mutable", tempEntorno.Variables[id].Mut)
 				return tempEntorno.Variables[id]
 			}
 		}

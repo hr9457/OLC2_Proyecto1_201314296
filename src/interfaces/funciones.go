@@ -36,3 +36,8 @@ func ConvertTextString(valor string) string {
 		return "NULL"
 	}
 }
+
+func ConvertTextBool(valor string) bool {
+	temValor,_ := strconv.ParseBool(valor)
+	return temValor
+}

@@ -6,7 +6,7 @@ grammar rust;
     import "Proyecto1/src/expressiones"
     import "Proyecto1/src/instrucciones"
     import arrayList "github.com/colegno/arraylist"
-    import "Proyecto1/src/pruebas"
+    import "Proyecto1/src/pruebas" 
 }
 
 // insertar atributos en la clase generada
@@ -60,6 +60,7 @@ instruccion returns[interfaces.Instruction inst]
     |   impresion           { $inst = $impresion.inst }
     |   asignacionVariable  { $inst = $asignacionVariable.inst }
     |   expresionIf         { $inst = $expresionIf.inst }
+    |   expresionWhile      { $inst = $expresionWhile.inst }
     ;
 
 
@@ -102,13 +103,26 @@ expresionIf returns[interfaces.Instruction inst]
 
 
 // ********************************
+// Instruccion para la creacion de un if y else
+// ********************************
+expresionWhile returns[interfaces.Instruction inst]
+    :   TK_WHILE exp=expresion '{' instrucciones '}'    { $inst = instrucciones.NewWhile($exp.primate,$instrucciones.lista) } 
+    ;
+
+
+
+
+
+
+
+// ********************************
 // declaracion de variables
 // ********************************
 variable returns[interfaces.Instruction inst]
-    :   TK_LET TK_MUT TK_ID '=' expresion ';'           { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,$expresion.primate.(expressiones.Primitivo).TipoPrimitivo,$expresion.primate)  }
-    |   TK_LET TK_ID '=' expresion ';'                  { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,$expresion.primate.(expressiones.Primitivo).TipoPrimitivo,$expresion.primate)   }
-    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,$tipo.tipoExp,$expresion.primate) }
-    |   TK_LET TK_ID ':' tipo '=' expresion ';'         { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,$tipo.tipoExp,$expresion.primate)  }
+    :   TK_LET TK_MUT TK_ID '=' expresion ';'           { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,interfaces.NULL,$expresion.primate)  }
+    |   TK_LET TK_ID '=' expresion ';'                  { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,interfaces.NULL,$expresion.primate) }
+    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,$tipo.tipoExp,$expresion.primate)    }
+    |   TK_LET TK_ID ':' tipo '=' expresion ';'         { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,$tipo.tipoExp,$expresion.primate)   }
     ;
 
 
@@ -132,7 +146,8 @@ tipo returns[interfaces.TipoExpression tipoExp]
 // expresiones aceptadas en el lenguaje
 // *************************************
 expresion returns[interfaces.Expresion primate]
-    :   left=expresion op=('*'|'/'|'%') right=expresion { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
+    :   op=('!'|'-') right=expresion                    { $primate = expressiones.NewOperacion(nil,$op.text,$right.primate) }
+    |   left=expresion op=('*'|'/'|'%') right=expresion { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op=('+'|'-') right=expresion     { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   expresion '&' expresion
     |   expresion '^' expresion
@@ -145,7 +160,7 @@ expresion returns[interfaces.Expresion primate]
     |   left=expresion op='<=' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='&&' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='||' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
-    |   '(' expresion ')'
+    |   '(' expresion ')'                               { $primate = $valor.primate }
     |   valor                                           { $primate = $valor.primate }
     ;
 
@@ -155,13 +170,13 @@ expresion returns[interfaces.Expresion primate]
 // valor aceptados en la gramaticas
 // ********************************
 valor returns[interfaces.Expresion primate]
-    :   TK_NUMBER   {$primate = expressiones.NewPrimito(interfaces.ConvertTextInt($TK_NUMBER.text),interfaces.INTEGER)}
-    |   TK_DECIMAL  {$primate = expressiones.NewPrimito(interfaces.ConvertTextFloat($TK_DECIMAL.text),interfaces.FLOAT)}
-    |   TK_TRUE     {$primate = expressiones.NewPrimito($TK_TRUE.text,interfaces.BOOLEAN)}
-    |   TK_FALSE    {$primate = expressiones.NewPrimito($TK_FALSE.text,interfaces.BOOLEAN)}
-    |   TK_CADENA   {$primate = expressiones.NewPrimito(interfaces.ConvertTextString($TK_CADENA.text),interfaces.STRING)}
-    |   TK_CARACTER {$primate = expressiones.NewPrimito(interfaces.ConvertTextString($TK_CARACTER.text),interfaces.CHAR)}
-    |   TK_ID       {$primate = expressiones.NewLLamadoVariable($TK_ID.text)}
+    :   TK_NUMBER   { $primate = expressiones.NewPrimito(interfaces.ConvertTextInt($TK_NUMBER.text),interfaces.INTEGER) }
+    |   TK_DECIMAL  { $primate = expressiones.NewPrimito(interfaces.ConvertTextFloat($TK_DECIMAL.text),interfaces.FLOAT) }
+    |   TK_TRUE     { $primate = expressiones.NewPrimito(interfaces.ConvertTextBool($TK_TRUE.text),interfaces.BOOLEAN) }
+    |   TK_FALSE    { $primate = expressiones.NewPrimito(interfaces.ConvertTextBool($TK_FALSE.text),interfaces.BOOLEAN) }
+    |   TK_CADENA   { $primate = expressiones.NewPrimito(interfaces.ConvertTextString($TK_CADENA.text),interfaces.STRING) }
+    |   TK_CARACTER { $primate = expressiones.NewPrimito(interfaces.ConvertTextString($TK_CARACTER.text),interfaces.CHAR) }
+    |   TK_ID       { $primate = expressiones.NewLLamadoVariable($TK_ID.text) }
     ;
 
 
@@ -239,6 +254,7 @@ TK_WITHCAPACITY:'with_capacity';
 
 TK_IF:   'if';
 TK_ELSE: 'else';
+TK_WHILE: 'while';
 
 
 

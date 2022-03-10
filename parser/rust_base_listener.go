@@ -63,6 +63,12 @@ func (s *BaserustListener) EnterExpresionIf(ctx *ExpresionIfContext) {}
 // ExitExpresionIf is called when production expresionIf is exited.
 func (s *BaserustListener) ExitExpresionIf(ctx *ExpresionIfContext) {}
 
+// EnterExpresionWhile is called when production expresionWhile is entered.
+func (s *BaserustListener) EnterExpresionWhile(ctx *ExpresionWhileContext) {}
+
+// ExitExpresionWhile is called when production expresionWhile is exited.
+func (s *BaserustListener) ExitExpresionWhile(ctx *ExpresionWhileContext) {}
+
 // EnterVariable is called when production variable is entered.
 func (s *BaserustListener) EnterVariable(ctx *VariableContext) {}
 
