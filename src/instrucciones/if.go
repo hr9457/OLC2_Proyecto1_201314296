@@ -3,6 +3,7 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
+	"fmt"
 
 	arrayList "github.com/colegno/arraylist"
 )
@@ -38,7 +39,7 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 		for _, s := range firmaif.Contenido.ToArray() {
 			s.(interfaces.Instruction).Ejecutar(entornoIf)
 		}
-
+		// fmt.Println("IF:  retorno->", resultado.Valor)
 		// fmt.Println(firmaif.Contenido)
 	} else {
 
@@ -50,9 +51,11 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 			for _, s := range firmaif.ContenidoElse.(*arrayList.List).ToArray() {
 				s.(interfaces.Instruction).Ejecutar(entornoElse)
 			}
+		} else {
+			// fmt.Println("IF:  retorno->", resultado.Valor)
 		}
 	}
 
-	// fmt.Println("IF:  retorno->", resultado.Valor)
+	fmt.Println("IF:  retorno->", resultado.Valor)
 	return resultado.Valor
 }

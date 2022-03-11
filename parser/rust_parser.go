@@ -16,6 +16,8 @@ import "Proyecto1/src/instrucciones"
 import arrayList "github.com/colegno/arraylist"
 import "Proyecto1/src/pruebas"
 
+// import "reflect"
+
 // Suppress unused import errors
 var _ = fmt.Printf
 var _ = reflect.Copy

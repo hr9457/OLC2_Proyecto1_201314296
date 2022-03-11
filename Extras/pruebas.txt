@@ -47,11 +47,6 @@ fn main(){
 }
 
 
-fn main(){
-  if 3>2 {
-    println!("verdadero");
-  }
-}
 
 fn main(){
   let mut varx: i64 = 1;
@@ -222,3 +217,42 @@ fn main() {
   }
 }
 
+
+------ prueba de else if ---------------
+  fn main(){
+    if 3>2 {
+      println!("verdadero");
+    } else if 5<2 {
+      println!("elif1"); 
+    } else if true != false {
+      println!("elif2");
+    } else if 5 == 5 {
+      println!("elif 3");
+    }
+  }
+
+
+fn main(){
+  if 3>2 {
+    println!("verdadero");
+  } else if 5<2 {
+    println!("elif1"); 
+  }
+}
+
+
+fn main(){
+  if 3>2 {
+    println!("verdadero");
+  } else if 5<2 {
+    println!("elif1"); 
+  } else if 5 == 5 {
+    println!("ELFI2");
+  }
+}
+
+
+
+  fn main(){
+    println!(30 / 0);
+  }

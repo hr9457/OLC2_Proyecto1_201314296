@@ -5,6 +5,7 @@
     import "Proyecto1/src/instrucciones"
     import arrayList "github.com/colegno/arraylist"
     import "Proyecto1/src/pruebas" 
+    // import "reflect"
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;

@@ -60,8 +60,13 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						}
 					case "/":
 						{
-							resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) / op.RighthOpertion.Ejecutar(entorno).Valor.(int)
-							resultadoTipo = interfaces.INTEGER
+							if op.RighthOpertion.Ejecutar(entorno).Valor.(int) == 0 {
+								resultado = 0
+								resultadoTipo = interfaces.INTEGER
+							} else {
+								resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) / op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+								resultadoTipo = interfaces.INTEGER
+							}
 						}
 					case "%":
 						{
@@ -148,8 +153,13 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						}
 					case "/":
 						{
-							resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) / op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
-							resultadoTipo = interfaces.FLOAT
+							if op.RighthOpertion.Ejecutar(entorno).Valor.(float64) == 0 {
+								resultado = 0
+								resultadoTipo = interfaces.FLOAT
+							} else {
+								resultado = op.LeftOperation.Ejecutar(entorno).Valor.(float64) / op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+								resultadoTipo = interfaces.FLOAT
+							}
 						}
 					case "%":
 						{
@@ -315,6 +325,6 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 	//retorno del simbolo como tal
 	// todos los casos de operacion
 	tempSimbolo := interfaces.Simbolo{Id: "", Valor: resultado, Mut: "", Tipo: resultadoTipo}
-	// fmt.Println("OPERACION:  retonro realizado->", tempSimbolo)
+	fmt.Println("OPERACION:  retonro realizado->", tempSimbolo)
 	return tempSimbolo
 }

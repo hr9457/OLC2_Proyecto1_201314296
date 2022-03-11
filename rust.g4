@@ -7,6 +7,7 @@ grammar rust;
     import "Proyecto1/src/instrucciones"
     import arrayList "github.com/colegno/arraylist"
     import "Proyecto1/src/pruebas" 
+    // import "reflect"
 }
 
 // insertar atributos en la clase generada
@@ -61,6 +62,7 @@ instruccion returns[interfaces.Instruction inst]
     |   asignacionVariable  { $inst = $asignacionVariable.inst }
     |   expresionIf         { $inst = $expresionIf.inst }
     |   expresionWhile      { $inst = $expresionWhile.inst }
+    // |   structIF            { $inst = $structIF.inst }
     ;
 
 
@@ -97,6 +99,37 @@ expresionIf returns[interfaces.Instruction inst]
     |   TK_IF expresion '{' bloqueif=instrucciones '}' TK_ELSE '{' bloqueelse=instrucciones '}'     
         { $inst = instrucciones.NewIf($expresion.primate,$bloqueif.lista,$bloqueelse.lista) }
     ;
+
+
+// structIF returns [interfaces.Instruction inst]
+//     :   TK_IF exp=expresion '{' bloqueif=instrucciones '}'                      
+//         {             
+//             $inst = instrucciones.NewIf($exp.primate,$bloqueif.lista,nil) 
+//         }
+
+//     |   TK_IF exp=expresion '{' bloqueif=instrucciones '}'  TK_ELSE a=structIF
+//         { 
+//             $inst = instrucciones.NewIf2($a.inst.(instrucciones.If).Expresion,$exp.primate,$bloqueif.lista,nil) 
+//         }
+//     ;
+
+
+// structIF returns [interfaces.Instruction inst]
+//     :   TK_IF exp=expresion '{' bloqueif=instrucciones '}'                      
+//         {             
+//             $inst = instrucciones.NewIf($exp.primate,$bloqueif.lista,nil) 
+//         }
+
+//     |   a=structIF TK_ELSE_IF exp=expresion '{' blockElif=instrucciones '}'    
+//         { 
+//             // fmt.Println("TIPO:  ",reflect.TypeOf($a.inst.(instrucciones.If)))
+//             fmt.Println($a.inst)
+//             fmt.Println($a.inst.(instrucciones.If))
+//             // fmt.Println($a.inst.(instrucciones.If).Contenido)
+            
+//             $inst = instrucciones.NewElif($a.inst,$exp.primate,$blockElif.lista) 
+//         }
+//     ;
 
 
 
@@ -254,6 +287,7 @@ TK_WITHCAPACITY:'with_capacity';
 
 TK_IF:   'if';
 TK_ELSE: 'else';
+// TK_ELSE_IF: 'else if';
 TK_WHILE: 'while';
 
 
