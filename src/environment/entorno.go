@@ -10,6 +10,7 @@ type Entornos struct {
 	Padre     interface{}
 	Nombre    interface{}
 	Variables map[string]interfaces.Simbolo
+	// Funciones *arrayList.List //arreglo para agregar funciones a un entrno
 	// Funciones   interface{}
 	// Estructuras interface{}
 }
@@ -18,6 +19,7 @@ type Entornos struct {
 // otra forma de declarar el metodo constructor para un objeto en golang
 func NewEntorno(padre interface{}, nombre interface{}) Entornos {
 	// pasa por parametros quien es el padre, nombre y inicializa el listado de los simbolos
+	// lista := arrayList.New()
 	nuevoEntorno := Entornos{padre, nombre, make(map[string]interfaces.Simbolo)}
 	return nuevoEntorno
 }
@@ -38,6 +40,19 @@ func (entorno Entornos) AddVariable(id string, valor interfaces.Simbolo, mut boo
 	entorno.Variables[id] = interfaces.Simbolo{Id: id, Valor: valor, Mut: mut, Tipo: tipo}
 	// fmt.Println("ENTORNO:  valores de la variable", entorno.Variables[id])
 }
+
+// funcion para agregar funciones
+// func (entorno Entornos) AddFunciones(id string) {
+// 	ok := entorno.Funciones.Contains(id)
+// 	if ok == true {
+// 		fmt.Println("ENTORNO:  ERROR->Funcion ya existe en el entorno:")
+// 	} else {
+// 		// var nuevaFuncion instrucciones.BlockFuncion
+// 		a := instrucciones.NewFuncion(id)
+// 		entorno.Funciones.Add(a)
+// 	}
+// 	// fmt.Println(ok)
+// }
 
 //funcion para retornar variable
 func (entorno Entornos) GetVariables(id string) interfaces.Simbolo {

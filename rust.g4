@@ -62,7 +62,6 @@ instruccion returns[interfaces.Instruction inst]
     |   asignacionVariable  { $inst = $asignacionVariable.inst }
     |   expresionIf         { $inst = $expresionIf.inst }
     |   expresionWhile      { $inst = $expresionWhile.inst }
-    // |   structIF            { $inst = $structIF.inst }
     ;
 
 
@@ -98,38 +97,35 @@ expresionIf returns[interfaces.Instruction inst]
 
     |   TK_IF expresion '{' bloqueif=instrucciones '}' TK_ELSE '{' bloqueelse=instrucciones '}'     
         { $inst = instrucciones.NewIf($expresion.primate,$bloqueif.lista,$bloqueelse.lista) }
+
+
+    |   TK_IF expresion '{' ifblock=instrucciones '}' listaelif
+        { $inst = instrucciones.NewIf2($expresion.primate,$ifblock.lista,nil,$listaelif.lista)  }
+
+    |   TK_IF expresion '{' ifblock=instrucciones '}' listaelif TK_ELSE '{' bloqueelse=instrucciones '}'
+        { $inst = instrucciones.NewIf2($expresion.primate,$ifblock.lista,$bloqueelse.lista,$listaelif.lista)  }
     ;
 
 
-// structIF returns [interfaces.Instruction inst]
-//     :   TK_IF exp=expresion '{' bloqueif=instrucciones '}'                      
-//         {             
-//             $inst = instrucciones.NewIf($exp.primate,$bloqueif.lista,nil) 
-//         }
 
-//     |   TK_IF exp=expresion '{' bloqueif=instrucciones '}'  TK_ELSE a=structIF
-//         { 
-//             $inst = instrucciones.NewIf2($a.inst.(instrucciones.If).Expresion,$exp.primate,$bloqueif.lista,nil) 
-//         }
-//     ;
+// concatenacion de la lista de else if
+listaelif returns[*arrayList.List lista]
+    @init{ $lista = arrayList.New() }
+    :   l += elif+
+        {
+            listLocal := localctx.(*ListaelifContext).GetL()
+            for _,l := range listLocal{
+                $lista.Add(l.GetInst())
+            }
+        }
+    ;
 
 
-// structIF returns [interfaces.Instruction inst]
-//     :   TK_IF exp=expresion '{' bloqueif=instrucciones '}'                      
-//         {             
-//             $inst = instrucciones.NewIf($exp.primate,$bloqueif.lista,nil) 
-//         }
-
-//     |   a=structIF TK_ELSE_IF exp=expresion '{' blockElif=instrucciones '}'    
-//         { 
-//             // fmt.Println("TIPO:  ",reflect.TypeOf($a.inst.(instrucciones.If)))
-//             fmt.Println($a.inst)
-//             fmt.Println($a.inst.(instrucciones.If))
-//             // fmt.Println($a.inst.(instrucciones.If).Contenido)
-            
-//             $inst = instrucciones.NewElif($a.inst,$exp.primate,$blockElif.lista) 
-//         }
-//     ;
+// else if
+elif returns[interfaces.Instruction inst]
+    :   TK_ELSE_IF expresion '{' elifblock=instrucciones '}'
+        { $inst = instrucciones.NewIf($expresion.primate,$elifblock.lista,nil)  }
+    ;
 
 
 
@@ -287,7 +283,7 @@ TK_WITHCAPACITY:'with_capacity';
 
 TK_IF:   'if';
 TK_ELSE: 'else';
-// TK_ELSE_IF: 'else if';
+TK_ELSE_IF: 'else if';
 TK_WHILE: 'while';
 
 

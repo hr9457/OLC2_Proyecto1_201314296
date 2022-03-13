@@ -63,6 +63,18 @@ func (s *BaserustListener) EnterExpresionIf(ctx *ExpresionIfContext) {}
 // ExitExpresionIf is called when production expresionIf is exited.
 func (s *BaserustListener) ExitExpresionIf(ctx *ExpresionIfContext) {}
 
+// EnterListaelif is called when production listaelif is entered.
+func (s *BaserustListener) EnterListaelif(ctx *ListaelifContext) {}
+
+// ExitListaelif is called when production listaelif is exited.
+func (s *BaserustListener) ExitListaelif(ctx *ListaelifContext) {}
+
+// EnterElif is called when production elif is entered.
+func (s *BaserustListener) EnterElif(ctx *ElifContext) {}
+
+// ExitElif is called when production elif is exited.
+func (s *BaserustListener) ExitElif(ctx *ElifContext) {}
+
 // EnterExpresionWhile is called when production expresionWhile is entered.
 func (s *BaserustListener) EnterExpresionWhile(ctx *ExpresionWhileContext) {}
 

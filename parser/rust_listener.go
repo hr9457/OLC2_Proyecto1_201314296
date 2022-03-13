@@ -29,6 +29,12 @@ type rustListener interface {
 	// EnterExpresionIf is called when entering the expresionIf production.
 	EnterExpresionIf(c *ExpresionIfContext)
 
+	// EnterListaelif is called when entering the listaelif production.
+	EnterListaelif(c *ListaelifContext)
+
+	// EnterElif is called when entering the elif production.
+	EnterElif(c *ElifContext)
+
 	// EnterExpresionWhile is called when entering the expresionWhile production.
 	EnterExpresionWhile(c *ExpresionWhileContext)
 
@@ -64,6 +70,12 @@ type rustListener interface {
 
 	// ExitExpresionIf is called when exiting the expresionIf production.
 	ExitExpresionIf(c *ExpresionIfContext)
+
+	// ExitListaelif is called when exiting the listaelif production.
+	ExitListaelif(c *ListaelifContext)
+
+	// ExitElif is called when exiting the elif production.
+	ExitElif(c *ElifContext)
 
 	// ExitExpresionWhile is called when exiting the expresionWhile production.
 	ExitExpresionWhile(c *ExpresionWhileContext)

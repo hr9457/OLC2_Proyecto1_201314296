@@ -13,6 +13,7 @@ type If struct {
 	Expresion     interfaces.Expresion //para guaradar la expresion en el if y pueda ser evaluada
 	Contenido     *arrayList.List      // contenido dentro del if
 	ContenidoElse interface{}          //bloque de contenido para el else
+	// Elements      []If                 //
 }
 
 // consturctor para ingresar datos par utilizad del if
@@ -55,6 +56,9 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 			// fmt.Println("IF:  retorno->", resultado.Valor)
 		}
 	}
+
+	// var channels = []If{}
+	// channels = append(channels, If{Expresion: "", Contenido: "", ContenidoElse: ""})
 
 	fmt.Println("IF:  retorno->", resultado.Valor)
 	return resultado.Valor

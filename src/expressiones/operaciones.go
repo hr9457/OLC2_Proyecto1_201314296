@@ -25,11 +25,23 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 	var resultadoTipo interfaces.TipoExpression
 
 	if op.LeftOperation == nil {
+		// CREACION DE LA COMPUERTA NOT
 		// fmt.Println("El operador de la izquierda no existe")
-		if op.RighthOpertion.Ejecutar(entorno).Tipo == interfaces.BOOLEAN {
-			resultado = !op.RighthOpertion.Ejecutar(entorno).Valor.(bool)
-			resultadoTipo = interfaces.BOOLEAN
+		if op.SymbolOperation == "!" {
+			if op.RighthOpertion.Ejecutar(entorno).Tipo == interfaces.BOOLEAN {
+				resultado = !op.RighthOpertion.Ejecutar(entorno).Valor.(bool)
+				resultadoTipo = interfaces.BOOLEAN
+			}
+		} else if op.SymbolOperation == "-" {
+			if op.RighthOpertion.Ejecutar(entorno).Tipo == interfaces.INTEGER {
+				resultado = -op.RighthOpertion.Ejecutar(entorno).Valor.(int)
+				resultadoTipo = interfaces.INTEGER
+			} else if op.RighthOpertion.Ejecutar(entorno).Tipo == interfaces.FLOAT {
+				resultado = -op.RighthOpertion.Ejecutar(entorno).Valor.(float64)
+				resultadoTipo = interfaces.FLOAT
+			}
 		}
+
 	} else {
 
 		//verificacion de tipos
@@ -325,6 +337,6 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 	//retorno del simbolo como tal
 	// todos los casos de operacion
 	tempSimbolo := interfaces.Simbolo{Id: "", Valor: resultado, Mut: "", Tipo: resultadoTipo}
-	fmt.Println("OPERACION:  retonro realizado->", tempSimbolo)
+	// fmt.Println("OPERACION:  retonro realizado->", tempSimbolo)
 	return tempSimbolo
 }

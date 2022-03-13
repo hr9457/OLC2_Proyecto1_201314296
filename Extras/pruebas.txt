@@ -242,7 +242,7 @@ fn main(){
 
 
 fn main(){
-  if 3>2 {
+  if 3>22 {
     println!("verdadero");
   } else if 5<2 {
     println!("elif1"); 
@@ -251,8 +251,92 @@ fn main(){
   }
 }
 
+fn main(){
+  if 3>22 {
+    println!("verdadero");
+  } else if 5>2 {
+    println!("elif1"); 
+    if true == true {
+      println!("Entro a un if anidado");
+    }
+  } else if 5 == 5 {
+    println!("ELFI2");
+  }
+}
+
+
+
+fn main(){
+let varx = 31;
+
+  if true{
+    if false{
+
+      println!("x");
+    
+    }else if true{
+      
+      println!("y");
+      if true{
+        println!(varx);
+      }
+
+    }
+  } 
+}
 
 
   fn main(){
-    println!(30 / 0);
+    if 3>2 {
+      println!("verdadero");
+    } else {
+      println!("falso");
+    }
   }
+
+fn main(){
+  if true {
+    println!("verdadero");
+  } else {
+    println!("falso");
+  }
+}
+
+
+fn main(){
+  let varx = 10;
+  let vary = 1;
+  let varz = 2;
+
+
+  if varz < vary{
+      println!("Primer if");   
+  }else if varx > vary{
+      println!("Primer else if");
+      if true{
+      let mut varm = 31;
+      let mut suma = vary+varz;
+          if true{
+              if true{
+                  println!("If anidado 3er nivel");
+                  println!(suma+varm);
+              }
+          }
+      }
+      println!(varz);
+  }
+}
+
+fn main(){
+  if false{
+    println!("1ra opcion");
+  }else if false{
+    println!("2da opcion");
+  }else if false{
+    println!("3ra opcion");
+  }else if false{
+    println!("4ta opcion");
+  }else{
+    println!("5ta opcion");
+  }
+}
