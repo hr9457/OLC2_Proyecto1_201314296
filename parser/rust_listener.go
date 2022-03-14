@@ -38,6 +38,12 @@ type rustListener interface {
 	// EnterExpresionWhile is called when entering the expresionWhile production.
 	EnterExpresionWhile(c *ExpresionWhileContext)
 
+	// EnterExpresionLoop is called when entering the expresionLoop production.
+	EnterExpresionLoop(c *ExpresionLoopContext)
+
+	// EnterBreakInst is called when entering the breakInst production.
+	EnterBreakInst(c *BreakInstContext)
+
 	// EnterVariable is called when entering the variable production.
 	EnterVariable(c *VariableContext)
 
@@ -79,6 +85,12 @@ type rustListener interface {
 
 	// ExitExpresionWhile is called when exiting the expresionWhile production.
 	ExitExpresionWhile(c *ExpresionWhileContext)
+
+	// ExitExpresionLoop is called when exiting the expresionLoop production.
+	ExitExpresionLoop(c *ExpresionLoopContext)
+
+	// ExitBreakInst is called when exiting the breakInst production.
+	ExitBreakInst(c *BreakInstContext)
 
 	// ExitVariable is called when exiting the variable production.
 	ExitVariable(c *VariableContext)

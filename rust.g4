@@ -62,6 +62,8 @@ instruccion returns[interfaces.Instruction inst]
     |   asignacionVariable  { $inst = $asignacionVariable.inst }
     |   expresionIf         { $inst = $expresionIf.inst }
     |   expresionWhile      { $inst = $expresionWhile.inst }
+    |   expresionLoop       { $inst = $expresionLoop.inst  }
+    |   breakInst           { $inst = $breakInst.inst }
     ;
 
 
@@ -139,6 +141,25 @@ expresionWhile returns[interfaces.Instruction inst]
     ;
 
 
+
+
+// ********************************
+// Instruccion para la creacion de un loop
+// ********************************
+expresionLoop returns[interfaces.Instruction inst]
+    :   TK_LOOP '{' instrucciones '}'   { $inst = instrucciones.NewLoop($instrucciones.lista) }
+    ;
+
+
+
+
+
+// ********************************
+// Sentencia de control break
+// ********************************
+breakInst returns[interfaces.Instruction inst]
+    :   TK_BREAK ';'    {   $inst = instrucciones.NewBreak(interfaces.BREAK)    }
+    ;
 
 
 
@@ -281,10 +302,14 @@ TK_CAPACITY:    'capacity';
 TK_WITHCAPACITY:'with_capacity';
 
 
-TK_IF:   'if';
-TK_ELSE: 'else';
+TK_IF:      'if';
+TK_ELSE:    'else';
 TK_ELSE_IF: 'else if';
-TK_WHILE: 'while';
+TK_WHILE:   'while';
+TK_LOOP:    'loop';
+
+
+TK_BREAK:   'break';
 
 
 

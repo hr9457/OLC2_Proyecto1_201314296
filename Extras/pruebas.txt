@@ -218,6 +218,22 @@ fn main() {
 }
 
 
+fn main() {
+  let mut var1 = true;
+  let mut varx = 0;
+  while var1 {
+    println!(varx);
+    if varx == 20{
+      var1 = false;
+    }
+    println!("Antes del break");
+    break;
+    println!("Despues del break");
+    varx = varx + 1;
+  }
+}
+
+
 ------ prueba de else if ---------------
   fn main(){
     if 3>2 {
@@ -338,5 +354,12 @@ fn main(){
     println!("4ta opcion");
   }else{
     println!("5ta opcion");
+  }
+}
+
+
+fn main(){
+  loop{
+    println!("1ra opcion");
   }
 }

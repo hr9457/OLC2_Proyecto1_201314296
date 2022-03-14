@@ -23,4 +23,5 @@ const (
 	NULL
 	IDENTIFICADOR
 	LOGICO
+	BREAK
 )

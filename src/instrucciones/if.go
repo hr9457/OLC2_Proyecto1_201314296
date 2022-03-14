@@ -4,6 +4,7 @@ import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
 	"fmt"
+	"reflect"
 
 	arrayList "github.com/colegno/arraylist"
 )
@@ -38,6 +39,14 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 		// transofrmacion de tipos
 		entornoIf = environment.NewEntorno(entorno.(environment.Entornos), "Entorno If")
 		for _, s := range firmaif.Contenido.ToArray() {
+			// creacion de una variable para compara con los typeof si es un sentencia break
+			b := BreakExp{}
+			// si es igual a una sentencia break se corrompe
+			fmt.Println(reflect.TypeOf(s))
+			if reflect.TypeOf(s) == reflect.TypeOf(b) {
+				fmt.Println("Se econtro un break")
+				return nil
+			}
 			s.(interfaces.Instruction).Ejecutar(entornoIf)
 		}
 		// fmt.Println("IF:  retorno->", resultado.Valor)
@@ -50,6 +59,13 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 			// fmt.Println("ELSE:  ", firmaif.ContenidoElse)
 			var entornoElse = environment.NewEntorno(entorno.(environment.Entornos), "Entorno Else")
 			for _, s := range firmaif.ContenidoElse.(*arrayList.List).ToArray() {
+				// creacion de una variable para compara con los typeof si es un sentencia break
+				b := BreakExp{}
+				// si es igual a una sentencia break se corrompe
+				if reflect.TypeOf(s) == reflect.TypeOf(b) {
+					// fmt.Println("Se econtro un break")
+					return nil
+				}
 				s.(interfaces.Instruction).Ejecutar(entornoElse)
 			}
 		} else {
@@ -60,6 +76,6 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 	// var channels = []If{}
 	// channels = append(channels, If{Expresion: "", Contenido: "", ContenidoElse: ""})
 
-	fmt.Println("IF:  retorno->", resultado.Valor)
+	// fmt.Println("IF:  retorno->", resultado.Valor)
 	return resultado.Valor
 }

@@ -81,6 +81,18 @@ func (s *BaserustListener) EnterExpresionWhile(ctx *ExpresionWhileContext) {}
 // ExitExpresionWhile is called when production expresionWhile is exited.
 func (s *BaserustListener) ExitExpresionWhile(ctx *ExpresionWhileContext) {}
 
+// EnterExpresionLoop is called when production expresionLoop is entered.
+func (s *BaserustListener) EnterExpresionLoop(ctx *ExpresionLoopContext) {}
+
+// ExitExpresionLoop is called when production expresionLoop is exited.
+func (s *BaserustListener) ExitExpresionLoop(ctx *ExpresionLoopContext) {}
+
+// EnterBreakInst is called when production breakInst is entered.
+func (s *BaserustListener) EnterBreakInst(ctx *BreakInstContext) {}
+
+// ExitBreakInst is called when production breakInst is exited.
+func (s *BaserustListener) ExitBreakInst(ctx *BreakInstContext) {}
+
 // EnterVariable is called when production variable is entered.
 func (s *BaserustListener) EnterVariable(ctx *VariableContext) {}
 
