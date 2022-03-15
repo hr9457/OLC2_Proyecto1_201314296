@@ -30,13 +30,16 @@ func (firmaWhile While) Ejecutar(entorno interface{}) interface{} {
 			entornoWhile = environment.NewEntorno(entorno.(environment.Entornos), "Entorno While")
 			for _, s := range firmaWhile.BloqueWhile.(*arrayList.List).ToArray() {
 				// creacion de una variable para compara con los typeof si es un sentencia break
-				b := BreakExp{}
+				b := BreakExp{Valor: nil, Tipo: interfaces.BREAK}
 				// si es igual a una sentencia break se corrompe
 				if reflect.TypeOf(s) == reflect.TypeOf(b) {
 					fmt.Println("Se econtro un break")
 					return nil
 				}
-				s.(interfaces.Instruction).Ejecutar(entornoWhile)
+				z := s.(interfaces.Instruction).Ejecutar(entornoWhile)
+				if reflect.TypeOf(z) == reflect.TypeOf(b) {
+					return nil
+				}
 			}
 		} else {
 			break

@@ -85,6 +85,14 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 							resultado = op.LeftOperation.Ejecutar(entorno).Valor.(int) % op.RighthOpertion.Ejecutar(entorno).Valor.(int)
 							resultadoTipo = interfaces.INTEGER
 						}
+					case "i64::pow":
+						{
+							primero := float64(op.LeftOperation.Ejecutar(entorno).Valor.(int))
+							segundo := float64(op.RighthOpertion.Ejecutar(entorno).Valor.(int))
+							resultado = int(math.Pow(primero, segundo))
+							resultadoTipo = interfaces.INTEGER
+						}
+
 					case "==":
 						{
 							if op.LeftOperation.Ejecutar(entorno).Valor.(int) == op.RighthOpertion.Ejecutar(entorno).Valor.(int) {
@@ -139,6 +147,7 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 							}
 							resultadoTipo = interfaces.BOOLEAN
 						}
+
 					}
 
 				}
@@ -177,6 +186,11 @@ func (op Aritmetica) Ejecutar(entorno interface{}) interfaces.Simbolo {
 						{
 							resultado = math.Mod(op.LeftOperation.Ejecutar(entorno).Valor.(float64), op.RighthOpertion.Ejecutar(entorno).Valor.(float64))
 							resultadoTipo = interfaces.FLOAT
+						}
+					case "f64::pow":
+						{
+							resultado = math.Pow(op.LeftOperation.Ejecutar(entorno).Valor.(float64), op.RighthOpertion.Ejecutar(entorno).Valor.(float64))
+							resultadoTipo = interfaces.INTEGER
 						}
 					case "==":
 						{

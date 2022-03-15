@@ -3,6 +3,7 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
+	"reflect"
 
 	arrayList "github.com/colegno/arraylist"
 )
@@ -37,6 +38,14 @@ func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
 		// transofrmacion de tipos
 		entornoIf = environment.NewEntorno(entorno.(environment.Entornos), "Entorno If")
 		for _, s := range firmaif.Contenido.ToArray() {
+
+			// creacion de una variable para compara con los typeof si es un sentencia break
+			// creand una busqueda y retorno de un break
+			b := BreakExp{Valor: nil, Tipo: interfaces.BREAK}
+			// si es igual a una sentencia break se corrompe
+			if reflect.TypeOf(s) == reflect.TypeOf(b) {
+				return b
+			}
 			s.(interfaces.Instruction).Ejecutar(entornoIf)
 		}
 		// fmt.Println("IF:  retorno->", resultado.Valor)
@@ -53,6 +62,14 @@ func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
 					var entornoElif environment.Entornos
 					entornoElif = environment.NewEntorno(entorno.(environment.Entornos), "Entorno Else if")
 					for _, s := range elif.(If).Contenido.ToArray() {
+
+						// creacion de una variable para compara con los typeof si es un sentencia break
+						// creand una busqueda y retorno de un break
+						b := BreakExp{Valor: nil, Tipo: interfaces.BREAK}
+						// si es igual a una sentencia break se corrompe
+						if reflect.TypeOf(s) == reflect.TypeOf(b) {
+							return b
+						}
 						s.(interfaces.Instruction).Ejecutar(entornoElif)
 						// return resultado.Valor
 					}
@@ -67,6 +84,14 @@ func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
 			// fmt.Println("ELSE:  ", firmaif.ContenidoElse)
 			var entornoElse = environment.NewEntorno(entorno.(environment.Entornos), "Entorno Else")
 			for _, s := range firmaif.ContenidoElse.(*arrayList.List).ToArray() {
+
+				// creacion de una variable para compara con los typeof si es un sentencia break
+				// creand una busqueda y retorno de un break
+				b := BreakExp{Valor: nil, Tipo: interfaces.BREAK}
+				// si es igual a una sentencia break se corrompe
+				if reflect.TypeOf(s) == reflect.TypeOf(b) {
+					return b
+				}
 				s.(interfaces.Instruction).Ejecutar(entornoElse)
 			}
 		}

@@ -199,9 +199,8 @@ expresion returns[interfaces.Expresion primate]
     :   op=('!'|'-') right=expresion                    { $primate = expressiones.NewOperacion(nil,$op.text,$right.primate) }
     |   left=expresion op=('*'|'/'|'%') right=expresion { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op=('+'|'-') right=expresion     { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
-    |   expresion '&' expresion
-    |   expresion '^' expresion
-    |   expresion '|' 
+    |   TK_POW_I64 '(' left=expresion ',' right=expresion ')'      { $primate = expressiones.NewOperacion($left.primate,$TK_POW_I64.text,$right.primate) }
+    |   TK_POW_F64 '(' left=expresion ',' right=expresion ')'      { $primate = expressiones.NewOperacion($left.primate,$TK_POW_F64.text,$right.primate) }
     |   left=expresion op='==' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='!=' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='>'  right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
@@ -310,7 +309,8 @@ TK_LOOP:    'loop';
 
 
 TK_BREAK:   'break';
-
+TK_POW_I64: 'i64::pow';
+TK_POW_F64: 'f64::powf';
 
 
 // identificadores

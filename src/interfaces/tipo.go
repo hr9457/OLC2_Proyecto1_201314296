@@ -15,13 +15,13 @@ type TipoExpression int
 - logico
 */
 const (
-	INTEGER TipoExpression = iota
-	FLOAT
-	BOOLEAN
-	CHAR
-	STRING
-	NULL
-	IDENTIFICADOR
-	LOGICO
-	BREAK
+	INTEGER       TipoExpression = iota //0
+	FLOAT                               //1
+	BOOLEAN                             //2
+	CHAR                                //3
+	STRING                              //4
+	NULL                                //5
+	IDENTIFICADOR                       //6
+	LOGICO                              //7
+	BREAK                               //8
 )
