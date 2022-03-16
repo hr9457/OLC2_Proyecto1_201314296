@@ -20,6 +20,17 @@ fn main(){
 }
 
 
+
+fn main(){
+  let mut var1 = 43;
+  let mut var2 = 50;
+  let mut var3 = 3.3;
+  let mut var4 = "XD";
+  println!("hola mundo {} {} {} {}",var1,var2,var3,var4);
+}
+
+
+
 fn main(){
   
   let mut variable1: i64 = 3;
@@ -359,7 +370,22 @@ fn main(){
 
 
 fn main(){
-  loop{
-    println!("1ra opcion");
+  let varx = 20;
+  let mut vary = 2;
+  while vary <= varx {
+      println!(vary);
+    if vary == 12{
+    if true{
+        if true{
+            if true{
+                if true{
+                  println!("Rompo el while");
+                  break; 
+                }
+            }
+        }
+    }
+  }
+  vary = vary + 1;
   }
 }

@@ -23,6 +23,12 @@ type rustListener interface {
 	// EnterImpresion is called when entering the impresion production.
 	EnterImpresion(c *ImpresionContext)
 
+	// EnterListprint is called when entering the listprint production.
+	EnterListprint(c *ListprintContext)
+
+	// EnterExpimprimir is called when entering the expimprimir production.
+	EnterExpimprimir(c *ExpimprimirContext)
+
 	// EnterAsignacionVariable is called when entering the asignacionVariable production.
 	EnterAsignacionVariable(c *AsignacionVariableContext)
 
@@ -70,6 +76,12 @@ type rustListener interface {
 
 	// ExitImpresion is called when exiting the impresion production.
 	ExitImpresion(c *ImpresionContext)
+
+	// ExitListprint is called when exiting the listprint production.
+	ExitListprint(c *ListprintContext)
+
+	// ExitExpimprimir is called when exiting the expimprimir production.
+	ExitExpimprimir(c *ExpimprimirContext)
 
 	// ExitAsignacionVariable is called when exiting the asignacionVariable production.
 	ExitAsignacionVariable(c *AsignacionVariableContext)

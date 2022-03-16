@@ -46,7 +46,10 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 			if reflect.TypeOf(s) == reflect.TypeOf(b) {
 				return b
 			}
-			s.(interfaces.Instruction).Ejecutar(entornoIf)
+			ejecucion := s.(interfaces.Instruction).Ejecutar(entornoIf)
+			if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
+				return b
+			}
 		}
 		// fmt.Println("IF:  retorno->", resultado.Valor)
 		// fmt.Println(firmaif.Contenido)
@@ -66,7 +69,10 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 				if reflect.TypeOf(s) == reflect.TypeOf(b) {
 					return b
 				}
-				s.(interfaces.Instruction).Ejecutar(entornoElse)
+				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoElse)
+				if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
+					return b
+				}
 			}
 		} else {
 			// fmt.Println("IF:  retorno->", resultado.Valor)

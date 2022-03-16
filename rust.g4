@@ -73,8 +73,31 @@ instruccion returns[interfaces.Instruction inst]
 // Instruccion para imprimr
 // ********************************
 impresion returns[interfaces.Instruction inst]
-    :   TK_IMPRESION '(' expresion ')' ';'  {$inst = instrucciones.NewImprimir($expresion.primate)}
+    :   TK_IMPRESION '(' expresion ')' ';'  {$inst = instrucciones.NewImprimir($expresion.primate,nil)}
+    |   TK_IMPRESION '(' expresion  listprint ')'  ';'  {$inst = instrucciones.NewImprimir($expresion.primate,$listprint.lista)}
     ;
+
+
+
+listprint returns[*arrayList.List lista]
+    @init{$lista = arrayList.New()}
+    : list += expimprimir+
+        {
+            localList := localctx.(*ListprintContext).GetList()
+            for _, list := range localList{
+                $lista.Add(list.GetPrimate())
+            }
+        }
+    ;
+
+expimprimir returns[interfaces.Expresion primate]
+    :   ',' expresion   {$primate = $expresion.primate}
+    ;
+
+
+// impresion returns[interfaces.Instruction inst]
+//     :   TK_IMPRESION '(' expresion ')' ';'  {$inst = instrucciones.NewImprimir($expresion.primate)}
+//     ;
 
 
 

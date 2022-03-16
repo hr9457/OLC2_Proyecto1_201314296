@@ -36,8 +36,8 @@ func (firmaWhile While) Ejecutar(entorno interface{}) interface{} {
 					fmt.Println("Se econtro un break")
 					return nil
 				}
-				z := s.(interfaces.Instruction).Ejecutar(entornoWhile)
-				if reflect.TypeOf(z) == reflect.TypeOf(b) {
+				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoWhile)
+				if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 					return nil
 				}
 			}

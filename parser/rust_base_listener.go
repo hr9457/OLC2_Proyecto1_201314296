@@ -51,6 +51,18 @@ func (s *BaserustListener) EnterImpresion(ctx *ImpresionContext) {}
 // ExitImpresion is called when production impresion is exited.
 func (s *BaserustListener) ExitImpresion(ctx *ImpresionContext) {}
 
+// EnterListprint is called when production listprint is entered.
+func (s *BaserustListener) EnterListprint(ctx *ListprintContext) {}
+
+// ExitListprint is called when production listprint is exited.
+func (s *BaserustListener) ExitListprint(ctx *ListprintContext) {}
+
+// EnterExpimprimir is called when production expimprimir is entered.
+func (s *BaserustListener) EnterExpimprimir(ctx *ExpimprimirContext) {}
+
+// ExitExpimprimir is called when production expimprimir is exited.
+func (s *BaserustListener) ExitExpimprimir(ctx *ExpimprimirContext) {}
+
 // EnterAsignacionVariable is called when production asignacionVariable is entered.
 func (s *BaserustListener) EnterAsignacionVariable(ctx *AsignacionVariableContext) {}
 
