@@ -2,6 +2,7 @@ package expressiones
 
 import (
 	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 )
 
 // necsito una estructura para poder resivir los datos
@@ -20,7 +21,7 @@ func NewPrimito(valor interface{}, tipo interfaces.TipoExpression) Primitivo {
 }
 
 // funcion para retornar el primitivo con la estructura de un simbolo/variable
-func (primate Primitivo) Ejecutar(entorno interface{}) interfaces.Simbolo {
+func (primate Primitivo) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interfaces.Simbolo {
 	// retrono el primitivo con una estructrua definida
 	// fmt.Println("PRIMATE:  tipo->", primate.TipoPrimitivo)
 	return interfaces.Simbolo{

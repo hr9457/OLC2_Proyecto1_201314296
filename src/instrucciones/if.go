@@ -3,6 +3,7 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 	"reflect"
 
 	arrayList "github.com/colegno/arraylist"
@@ -24,10 +25,10 @@ func NewIf(exp interfaces.Expresion, bloque *arrayList.List, bloqueElse interfac
 }
 
 // implementado su metodo Ejecutar
-func (firmaif If) Ejecutar(entorno interface{}) interface{} {
+func (firmaif If) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
 	var resultado interfaces.Simbolo
 
-	resultado = firmaif.Expresion.Ejecutar(entorno)
+	resultado = firmaif.Expresion.Ejecutar(entorno, traductor)
 
 	// entra en la condicional para ejectuar el if
 	if resultado.Valor == true {
@@ -46,7 +47,7 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 			if reflect.TypeOf(s) == reflect.TypeOf(b) {
 				return b
 			}
-			ejecucion := s.(interfaces.Instruction).Ejecutar(entornoIf)
+			ejecucion := s.(interfaces.Instruction).Ejecutar(entornoIf, traductor)
 			if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 				return b
 			}
@@ -69,7 +70,7 @@ func (firmaif If) Ejecutar(entorno interface{}) interface{} {
 				if reflect.TypeOf(s) == reflect.TypeOf(b) {
 					return b
 				}
-				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoElse)
+				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoElse, traductor)
 				if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 					return b
 				}

@@ -1,6 +1,9 @@
 package instrucciones
 
-import "Proyecto1/src/interfaces"
+import (
+	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
+)
 
 // struct break
 type BreakExp struct {
@@ -14,6 +17,6 @@ func NewBreak(tipo interfaces.TipoExpression) BreakExp {
 	return tempBreak
 }
 
-func (firmaBreak BreakExp) Ejecutar(entorno interface{}) interface{} {
+func (firmaBreak BreakExp) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
 	return nil
 }

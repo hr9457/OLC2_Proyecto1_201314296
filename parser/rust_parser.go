@@ -13,9 +13,11 @@ import (
 import "Proyecto1/src/interfaces"
 import "Proyecto1/src/expressiones"
 import "Proyecto1/src/instrucciones"
-import arrayList "github.com/colegno/arraylist"
-import "Proyecto1/src/pruebas"
 
+// import "Proyecto1/src/funciones"
+import arrayList "github.com/colegno/arraylist"
+
+// import "Proyecto1/src/pruebas"
 // import "reflect"
 
 // Suppress unused import errors
@@ -351,6 +353,12 @@ type IStartContext interface {
 	// Set_funcionmain sets the _funcionmain rule contexts.
 	Set_funcionmain(IFuncionmainContext)
 
+	// GetLista returns the lista attribute.
+	GetLista() *arrayList.List
+
+	// SetLista sets the lista attribute.
+	SetLista(*arrayList.List)
+
 	// IsStartContext differentiates from other interfaces.
 	IsStartContext()
 }
@@ -358,6 +366,7 @@ type IStartContext interface {
 type StartContext struct {
 	*antlr.BaseParserRuleContext
 	parser       antlr.Parser
+	lista        *arrayList.List
 	_funcionmain IFuncionmainContext
 }
 
@@ -386,6 +395,10 @@ func (s *StartContext) GetParser() antlr.Parser { return s.parser }
 func (s *StartContext) Get_funcionmain() IFuncionmainContext { return s._funcionmain }
 
 func (s *StartContext) Set_funcionmain(v IFuncionmainContext) { s._funcionmain = v }
+
+func (s *StartContext) GetLista() *arrayList.List { return s.lista }
+
+func (s *StartContext) SetLista(v *arrayList.List) { s.lista = v }
 
 func (s *StartContext) Funcionmain() IFuncionmainContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFuncionmainContext)(nil)).Elem(), 0)
@@ -456,7 +469,7 @@ func (p *rustParser) Start() (localctx IStartContext) {
 		p.SetState(37)
 		p.Match(rustParserEOF)
 	}
-	pruebas.Probar(localctx.(*StartContext).Get_funcionmain().GetLista())
+	localctx.(*StartContext).lista = localctx.(*StartContext).Get_funcionmain().GetLista()
 
 	return localctx
 }

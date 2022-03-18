@@ -3,6 +3,7 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 	"fmt"
 	"reflect"
 
@@ -19,7 +20,7 @@ func NewLoop(contenido interface{}) Loop {
 	return tempLoop
 }
 
-func (firmaLoop Loop) Ejecutar(entorno interface{}) interface{} {
+func (firmaLoop Loop) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
 	// ejecuccion del for
 	// guardadfo y evalucacion de la expresion del loop
 
@@ -38,7 +39,7 @@ func (firmaLoop Loop) Ejecutar(entorno interface{}) interface{} {
 				fmt.Println("Se econtro un break")
 				return nil
 			}
-			ejecucion := s.(interfaces.Instruction).Ejecutar(entornoLoop)
+			ejecucion := s.(interfaces.Instruction).Ejecutar(entornoLoop, traductor)
 			if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 				return nil
 			}

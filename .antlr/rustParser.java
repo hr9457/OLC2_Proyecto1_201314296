@@ -3,8 +3,9 @@
     import "Proyecto1/src/interfaces"
     import "Proyecto1/src/expressiones"
     import "Proyecto1/src/instrucciones"
+    // import "Proyecto1/src/funciones"
     import arrayList "github.com/colegno/arraylist"
-    import "Proyecto1/src/pruebas" 
+    // import "Proyecto1/src/pruebas" 
     // import "reflect"
 
 import org.antlr.v4.runtime.atn.*;
@@ -140,6 +141,7 @@ public class rustParser extends Parser {
 	}
 
 	public static class StartContext extends ParserRuleContext {
+		public *arrayList.List lista;
 		public FuncionmainContext funcionmain;
 		public FuncionmainContext funcionmain() {
 			return getRuleContext(FuncionmainContext.class,0);
@@ -161,7 +163,7 @@ public class rustParser extends Parser {
 			((StartContext)_localctx).funcionmain = funcionmain();
 			setState(37);
 			match(EOF);
-			pruebas.Probar(((StartContext)_localctx).funcionmain.lista)
+			 _localctx.lista = ((StartContext)_localctx).funcionmain.lista 
 			}
 		}
 		catch (RecognitionException re) {

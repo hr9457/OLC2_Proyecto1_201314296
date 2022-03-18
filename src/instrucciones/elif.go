@@ -3,6 +3,7 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 	"reflect"
 
 	arrayList "github.com/colegno/arraylist"
@@ -24,10 +25,10 @@ func NewIf2(exp interfaces.Expresion, bloque *arrayList.List, bloqueElse interfa
 }
 
 // implementado su metodo Ejecutar
-func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
+func (firmaif If2) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
 	var resultado interfaces.Simbolo
 
-	resultado = firmaif.Expresion.Ejecutar(entorno)
+	resultado = firmaif.Expresion.Ejecutar(entorno, traductor)
 
 	// entra en la condicional para ejectuar el if
 	if resultado.Valor == true {
@@ -46,7 +47,7 @@ func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
 			if reflect.TypeOf(s) == reflect.TypeOf(b) {
 				return b
 			}
-			ejecucion := s.(interfaces.Instruction).Ejecutar(entornoIf)
+			ejecucion := s.(interfaces.Instruction).Ejecutar(entornoIf, traductor)
 			if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 				return b
 			}
@@ -61,7 +62,7 @@ func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
 			for _, elif := range firmaif.Listado.ToArray() {
 				// fmt.Println(reflect.TypeOf(elif))
 				// fmt.Println("Else If: ", elif.(If).Expresion.Ejecutar(entorno).Valor)
-				if elif.(If).Expresion.Ejecutar(entorno).Valor == true {
+				if elif.(If).Expresion.Ejecutar(entorno, traductor).Valor == true {
 					// fmt.Println("ELSE IF:  condicion verdadera")
 					var entornoElif environment.Entornos
 					entornoElif = environment.NewEntorno(entorno.(environment.Entornos), "Entorno Else if")
@@ -74,7 +75,7 @@ func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
 						if reflect.TypeOf(s) == reflect.TypeOf(b) {
 							return b
 						}
-						ejecucion := s.(interfaces.Instruction).Ejecutar(entornoElif)
+						ejecucion := s.(interfaces.Instruction).Ejecutar(entornoElif, traductor)
 						// return resultado.Valor
 						if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 							return b
@@ -99,7 +100,7 @@ func (firmaif If2) Ejecutar(entorno interface{}) interface{} {
 				if reflect.TypeOf(s) == reflect.TypeOf(b) {
 					return b
 				}
-				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoElse)
+				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoElse, traductor)
 				if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 					return b
 				}

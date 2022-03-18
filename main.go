@@ -4,6 +4,9 @@ import (
 	"fmt"
 
 	"Proyecto1/parser"
+	"Proyecto1/src/environment"
+	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -12,6 +15,34 @@ import (
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 )
+
+var traductor traduccion.Traductor
+
+type TreeShapeListener struct {
+	*parser.BaserustListener
+}
+
+func NewTreeShapeListener() *TreeShapeListener {
+	return new(TreeShapeListener)
+}
+
+func (this *TreeShapeListener) ExitStart(ctx *parser.StartContext) {
+	result := ctx.GetLista()
+
+	traductor = traduccion.NewTraductor("------ SALIDA ------\n")
+
+	// creacion de un entorno de global para englobar todo
+	var entornoGlobal environment.Entornos
+	entornoGlobal = environment.NewEntorno(nil, "global")
+
+	//retorno la lista
+	for _, s := range result.ToArray() {
+		s.(interfaces.Instruction).Ejecutar(entornoGlobal, &traductor)
+	}
+
+	// fmt.Println("-------------- FIN -------------------")
+	// fmt.Println(traductor.Contenido)
+}
 
 type rustListener struct {
 	*parser.BaserustListener
@@ -69,11 +100,16 @@ func main() {
 		// }
 		// creando analizador sintactico
 		stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
-		p := parser.NewrustParser(stream)
-		antlr.ParseTreeWalkerDefault.Walk(&rustListener{}, p.Start())
 
-		txtSalida.SetText(data)
+		p := parser.NewrustParser(stream)
+
+		antlr.ParseTreeWalkerDefault.Walk(NewTreeShapeListener(), p.Start())
+
+		// txtSalida.SetText(data)
+		txtSalida.SetText(traductor.Contenido)
 	})
+
+	// elementos para el la ventana de go
 	btnRun.Resize(fyne.NewSize(100, 50))
 	btnRun.Move(fyne.NewPos(btnPosicionX, btnPosicionY))
 

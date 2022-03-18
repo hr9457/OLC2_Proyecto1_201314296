@@ -5,8 +5,9 @@ grammar rust;
     import "Proyecto1/src/interfaces"
     import "Proyecto1/src/expressiones"
     import "Proyecto1/src/instrucciones"
+    // import "Proyecto1/src/funciones"
     import arrayList "github.com/colegno/arraylist"
-    import "Proyecto1/src/pruebas" 
+    // import "Proyecto1/src/pruebas" 
     // import "reflect"
 }
 
@@ -21,9 +22,16 @@ grammar rust;
 // ********************************
 // Inicio de la gramatica - sintactica
 // ********************************
-start
-    :   funcionmain EOF     {pruebas.Probar($funcionmain.lista)}
+start returns[*arrayList.List lista]
+    :   funcionmain EOF     { $lista = $funcionmain.lista }
+    // |   listafn funcionmain EOF     { $lista = $funcionmain.lista }
     ; 
+
+
+// funcionmain EOF     {pruebas.Probar($funcionmain.lista)}
+
+
+
 
 
 
@@ -33,8 +41,41 @@ start
 // ********************************
 funcionmain returns [*arrayList.List lista]    
     :   TK_FN TK_MAIN '(' ')' '{'    '}' 
-    |   TK_FN TK_MAIN '(' ')' '{'  instrucciones  '}'       { $lista = $instrucciones.lista }        
+    |   TK_FN TK_MAIN '(' ')' '{'  instrucciones  '}'   { $lista = $instrucciones.lista }    
     ;
+
+
+
+
+// ********************************
+// lista de de funciones 
+// ********************************
+
+// listafn returns[*arrayList.List lista]
+//     @init{$lista = arrayList.New()}
+//     :   e += funcion+
+//         {
+//             listInt := localctx.(*ListafnContext).GetE()
+//             for _,e:= range listInt{
+//                 $lista.Add(e.GetInst())
+//             }
+//         }
+//     ;
+
+
+
+
+// ********************************
+// gramatica para creacion de funciones del programa
+// ********************************
+
+// funcion returns[interfaces.Instruction inst]
+//     :   TK_FN TK_ID '(' ')' '{' instrucciones '}'     { funciones.NewFuncion($TK_ID.text,$instrucciones.lista) }
+//     ;
+
+
+
+
 
 
 
@@ -64,7 +105,23 @@ instruccion returns[interfaces.Instruction inst]
     |   expresionWhile      { $inst = $expresionWhile.inst }
     |   expresionLoop       { $inst = $expresionLoop.inst  }
     |   breakInst           { $inst = $breakInst.inst }
+    // |   llamadofn           { $inst = $llamadofn.inst }
     ;
+
+
+
+
+
+
+// ********************************
+// Instruccion para llamado a funciones
+// ********************************
+
+// llamadofn returns[interfaces.Instruction inst]
+//     :   TK_ID '(' ')' ';'   { $inst = funciones.NewLlamdoFn($TK_ID.text,nil) } 
+//     ;
+
+
 
 
 
@@ -95,9 +152,6 @@ expimprimir returns[interfaces.Expresion primate]
     ;
 
 
-// impresion returns[interfaces.Instruction inst]
-//     :   TK_IMPRESION '(' expresion ')' ';'  {$inst = instrucciones.NewImprimir($expresion.primate)}
-//     ;
 
 
 
@@ -108,6 +162,7 @@ expimprimir returns[interfaces.Expresion primate]
 asignacionVariable returns[interfaces.Instruction inst]
     : TK_ID '=' expresion ';'  { $inst = instrucciones.NewAsignacion($TK_ID.text,$expresion.primate) }
     ;
+
 
 
 
@@ -156,12 +211,15 @@ elif returns[interfaces.Instruction inst]
 
 
 
+
 // ********************************
 // Instruccion para la creacion de un if y else
 // ********************************
 expresionWhile returns[interfaces.Instruction inst]
     :   TK_WHILE exp=expresion '{' instrucciones '}'    { $inst = instrucciones.NewWhile($exp.primate,$instrucciones.lista) } 
     ;
+
+
 
 
 
@@ -177,12 +235,16 @@ expresionLoop returns[interfaces.Instruction inst]
 
 
 
+
+
 // ********************************
 // Sentencia de control break
 // ********************************
 breakInst returns[interfaces.Instruction inst]
     :   TK_BREAK ';'    {   $inst = instrucciones.NewBreak(interfaces.BREAK)    }
     ;
+
+
 
 
 
@@ -201,6 +263,8 @@ variable returns[interfaces.Instruction inst]
 
 
 
+
+
 // ********************************
 // tipos aceptados en el lenguaje
 // ********************************
@@ -211,6 +275,8 @@ tipo returns[interfaces.TipoExpression tipoExp]
     |   TK_CHAR     {$tipoExp = interfaces.CHAR}
     |   TK_STRING   {$tipoExp = interfaces.STRING}
     ;
+
+
 
 
 
@@ -238,6 +304,9 @@ expresion returns[interfaces.Expresion primate]
 
 
 
+
+
+
 // ********************************
 // valor aceptados en la gramaticas
 // ********************************
@@ -250,6 +319,9 @@ valor returns[interfaces.Expresion primate]
     |   TK_CARACTER { $primate = expressiones.NewPrimito(interfaces.ConvertTextString($TK_CARACTER.text),interfaces.CHAR) }
     |   TK_ID       { $primate = expressiones.NewLLamadoVariable($TK_ID.text) }
     ;
+
+
+
 
 
 
@@ -334,6 +406,7 @@ TK_LOOP:    'loop';
 TK_BREAK:   'break';
 TK_POW_I64: 'i64::pow';
 TK_POW_F64: 'f64::powf';
+
 
 
 // identificadores

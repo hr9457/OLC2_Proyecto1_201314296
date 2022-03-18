@@ -3,6 +3,7 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 )
 
 type Declaracion struct {
@@ -21,10 +22,10 @@ func NewDeclaracion(id string, mut bool, tipo interfaces.TipoExpression, expresi
 	return declaracionTemporal
 }
 
-func (declaracion Declaracion) Ejecutar(entorno interface{}) interface{} {
+func (declaracion Declaracion) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
 	// var resultado interfaces.Simbolo
 	//va ser igual a un objeto tipo simbolo
-	var resultado = declaracion.Expresion.Ejecutar(entorno)
+	var resultado = declaracion.Expresion.Ejecutar(entorno, traductor)
 
 	// verificacion si la declaracion tiene un tip declarado para guardar
 	if declaracion.Tipo == interfaces.NULL {

@@ -2,6 +2,7 @@ package instrucciones
 
 import (
 	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 	"fmt"
 	"strings"
 
@@ -20,10 +21,10 @@ func NewImprimir(contendio interfaces.Expresion, list interface{}) Imprimir {
 }
 
 // ejecutando lo metodos que ncesita ejectura dentro del print
-func (imprimir Imprimir) Ejecutar(entorno interface{}) interface{} {
+func (imprimir Imprimir) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
 	var resultado interfaces.Simbolo
 	// fmt.Println("Contendio a imprimir en el println: ", imprimir.Contenido)
-	resultado = imprimir.Contenido.Ejecutar(entorno)
+	resultado = imprimir.Contenido.Ejecutar(entorno, traductor)
 	if resultado.Tipo == interfaces.STRING {
 		// fmt.Println("IMPRIMIR:  lo que se va imprimir es un string")
 		if imprimir.Listado != nil {
@@ -41,7 +42,7 @@ func (imprimir Imprimir) Ejecutar(entorno interface{}) interface{} {
 				if imprimir.Listado != nil {
 					for _, s := range imprimir.Listado.(*arrayList.List).ToArray() {
 						// fmt.Println(s.(interfaces.Expresion).Ejecutar(entorno).Valor)
-						a := s.(interfaces.Expresion).Ejecutar(entorno).Valor
+						a := s.(interfaces.Expresion).Ejecutar(entorno, traductor).Valor
 						// fmt.Println(reflect.TypeOf(s.(interfaces.Expresion).Ejecutar(entorno).Valor))
 						// fmt.Println(reflect.TypeOf(strconv.Itoa(a.(int))))
 						// remplazo := s.(interfaces.Expresion).Ejecutar(entorno).Valor
@@ -51,20 +52,26 @@ func (imprimir Imprimir) Ejecutar(entorno interface{}) interface{} {
 					}
 				}
 				// fmt.Println("IMPRIMIR:  ", resultado)
-				fmt.Println("IMPRIMIR:  Mostrando lo que tiene que estar dentro del println: ", textNew)
+				// fmt.Println("IMPRIMIR:  Mostrando lo que tiene que estar dentro del println: ->", textNew)
+				traductor.Contenido += textNew + "\n"
+				// return textNew
 
 			} else {
-				fmt.Println("IMPRIMIR: 	ERROR-> listado no conicide con la cantidad de {}")
+				// fmt.Println("IMPRIMIR: 	ERROR-> listado no conicide con la cantidad de {}")
+				// return "IMPRIMIR: 	ERROR-> listado no conicide con la cantidad de {}"
 			}
 
 		} else {
 
 			// fmt.Println("IMPRIMIR: 	ERROR-> no hay un listado de variables")
-			fmt.Println("IMPRIMIR:  Mostrando lo que tiene que estar dentro del println: ", resultado.Valor)
-
+			// fmt.Println("IMPRIMIR:  Mostrando lo que tiene que estar dentro del println: ", resultado.Valor)
+			dato := fmt.Sprintf("%v", resultado.Valor)
+			traductor.Contenido += dato + "\n"
 		}
 	} else {
-		fmt.Println("IMPRIMIR:  ERROR-> Error Lexico")
+		// fmt.Println("IMPRIMIR:  ERROR-> Error Lexico")
+		traductor.Contenido += "IMPRIMIR:  ERROR-> Error Lexico" + "\n"
+		// return "IMPRIMIR:  ERROR-> Error Lexico"
 	}
 
 	// fmt.Println("IMPRIMIR:  Mostrando lo que tiene que estar dentro del println: ", resultado.Valor)

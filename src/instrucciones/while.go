@@ -3,6 +3,7 @@ package instrucciones
 import (
 	"Proyecto1/src/environment"
 	"Proyecto1/src/interfaces"
+	"Proyecto1/src/traduccion"
 	"fmt"
 	"reflect"
 
@@ -21,10 +22,10 @@ func NewWhile(exp interfaces.Expresion, bloque interface{}) While {
 }
 
 // metodo ejcutar del while
-func (firmaWhile While) Ejecutar(entorno interface{}) interface{} {
+func (firmaWhile While) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
 	var resultadoExp interfaces.Simbolo
 	for {
-		resultadoExp = firmaWhile.Expresion.Ejecutar(entorno)
+		resultadoExp = firmaWhile.Expresion.Ejecutar(entorno, traductor)
 		if resultadoExp.Valor == true {
 			var entornoWhile environment.Entornos
 			entornoWhile = environment.NewEntorno(entorno.(environment.Entornos), "Entorno While")
@@ -36,7 +37,7 @@ func (firmaWhile While) Ejecutar(entorno interface{}) interface{} {
 					fmt.Println("Se econtro un break")
 					return nil
 				}
-				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoWhile)
+				ejecucion := s.(interfaces.Instruction).Ejecutar(entornoWhile, traductor)
 				if reflect.TypeOf(ejecucion) == reflect.TypeOf(b) {
 					return nil
 				}

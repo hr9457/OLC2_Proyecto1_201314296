@@ -1,6 +1,7 @@
 package environment
 
 import (
+	"Proyecto1/src/funciones"
 	"Proyecto1/src/interfaces"
 	"fmt"
 )
@@ -10,7 +11,7 @@ type Entornos struct {
 	Padre     interface{}
 	Nombre    interface{}
 	Variables map[string]interfaces.Simbolo
-	// Funciones *arrayList.List //arreglo para agregar funciones a un entrno
+	Funciones map[string]funciones.BlockFuncion
 	// Funciones   interface{}
 	// Estructuras interface{}
 }
@@ -20,10 +21,11 @@ type Entornos struct {
 func NewEntorno(padre interface{}, nombre interface{}) Entornos {
 	// pasa por parametros quien es el padre, nombre y inicializa el listado de los simbolos
 	// lista := arrayList.New()
-	nuevoEntorno := Entornos{padre, nombre, make(map[string]interfaces.Simbolo)}
+	nuevoEntorno := Entornos{padre, nombre, make(map[string]interfaces.Simbolo), make(map[string]funciones.BlockFuncion)}
 	return nuevoEntorno
 }
 
+// --------------------------- VARIABLES DE UN ENTORNO --------------------------S
 /*funciones de retorno de busqueda para
 los listados de variables, funciones y estructuras puesta en los ambitos
 */
@@ -40,19 +42,6 @@ func (entorno Entornos) AddVariable(id string, valor interfaces.Simbolo, mut boo
 	entorno.Variables[id] = interfaces.Simbolo{Id: id, Valor: valor, Mut: mut, Tipo: tipo}
 	// fmt.Println("ENTORNO:  valores de la variable", entorno.Variables[id])
 }
-
-// funcion para agregar funciones
-// func (entorno Entornos) AddFunciones(id string) {
-// 	ok := entorno.Funciones.Contains(id)
-// 	if ok == true {
-// 		fmt.Println("ENTORNO:  ERROR->Funcion ya existe en el entorno:")
-// 	} else {
-// 		// var nuevaFuncion instrucciones.BlockFuncion
-// 		a := instrucciones.NewFuncion(id)
-// 		entorno.Funciones.Add(a)
-// 	}
-// 	// fmt.Println(ok)
-// }
 
 //funcion para retornar variable
 func (entorno Entornos) GetVariables(id string) interfaces.Simbolo {
@@ -104,6 +93,33 @@ func (entorno Entornos) AlterVariable(id string, valor interfaces.Simbolo) inter
 
 }
 
+// ------------------- FUNCIONES DE UN ENTORNO ----------------------------------
+func (entorno Entornos) AddFuncion(id string, contenido interface{}) {
+	funcion, ok := entorno.Funciones[id]
+	if ok {
+		fmt.Println("ETORNO: ERROR->Funcion ya existe ya existe en el entorno: ", funcion)
+	}
+	entorno.Funciones[id] = funciones.BlockFuncion{Id: id, Contenido: contenido}
+}
+
+// funcion para retornar una funcion
+func (entorno Entornos) GetFuncion(id string) funciones.BlockFuncion {
+	var tempEntorno Entornos
+	tempEntorno = entorno
+	for {
+		if funcion, ok := tempEntorno.Funciones[id]; ok {
+			return funcion
+		}
+		if tempEntorno.Padre == nil {
+			break
+		} else {
+			tempEntorno = tempEntorno.Padre.(Entornos)
+		}
+	}
+	fmt.Println("ENTORNO:  ERROR->Funcion no existe")
+	return funciones.BlockFuncion{Id: "", Contenido: nil}
+}
+
 // get y set para padre, nombre
 func (entornos *Entornos) GetPadre() interface{} {
 	return entornos.Padre
@@ -120,8 +136,3 @@ func (entornos *Entornos) GetNombre() interface{} {
 func (entornos *Entornos) SetEntorno(nombre interface{}) {
 	entornos.Nombre = nombre
 }
-
-// func (entornos *Entornos) AddSymbol() {
-// 	s := NewSimbolo("a", "a", false, 0)
-// 	fmt.Println(s.GetId())
-// }

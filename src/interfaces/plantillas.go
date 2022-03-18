@@ -1,5 +1,7 @@
 package interfaces
 
+import "Proyecto1/src/traduccion"
+
 // creacion de plantillas para darle estructura a los primitivos
 // de los cuales solo necesito saber el tipo que es  y el valor que tiene
 // para lo cual es la misma escrtura que mis simbolos o mis variables
@@ -7,11 +9,9 @@ package interfaces
 
 // donde se hereda se tenga la posibilidad de teneer un metodo ejecutar
 type Expresion interface {
-	Ejecutar(entorno interface{}) Simbolo
+	Ejecutar(entorno interface{}, traductor *traduccion.Traductor) Simbolo
 }
 
-//func Ejecutar() {Simbolo}{}
-
 type Instruction interface {
-	Ejecutar(entorno interface{}) interface{}
+	Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{}
 }
