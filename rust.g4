@@ -5,7 +5,7 @@ grammar rust;
     import "Proyecto1/src/interfaces"
     import "Proyecto1/src/expressiones"
     import "Proyecto1/src/instrucciones"
-    // import "Proyecto1/src/funciones"
+    import "Proyecto1/src/arreglos"
     import arrayList "github.com/colegno/arraylist"
     // import "Proyecto1/src/pruebas" 
     // import "reflect"
@@ -105,7 +105,7 @@ instruccion returns[interfaces.Instruction inst]
     |   expresionWhile      { $inst = $expresionWhile.inst }
     |   expresionLoop       { $inst = $expresionLoop.inst  }
     |   breakInst           { $inst = $breakInst.inst }
-    // |   llamadofn           { $inst = $llamadofn.inst }
+    |   declarcionarreglo   { $inst = $declarcionarreglo.inst }
     ;
 
 
@@ -157,10 +157,56 @@ expimprimir returns[interfaces.Expresion primate]
 
 
 // ********************************
+// declaracion de variables
+// ********************************
+variable returns[interfaces.Instruction inst]
+    :   TK_LET TK_MUT TK_ID '=' expresion ';'           { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,interfaces.NULL,$expresion.primate)  }
+    |   TK_LET TK_ID '=' expresion ';'                  { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,interfaces.NULL,$expresion.primate) }
+    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,$tipo.tipoExp,$expresion.primate)    }
+    |   TK_LET TK_ID ':' tipo '=' expresion ';'         { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,$tipo.tipoExp,$expresion.primate)   }
+    ;
+
+
+
+
+
+// ********************************
 // Instruccion para asignar valores a una variable
 // ********************************
 asignacionVariable returns[interfaces.Instruction inst]
     : TK_ID '=' expresion ';'  { $inst = instrucciones.NewAsignacion($TK_ID.text,$expresion.primate) }
+    ;
+
+
+
+
+
+// ********************************
+// Instruccion para declara una variable
+// ********************************
+declarcionarreglo returns[interfaces.Instruction inst]
+    :   TK_LET TK_ID ':' '[' tipo ';' valor ']' '=' expresion ';'
+    { $inst = arreglos.NewArreglo($TK_ID.text, false, $tipo.tipoExp, $valor.primate, true, $expresion.primate) }
+    ;
+
+
+
+
+// **********************************
+// expresiones listado de expresiones
+// **********************************
+listvalores returns[*arrayList.List lista]
+    :   l = listvalores ',' expresion
+        {
+            $l.lista.Add($expresion.primate)
+            $lista = $l.lista
+        }
+
+    | expresion
+        {
+            $lista = arrayList.New()
+            $lista.Add($expresion.primate)
+        }
     ;
 
 
@@ -250,15 +296,7 @@ breakInst returns[interfaces.Instruction inst]
 
 
 
-// ********************************
-// declaracion de variables
-// ********************************
-variable returns[interfaces.Instruction inst]
-    :   TK_LET TK_MUT TK_ID '=' expresion ';'           { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,interfaces.NULL,$expresion.primate)  }
-    |   TK_LET TK_ID '=' expresion ';'                  { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,interfaces.NULL,$expresion.primate) }
-    |   TK_LET TK_MUT TK_ID ':' tipo '=' expresion ';'  { $inst = instrucciones.NewDeclaracion($TK_ID.text,true,$tipo.tipoExp,$expresion.primate)    }
-    |   TK_LET TK_ID ':' tipo '=' expresion ';'         { $inst = instrucciones.NewDeclaracion($TK_ID.text,false,$tipo.tipoExp,$expresion.primate)   }
-    ;
+
 
 
 
@@ -275,6 +313,15 @@ tipo returns[interfaces.TipoExpression tipoExp]
     |   TK_CHAR     {$tipoExp = interfaces.CHAR}
     |   TK_STRING   {$tipoExp = interfaces.STRING}
     ;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -299,8 +346,12 @@ expresion returns[interfaces.Expresion primate]
     |   left=expresion op='&&' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   left=expresion op='||' right=expresion          { $primate = expressiones.NewOperacion($left.primate,$op.text,$right.primate) }
     |   '(' expresion ')'                               { $primate = $valor.primate }
+    |   '[' listvalores ']'                             { $primate = arreglos.NewArray($listvalores.lista) }
     |   valor                                           { $primate = $valor.primate }
+    |   
     ;
+
+
 
 
 
@@ -406,6 +457,8 @@ TK_LOOP:    'loop';
 TK_BREAK:   'break';
 TK_POW_I64: 'i64::pow';
 TK_POW_F64: 'f64::powf';
+
+
 
 
 

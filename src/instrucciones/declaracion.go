@@ -30,7 +30,6 @@ func (declaracion Declaracion) Ejecutar(entorno interface{}, traductor *traducci
 	// verificacion si la declaracion tiene un tip declarado para guardar
 	if declaracion.Tipo == interfaces.NULL {
 		// fmt.Println("la variable no  tiene tipo la cual sera dada por la opoeracion")
-		// fmt.Println("tipo", resultado.Tipo)
 		entorno.(environment.Entornos).AddVariable(declaracion.Id, resultado, declaracion.Mut, resultado.Tipo)
 
 	} else {
@@ -41,8 +40,6 @@ func (declaracion Declaracion) Ejecutar(entorno interface{}, traductor *traducci
 			// fmt.Println("DECLARACION: resultado: ", resultado)
 			entorno.(environment.Entornos).AddVariable(declaracion.Id, resultado, declaracion.Mut, declaracion.Tipo)
 		}
-		// fmt.Println("DECLARACION:  El valor de la variable a guardar es: ", resultado.Valor)
-		// fmt.Println("DECLARACION:  Variable tiene el valor de: ", resultado.Valor)
 	}
 	return resultado.Valor
 }

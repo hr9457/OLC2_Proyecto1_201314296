@@ -29,8 +29,17 @@ type rustListener interface {
 	// EnterExpimprimir is called when entering the expimprimir production.
 	EnterExpimprimir(c *ExpimprimirContext)
 
+	// EnterVariable is called when entering the variable production.
+	EnterVariable(c *VariableContext)
+
 	// EnterAsignacionVariable is called when entering the asignacionVariable production.
 	EnterAsignacionVariable(c *AsignacionVariableContext)
+
+	// EnterDeclarcionarreglo is called when entering the declarcionarreglo production.
+	EnterDeclarcionarreglo(c *DeclarcionarregloContext)
+
+	// EnterListvalores is called when entering the listvalores production.
+	EnterListvalores(c *ListvaloresContext)
 
 	// EnterExpresionIf is called when entering the expresionIf production.
 	EnterExpresionIf(c *ExpresionIfContext)
@@ -49,9 +58,6 @@ type rustListener interface {
 
 	// EnterBreakInst is called when entering the breakInst production.
 	EnterBreakInst(c *BreakInstContext)
-
-	// EnterVariable is called when entering the variable production.
-	EnterVariable(c *VariableContext)
 
 	// EnterTipo is called when entering the tipo production.
 	EnterTipo(c *TipoContext)
@@ -83,8 +89,17 @@ type rustListener interface {
 	// ExitExpimprimir is called when exiting the expimprimir production.
 	ExitExpimprimir(c *ExpimprimirContext)
 
+	// ExitVariable is called when exiting the variable production.
+	ExitVariable(c *VariableContext)
+
 	// ExitAsignacionVariable is called when exiting the asignacionVariable production.
 	ExitAsignacionVariable(c *AsignacionVariableContext)
+
+	// ExitDeclarcionarreglo is called when exiting the declarcionarreglo production.
+	ExitDeclarcionarreglo(c *DeclarcionarregloContext)
+
+	// ExitListvalores is called when exiting the listvalores production.
+	ExitListvalores(c *ListvaloresContext)
 
 	// ExitExpresionIf is called when exiting the expresionIf production.
 	ExitExpresionIf(c *ExpresionIfContext)
@@ -103,9 +118,6 @@ type rustListener interface {
 
 	// ExitBreakInst is called when exiting the breakInst production.
 	ExitBreakInst(c *BreakInstContext)
-
-	// ExitVariable is called when exiting the variable production.
-	ExitVariable(c *VariableContext)
 
 	// ExitTipo is called when exiting the tipo production.
 	ExitTipo(c *TipoContext)

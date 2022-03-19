@@ -24,4 +24,5 @@ const (
 	IDENTIFICADOR                       //6
 	LOGICO                              //7
 	BREAK                               //8
+	ARREGLO                             //9
 )

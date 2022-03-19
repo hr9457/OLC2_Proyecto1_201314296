@@ -63,11 +63,29 @@ func (s *BaserustListener) EnterExpimprimir(ctx *ExpimprimirContext) {}
 // ExitExpimprimir is called when production expimprimir is exited.
 func (s *BaserustListener) ExitExpimprimir(ctx *ExpimprimirContext) {}
 
+// EnterVariable is called when production variable is entered.
+func (s *BaserustListener) EnterVariable(ctx *VariableContext) {}
+
+// ExitVariable is called when production variable is exited.
+func (s *BaserustListener) ExitVariable(ctx *VariableContext) {}
+
 // EnterAsignacionVariable is called when production asignacionVariable is entered.
 func (s *BaserustListener) EnterAsignacionVariable(ctx *AsignacionVariableContext) {}
 
 // ExitAsignacionVariable is called when production asignacionVariable is exited.
 func (s *BaserustListener) ExitAsignacionVariable(ctx *AsignacionVariableContext) {}
+
+// EnterDeclarcionarreglo is called when production declarcionarreglo is entered.
+func (s *BaserustListener) EnterDeclarcionarreglo(ctx *DeclarcionarregloContext) {}
+
+// ExitDeclarcionarreglo is called when production declarcionarreglo is exited.
+func (s *BaserustListener) ExitDeclarcionarreglo(ctx *DeclarcionarregloContext) {}
+
+// EnterListvalores is called when production listvalores is entered.
+func (s *BaserustListener) EnterListvalores(ctx *ListvaloresContext) {}
+
+// ExitListvalores is called when production listvalores is exited.
+func (s *BaserustListener) ExitListvalores(ctx *ListvaloresContext) {}
 
 // EnterExpresionIf is called when production expresionIf is entered.
 func (s *BaserustListener) EnterExpresionIf(ctx *ExpresionIfContext) {}
@@ -104,12 +122,6 @@ func (s *BaserustListener) EnterBreakInst(ctx *BreakInstContext) {}
 
 // ExitBreakInst is called when production breakInst is exited.
 func (s *BaserustListener) ExitBreakInst(ctx *BreakInstContext) {}
-
-// EnterVariable is called when production variable is entered.
-func (s *BaserustListener) EnterVariable(ctx *VariableContext) {}
-
-// ExitVariable is called when production variable is exited.
-func (s *BaserustListener) ExitVariable(ctx *VariableContext) {}
 
 // EnterTipo is called when production tipo is entered.
 func (s *BaserustListener) EnterTipo(ctx *TipoContext) {}

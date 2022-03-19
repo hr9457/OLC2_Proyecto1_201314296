@@ -408,5 +408,20 @@ fn main(){
 }
 
 fn main(){
-  println!("hola mundo ");
+  let arreglo1:[i64;4] = [3,3,3];
+  println!("arreglo {:?}",arreglo1);
+}
+
+fn main(){
+  let arreglo1:[i64;4] = [3,3,3];
+  println!("arreglo {}",arreglo1[0]);
+}
+
+fn main(){
+    let varx: [i64;4] = [[2,4,6],[1,3,6]];
+    println!("{:?}",varx);
+}
+
+fn main(){
+  println!("hola mundo");
 }
