@@ -373,7 +373,7 @@ fn main(){
   let varx = 20;
   let mut vary = 2;
   while vary <= varx {
-      println!(vary);
+      println!("{}",vary);
     if vary == 12{
     if true{
         if true{
@@ -401,10 +401,17 @@ fn saludo(){
 
 fn main(){
   let mut var1 = 43;
-  let mut var2 = 50;
-  let mut var3 = 3.3;
-  let mut var4 = "XD";
-  println!("hola mundo {} {} {} {}",var1,var2,var3,var4);
+  println!("hola mundo {}",var1);
+}
+
+fn main(){
+  let arreglo1:[i64;4] = [3,3,3];
+  println!("arreglo {:?}",arreglo1);
+}
+
+fn main(){
+  let arreglo1:[i64;4] = [3,3,3];
+  println!("arreglo {:?}",arreglo1[0]);
 }
 
 fn main(){
@@ -420,6 +427,16 @@ fn main(){
 fn main(){
     let varx: [i64;4] = [[2,4,6],[1,3,6]];
     println!("{:?}",varx);
+}
+
+fn main(){
+    let varx: [i64; 4] = [[[0,1],2,3,4],[5,6,7,8]];
+    println!("{:?}", varx);
+}
+
+fn main(){
+    let varx: [i64; 4] = [[[0,1],2,3,4],[5,6,7,8]];
+    println!("{:?}", varx);
 }
 
 fn main(){

@@ -20,6 +20,6 @@ func NewLLamadoVariable(id string) RetornoValorVariable {
 //conviertiend y implentando el metodo ejecutar de tipo expresion
 func (variable RetornoValorVariable) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interfaces.Simbolo {
 	resultado := entorno.(environment.Entornos).GetVariables(variable.Id)
-	fmt.Println("CALLVARIABLE:  retorna->", resultado.Valor.(interfaces.Simbolo))
+	fmt.Println("CALLVARIABLE:  retorna->", resultado.Valor)
 	return resultado.Valor.(interfaces.Simbolo)
 }

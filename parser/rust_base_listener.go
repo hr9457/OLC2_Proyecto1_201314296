@@ -140,3 +140,9 @@ func (s *BaserustListener) EnterValor(ctx *ValorContext) {}
 
 // ExitValor is called when production valor is exited.
 func (s *BaserustListener) ExitValor(ctx *ValorContext) {}
+
+// EnterListaArreglo is called when production listaArreglo is entered.
+func (s *BaserustListener) EnterListaArreglo(ctx *ListaArregloContext) {}
+
+// ExitListaArreglo is called when production listaArreglo is exited.
+func (s *BaserustListener) ExitListaArreglo(ctx *ListaArregloContext) {}

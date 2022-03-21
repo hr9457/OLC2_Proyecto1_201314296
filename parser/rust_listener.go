@@ -68,6 +68,9 @@ type rustListener interface {
 	// EnterValor is called when entering the valor production.
 	EnterValor(c *ValorContext)
 
+	// EnterListaArreglo is called when entering the listaArreglo production.
+	EnterListaArreglo(c *ListaArregloContext)
+
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
 
@@ -127,4 +130,7 @@ type rustListener interface {
 
 	// ExitValor is called when exiting the valor production.
 	ExitValor(c *ValorContext)
+
+	// ExitListaArreglo is called when exiting the listaArreglo production.
+	ExitListaArreglo(c *ListaArregloContext)
 }

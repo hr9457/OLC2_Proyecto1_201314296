@@ -4,7 +4,6 @@ import (
 	"Proyecto1/src/interfaces"
 	"Proyecto1/src/traduccion"
 	"fmt"
-	"reflect"
 	"strings"
 
 	arrayList "github.com/colegno/arraylist"
@@ -23,10 +22,14 @@ func NewImprimir(contendio interfaces.Expresion, list interface{}) Imprimir {
 
 // ejecutando lo metodos que ncesita ejectura dentro del print
 func (imprimir Imprimir) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) interface{} {
+
 	var resultado interfaces.Simbolo
+
 	// fmt.Println("Contendio a imprimir en el println: ", imprimir.Contenido)
 	resultado = imprimir.Contenido.Ejecutar(entorno, traductor)
+
 	if resultado.Tipo == interfaces.STRING {
+
 		// fmt.Println("IMPRIMIR:  lo que se va imprimir es un string")
 		if imprimir.Listado != nil {
 
@@ -44,48 +47,52 @@ func (imprimir Imprimir) Ejecutar(entorno interface{}, traductor *traduccion.Tra
 				var textNew string
 				textNew = resultado.Valor.(string)
 
-				// reviso si tengo algo en la parte de los listado para imprimir
-				if imprimir.Listado != nil {
+				for _, s := range imprimir.Listado.(*arrayList.List).ToArray() {
 
-					// verificacion de tipo ara un listado de
-					lista := arrayList.New()
+					// fmt.Println(s.(interfaces.Expresion).Ejecutar(entorno).Valor)
+					// recupero el dato que me retorno la ejecuccion
+					// fmt.Println("IMPRIMIR:  ENTRO AL FOR")
+					// fmt.Println("IMPRIMIR:  ", s)
+					// fmt.Println(reflect.TypeOf(s))
+					a := s.(interfaces.Expresion).Ejecutar(entorno, traductor)
 
-					
+					// fmt.Println("-->", a)
 
-					for _, s := range imprimir.Listado.(*arrayList.List).ToArray() {
-						// fmt.Println(s.(interfaces.Expresion).Ejecutar(entorno).Valor)
-						// recupero el dato que me retorno la ejecuccion
-						a := s.(interfaces.Expresion).Ejecutar(entorno, traductor).Valor
-						// fmt.Println(reflect.TypeOf(s.(interfaces.Expresion).Ejecutar(entorno).Valor))
-						// fmt.Println(reflect.TypeOf(strconv.Itoa(a.(int))))
-						// remplazo := s.(interfaces.Expresion).Ejecutar(entorno).Valor
+					if a.Tipo == interfaces.ARREGLO {
 
-						// fmt.Println(reflect.TypeOf(a) == reflect.TypeOf(lista))
-						fmt.Println(a)
-
-						// si viene un arreglo
-						if reflect.TypeOf(a) == reflect.TypeOf(lista) {
-							// fmt.Println(a)
-							var concatenacion string
-							concatenacion += "["
-							for _, s := range a.(*arrayList.List).ToArray() {
-								// fmt.Println(s.(interfaces.Simbolo).Valor)
-								concatenacion += fmt.Sprintf("%v", s.(interfaces.Simbolo).Valor) + " ,"
+						// fmt.Println("Lo que se va imprimir es un arreglo")
+						var result interfaces.Simbolo
+						result = s.(interfaces.Expresion).Ejecutar(entorno, traductor)
+						// fmt.Println(reflect.TypeOf(result))
+						var tempConcat string
+						tempConcat += "[ "
+						for _, s := range result.Valor.(*arrayList.List).ToArray() {
+							if s.(interfaces.Simbolo).Tipo == interfaces.ARREGLO {
+								fmt.Println("se eccontro un arreglo dentro del arreglo")
+								retorno := printArreglos(s, entorno, traductor)
+								tempConcat += retorno
 								// fmt.Println(reflect.TypeOf(s.(interfaces.Simbolo).Valor))
+							} else {
+								dato := fmt.Sprintf("%v", s.(interfaces.Simbolo).Valor)
+								// fmt.Println(reflect.TypeOf(s))
+								// fmt.Println(s.(interfaces.Simbolo).Valor)
+								tempConcat += dato + " "
 							}
-							concatenacion += "]"
-							ns := strings.Replace(textNew, "{:?}", concatenacion, 1)
-							textNew = ns
-
-						} else {
-
-							// si lo que viene son variable
-							dato := fmt.Sprintf("%v", a)
-							ns := strings.Replace(textNew, "{}", dato, 1)
-							textNew = ns
 						}
+						tempConcat += " ]"
+						ns := strings.Replace(textNew, "{:?}", tempConcat, 1)
+						textNew = ns
+
+					} else {
+
+						fmt.Println("IMPRIMIR: ", a)
+						// si lo que viene son variable
+						dato := fmt.Sprintf("%v", a.Valor)
+						ns := strings.Replace(textNew, "{}", dato, 1)
+						textNew = ns
 					}
 				}
+				// }
 				// fmt.Println("IMPRIMIR:  Mostrando lo que tiene que estar dentro del println: ->", textNew)
 				traductor.Contenido += textNew + "\n"
 				// return textNew
@@ -111,4 +118,24 @@ func (imprimir Imprimir) Ejecutar(entorno interface{}, traductor *traduccion.Tra
 
 	// fmt.Println("IMPRIMIR:  Mostrando lo que tiene que estar dentro del println: ", resultado.Valor)
 	return resultado.Valor
+}
+
+func printArreglos(s interface{}, entorno interface{}, traductor *traduccion.Traductor) string {
+	var tempConcat string
+	tempConcat += "[ "
+	// fmt.Println(s.(interfaces.Simbolo).Valor)
+	for _, s := range s.(interfaces.Simbolo).Valor.(*arrayList.List).ToArray() {
+		// dato := fmt.Sprintf("%v", s.(interfaces.Simbolo).Valor)
+		if s.(interfaces.Simbolo).Tipo == interfaces.ARREGLO {
+			retorno := printArreglos(s, entorno, traductor)
+			tempConcat += retorno
+		} else {
+			dato := fmt.Sprintf("%v", s.(interfaces.Simbolo).Valor)
+			// fmt.Println(reflect.TypeOf(s))
+			// fmt.Println(s.(interfaces.Simbolo).Valor)
+			tempConcat += dato + " "
+		}
+	}
+	tempConcat += " ]"
+	return tempConcat
 }

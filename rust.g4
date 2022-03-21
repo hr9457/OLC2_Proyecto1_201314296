@@ -186,7 +186,7 @@ asignacionVariable returns[interfaces.Instruction inst]
 // ********************************
 declarcionarreglo returns[interfaces.Instruction inst]
     :   TK_LET TK_ID ':' '[' tipo ';' valor ']' '=' expresion ';'
-    { $inst = arreglos.NewArreglo($TK_ID.text, false, $tipo.tipoExp, $valor.primate, true, $expresion.primate) }
+    { $inst = arreglos.NewArreglo($TK_ID.text, false, $tipo.tipoExp, $valor.text, true, $expresion.primate) }
     ;
 
 
@@ -369,8 +369,22 @@ valor returns[interfaces.Expresion primate]
     |   TK_CADENA   { $primate = expressiones.NewPrimito(interfaces.ConvertTextString($TK_CADENA.text),interfaces.STRING) }
     |   TK_CARACTER { $primate = expressiones.NewPrimito(interfaces.ConvertTextString($TK_CARACTER.text),interfaces.CHAR) }
     |   TK_ID       { $primate = expressiones.NewLLamadoVariable($TK_ID.text) }
+    |   lista=listaArreglo { $primate = $lista.primate }
     ;
 
+
+
+
+listaArreglo returns[interfaces.Expresion primate]
+    : lista = listaArreglo '[' expresion ']'
+        {
+            $primate = arreglos.NewArrayAccess($lista.primate,$expresion.primate)
+        }
+    |   TK_ID
+        {       
+            $primate = expressiones.NewLLamadoVariable($TK_ID.text)     
+        }
+;
 
 
 

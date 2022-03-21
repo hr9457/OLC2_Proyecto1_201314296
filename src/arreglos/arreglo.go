@@ -25,8 +25,8 @@ func (arr Array) Ejecutar(entorno interface{}, traductor *traduccion.Traductor) 
 	}
 	// interfaces.Simbolo{Id: "", Valor: resultado, Mut: "", Tipo: resultadoTipo}
 	return interfaces.Simbolo{
-		Id:   "",
+		Id:    "",
+		Tipo:  interfaces.ARREGLO,
 		Valor: temp,
-		Tipo: interfaces.ARREGLO,
 	}
 }
